@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://144.24.95.101:3306/account?allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://144.24.95.101:3306/motivation?allowPublicKeyRetrieval=true&useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: backend
   jpa:
