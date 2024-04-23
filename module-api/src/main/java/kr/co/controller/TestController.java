@@ -1,4 +1,4 @@
-package kr.co;
+package kr.co.controller;
 
 import kr.co.entity.Member;
 import kr.co.mapper.MemberMapper;

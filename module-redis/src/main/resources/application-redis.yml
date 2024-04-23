@@ -1,0 +1,18 @@
+
+---
+spring.config.activate.on-profile: local
+spring:
+  data:
+    redis:
+      host: s2it.kro.kr
+      port: 6379
+      password: ${MOTIVATION_REDIS_PASSWORD}
+
+---
+spring.config.activate.on-profile: prod
+spring:
+  data:
+    redis:
+      host: s2it.kro.kr
+      port: 6379
+      password: ${MOTIVATION_REDIS_PASSWORD}

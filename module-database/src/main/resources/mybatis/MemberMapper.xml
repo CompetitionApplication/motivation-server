@@ -10,8 +10,8 @@
     </select>
 
     <insert id="addMember" parameterType="Member">
-        INSERT INTO member(name,gender)
-        VALUES (#{name},#{gender})
+        INSERT INTO member(name, gender)
+        VALUES (#{name}, #{gender})
     </insert>
 
 </mapper>

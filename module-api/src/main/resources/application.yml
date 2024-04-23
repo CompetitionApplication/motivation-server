@@ -1,5 +1,6 @@
 spring.profiles.include:
   - database
+  - redis
 ---
 spring.config.activate.on-profile: local
 server:
