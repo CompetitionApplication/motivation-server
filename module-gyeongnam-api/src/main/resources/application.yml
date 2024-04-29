@@ -1,0 +1,12 @@
+spring.profiles.include:
+  - database
+  - redis
+---
+spring.config.activate.on-profile: local
+server:
+  port: 8080
+
+---
+spring.config.activate.on-profile: prod
+server:
+  port: 8080

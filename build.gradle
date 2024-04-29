@@ -60,7 +60,18 @@ project(':module-redis') {
         api 'org.springframework.boot:spring-boot-starter-data-redis'
     }
 }
-project(':module-api') {
+project(':module-agriculture-api') {
+    bootJar { enabled = true }
+    jar { enabled = true }
+
+    dependencies {
+        implementation project(':module-database')
+        implementation project(':module-redis')
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+    }
+}
+project(':module-gyeongnam-api') {
     bootJar { enabled = true }
     jar { enabled = true }
 
