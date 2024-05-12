@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 public class ModuleAgricultureApiApplication {
 
     public static void main(String[] args) {
-        //jenkins githook test
         SpringApplication.run(ModuleAgricultureApiApplication.class, args);
     }
 
