@@ -43,7 +43,7 @@ subprojects {
     }
 }
 
-project(':module-database') {
+project(':module-database:module-database-agriculture') {
     bootJar { enabled = false }
     jar { enabled = true }
     dependencies {
@@ -53,6 +53,17 @@ project(':module-database') {
         implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
     }
 }
+project('module-database:module-database-gyeongnam') {
+    bootJar { enabled = false }
+    jar { enabled = true }
+    dependencies {
+        api 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'com.mysql:mysql-connector-j'
+        implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+        implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+    }
+}
+
 project(':module-redis') {
     bootJar { enabled = false}
     jar { enabled = true}
@@ -65,7 +76,7 @@ project(':module-agriculture-api') {
     jar { enabled = true }
 
     dependencies {
-        implementation project(':module-database')
+        implementation project(':module-database:module-database-agriculture')
         implementation project(':module-redis')
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -76,7 +87,7 @@ project(':module-gyeongnam-api') {
     jar { enabled = true }
 
     dependencies {
-        implementation project(':module-database')
+        implementation project(':module-database:module-database-gyeongnam')
         implementation project(':module-redis')
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-security'

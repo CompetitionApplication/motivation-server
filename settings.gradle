@@ -1,5 +1,6 @@
 rootProject.name = 'motivationApplication'
 include 'module-database'
+include ('module-database:module-database-agriculture','module-database:module-database-gyeongnam')
 include 'module-redis'
 include 'module-agriculture-api'
 include 'module-gyeongnam-api'
