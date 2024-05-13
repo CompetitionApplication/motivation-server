@@ -12,7 +12,7 @@ public class ModuleAgricultureApiApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(ModuleAgricultureApiApplication.class, args);
-
+        //test
     }
 
 }
