@@ -1,5 +1,5 @@
 spring.profiles.include:
-  - database
+  - database-gyeongnam
   - redis
 ---
 spring.config.activate.on-profile: local
