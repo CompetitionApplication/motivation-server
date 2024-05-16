@@ -9,7 +9,7 @@ buildscript {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
         classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
     }
-}//test
+}
 
 // 하위 모든 프로젝트 공통 세팅
 subprojects {
