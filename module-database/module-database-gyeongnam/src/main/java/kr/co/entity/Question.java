@@ -33,7 +33,7 @@ public class Question extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "file_group_id")
     private FileGroup fileGroup;
 
