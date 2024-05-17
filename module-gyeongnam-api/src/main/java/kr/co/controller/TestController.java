@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 public class TestController {
-    //test34
+    //test34s
 }
