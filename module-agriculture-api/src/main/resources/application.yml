@@ -4,9 +4,9 @@ spring.profiles.include:
 ---
 spring.config.activate.on-profile: local
 server:
-  port: 8080
+  port: 7000
 
 ---
 spring.config.activate.on-profile: prod
 server:
-  port: 8080
+  port: 7000
