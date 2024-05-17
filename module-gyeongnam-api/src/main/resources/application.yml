@@ -4,13 +4,13 @@ spring.profiles.include:
 ---
 spring.config.activate.on-profile: local
 server:
-  port: 8080
+  port: 7001
 jwt:
   secret-access-token: ${JWT_SECRET_ACCESS_TOKEN}
 
 ---
 spring.config.activate.on-profile: prod
 server:
-  port: 8080
+  port: 7001
 jwt:
   secret-access-token: ${JWT_SECRET_ACCESS_TOKEN}
