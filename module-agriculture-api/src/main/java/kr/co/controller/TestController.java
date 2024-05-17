@@ -35,5 +35,5 @@ public class TestController {
         mapper.addMember(new Member("김영재","남자"));
     }
 
-    //testdd
+    //testdddd
 }
