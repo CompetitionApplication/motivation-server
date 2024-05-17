@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
-@RequiredArgsConstructor
+@RequiredArgsConstructorπ
 public class TestController {
-//test4
+//test5
 }
