@@ -33,4 +33,6 @@ public class TestController {
     public void mybatis2(){
         mapper.addMember(new Member("김영재","남자"));
     }
+
+    //test
 }
