@@ -18,7 +18,7 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(columnDefinition = "varchar(38)")
-    @Comment(value = "유저아이디")
+    @Comment(value = "유저키값")
     private String userId;
 
     @Column(length = 100)
