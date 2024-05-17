@@ -6,3 +6,4 @@ stages {
      sh './gradlew ${module-database:module-database-gyeongnam}:build -x test'
     }
 }
+}
