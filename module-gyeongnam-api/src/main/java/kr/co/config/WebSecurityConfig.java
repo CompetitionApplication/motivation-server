@@ -34,7 +34,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        String[] permitUrl = {"/api/v1/test/**","/swagger-ui/**","/swagger-resources/**","/v3/api-docs/**"};
+        String[] permitUrl = {"/login","/api/v1/test/**","/swagger-ui/**","/swagger-resources/**","/v3/api-docs/**"};
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)
