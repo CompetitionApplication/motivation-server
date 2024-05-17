@@ -16,6 +16,7 @@ public class TestController {
 
     private final MemberRepository memberRepository;
     private final MemberMapper mapper;
+    //trst
 
     @GetMapping("/jpa")
     public List<Member> jpa(){
