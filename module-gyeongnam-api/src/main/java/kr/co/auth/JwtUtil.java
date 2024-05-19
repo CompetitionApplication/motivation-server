@@ -51,10 +51,21 @@ public class JwtUtil {
         claims.put("userEmail", userEmail);
         return createToken(claims, userEmail);
     }
+    public String generateRefreshToken(String userEmail) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userEmail", userEmail);
+        return createRefreshToken(claims, userEmail);
+    }
+
 
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))//1시간 설정
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+    }
+    private String createRefreshToken(Map<String, Object> claims, String subject) {
+        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))//10시간 설정
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 

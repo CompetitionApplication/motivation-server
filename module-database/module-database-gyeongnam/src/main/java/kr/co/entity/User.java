@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import kr.co.common.AES256Util;
+import kr.co.dto.LoginReqDto;
 import kr.co.entity.common.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -34,4 +36,12 @@ public class User extends BaseTimeEntity {
 
     @Column(length = 10)
     private String userTourPeriod;
+
+    public User(LoginReqDto dto) throws Exception {
+        this.userEmail = AES256Util.encrypt(dto.getUserEmail());
+        this.userName = dto.getUserName();
+        this.userSex = dto.getUserSex();
+        this.userAge = dto.getUserAge();
+        this.userTourPeriod = dto.getUserTourPeriod();
+    }
 }

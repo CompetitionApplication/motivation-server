@@ -4,4 +4,5 @@ include ('module-database:module-database-agriculture','module-database:module-d
 include 'module-redis'
 include 'module-agriculture-api'
 include 'module-gyeongnam-api'
+include 'module-core'
 

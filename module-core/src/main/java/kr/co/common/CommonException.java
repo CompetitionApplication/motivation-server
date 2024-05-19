@@ -1,4 +1,4 @@
-package kr.co.results;
+package kr.co.common;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package kr.co.results;
+package kr.co.common;
 
 
 public enum CommonErrorCode {

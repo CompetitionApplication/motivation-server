@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class Refreshtoken extends BaseTimeEntity {
+public class RefreshToken extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
@@ -22,10 +22,19 @@ public class Refreshtoken extends BaseTimeEntity {
     @Comment(value = "리프레시토큰키값")
     private String refreshtokenId;
 
-    @Column(name = "refreshtoken", length = 100)
+    @Column(name = "refreshtoken")
     private String refreshtoken;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public RefreshToken(String refreshToken, User user) {
+        this.refreshtoken = refreshToken;
+        this.user = user;
+    }
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshtoken = refreshToken;
+    }
 }

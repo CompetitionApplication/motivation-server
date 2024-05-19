@@ -47,6 +47,7 @@ project(':module-database:module-database-agriculture') {
     bootJar { enabled = false }
     jar { enabled = true }
     dependencies {
+        implementation project(':module-core')
         api 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'com.mysql:mysql-connector-j'
         implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
@@ -57,12 +58,23 @@ project('module-database:module-database-gyeongnam') {
     bootJar { enabled = false }
     jar { enabled = true }
     dependencies {
+        implementation project(':module-core')
         api 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'com.mysql:mysql-connector-j'
         implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
         implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
         implementation 'org.springframework.boot:spring-boot-starter-security'
         implementation 'org.springframework.boot:spring-boot-starter-validation'
+    }
+}
+
+project(':module-core') {
+    bootJar { enabled = false}
+    jar { enabled = true}
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        api 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+        implementation 'com.google.code.gson:gson'
     }
 }
 
@@ -80,6 +92,7 @@ project(':module-agriculture-api') {
     dependencies {
         implementation project(':module-database:module-database-agriculture')
         implementation project(':module-redis')
+        implementation project(':module-core')
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-security'
     }
@@ -91,9 +104,9 @@ project(':module-gyeongnam-api') {
     dependencies {
         implementation project(':module-database:module-database-gyeongnam')
         implementation project(':module-redis')
+        implementation project(':module-core')
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-security'
-        implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
         implementation 'io.jsonwebtoken:jjwt:0.9.1'
         implementation 'com.sun.xml.bind:jaxb-impl:4.0.1'
         implementation 'com.sun.xml.bind:jaxb-core:4.0.1'
