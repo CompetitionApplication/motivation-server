@@ -1,7 +1,6 @@
 package kr.co.entity;
 
 import jakarta.persistence.*;
-import kr.co.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,22 +12,23 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class GoodsView extends BaseTimeEntity {
-
+public class CulturalHeritage {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(columnDefinition = "varchar(38)")
-    @Comment(value = "굿즈뷰키값")
-    private String goodsViewId;
+    @Comment(value = "문화행사키값")
+    private String culturalHeritageId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Comment(value = "지정번호")
+    @Column(length = 50)
+    private String designationNumber;
+    @Comment(value = "명칭")
+    private String name;
+    @Comment(value = "수량면적")
+    private String quantityArea;
 
-    @ManyToOne
-    @JoinColumn(name = "goods_id")
-    private Goods goods;
-
-
+    @OneToOne
+    @JoinColumn(name = "place_info_id")
+    private PlaceInfo placeInfo;
 }

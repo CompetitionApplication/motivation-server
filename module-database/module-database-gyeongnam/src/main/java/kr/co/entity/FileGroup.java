@@ -23,4 +23,5 @@ public class FileGroup extends BaseTimeEntity {
     @Column(columnDefinition = "varchar(38)")
     @Comment(value = "파일그룹키값")
     private String fileGroupId;
+
 }

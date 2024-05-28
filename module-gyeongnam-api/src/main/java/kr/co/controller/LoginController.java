@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     private final LoginService loginService;
-
+/*
     @PostMapping("")
     public ResponseEntity<?> login(@RequestBody @Valid LoginReqDto loginReqDto) throws Exception {
         return ObjectResult.build(loginService.login(loginReqDto));
-    }
+    }*/
 }

@@ -1,7 +1,6 @@
 package kr.co.entity;
 
 import jakarta.persistence.*;
-import kr.co.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,26 +12,21 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class Period extends BaseTimeEntity {
-
+public class Museum {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(columnDefinition = "varchar(38)")
-    @Comment(value = "기간키값")
-    private String periodId;
-
-    @Column(name = "period_start", length = 14)
-    private String periodStart;
-
-    @Column(name = "period_end", length = 14)
-    private String periodEnd;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "tour_id")
-    private Tour tour;
+    @Comment(value = "박물관키값")
+    private String museumId;
+    @Column(length = 50)
+    @Comment(value = "고유번호")
+    private String uniqueCode;
+    @Comment(value = "기관명")
+    private String institutionName;
+    @Comment(value = "관리기관명")
+    private String managingAgency;
+    @OneToOne
+    @JoinColumn(name = "place_info_id")
+    private PlaceInfo placeInfo;
 }

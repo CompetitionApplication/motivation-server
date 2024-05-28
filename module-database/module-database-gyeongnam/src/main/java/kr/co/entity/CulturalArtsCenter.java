@@ -1,7 +1,6 @@
 package kr.co.entity;
 
 import jakarta.persistence.*;
-import kr.co.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,17 +12,23 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class Clause extends BaseTimeEntity {
+public class CulturalArtsCenter {
+
     @Id
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name="uuid2", strategy = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "varchar(38)")
-    @Comment(value = "약관키값")
-    private String clauseId;
-    @Column(name = "clause_kind", length = 30)
-    private String clauseKind;
+    @Comment(value = "문화예술회관키값")
+    private String culturalArtsCenterId;
 
+    @Column(length = 50)
+    @Comment(value = "고유번호")
+    private String uniqueCode;
+    @Comment(value = "기관명")
+    private String institutionName;
+    @Comment(value = "관리기관명")
+    private String managingAgency;
     @OneToOne
-    @JoinColumn(name = "file_group_id")
-    private FileGroup fileGroup;
+    @JoinColumn(name = "place_info_id")
+    private PlaceInfo placeInfo;
 }

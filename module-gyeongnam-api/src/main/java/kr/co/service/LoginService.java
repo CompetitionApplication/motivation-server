@@ -1,16 +1,7 @@
 package kr.co.service;
 
-import jakarta.transaction.Transactional;
 import kr.co.auth.JwtUtil;
 import kr.co.common.AES256Util;
-import kr.co.dto.LoginReqDto;
-import kr.co.dto.LoginResDto;
-import kr.co.entity.RefreshToken;
-import kr.co.entity.User;
-import kr.co.repository.RefreshTokenRepository;
-import kr.co.repository.UserRepository;
-import kr.co.common.CommonErrorCode;
-import kr.co.common.CommonException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +9,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LoginService {
 
-    private final RefreshTokenRepository refreshTokenRepository;
-    private final UserRepository userRepository;
-    private final JwtUtil jwtUtil;
-    private final AES256Util aes256Util;
 
-
-    @Transactional
+/*    @Transactional
     public LoginResDto login(LoginReqDto loginReqDto) throws Exception {
 
         //:::기존에 정보가 있는 유저인지 확인:::
@@ -65,5 +51,5 @@ public class LoginService {
         }
 
 
-    }
+    }*/
 }
