@@ -5,8 +5,12 @@ spring.profiles.include:
 spring.config.activate.on-profile: local
 server:
   port: 8081
+mybatis:
+  mapper-locations: classpath:mybatis/*Mapper.xml
 
 ---
 spring.config.activate.on-profile: prod
 server:
   port: 7000
+mybatis:
+  mapper-locations: classpath:mybatis/**/*_Mapper.xml
