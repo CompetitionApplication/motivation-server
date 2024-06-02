@@ -33,8 +33,9 @@ public class OpenApiClient implements InitializingBean {
     private WebClient webClient;
     private ObjectMapper mapper;
 
-    @Value("${opena-api.key}")
-    private String key;
+    //TODO
+    //@Value("${opena-api.key}")
+    //private String key;
 
     @Override
     public void afterPropertiesSet () {
@@ -62,7 +63,8 @@ public class OpenApiClient implements InitializingBean {
         String aa = "";
         try {
             aa = webClient.get()
-                    .uri(uriBuilder -> uriBuilder.path("/openapi/"+key+"/json/Grid_20150407000000000218_1/1/5")
+                    //.uri(uriBuilder -> uriBuilder.path("/openapi/"+key+"/json/Grid_20150407000000000218_1/1/5")
+                    .uri(uriBuilder -> uriBuilder.path("/openapi/json/Grid_20150407000000000218_1/1/5")
                             .queryParam("AREA", "충청")
                             .build())
                     .retrieve()
