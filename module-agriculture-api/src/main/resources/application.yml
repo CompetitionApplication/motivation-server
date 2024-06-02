@@ -7,6 +7,9 @@ server:
   port: 8081
 mybatis:
   mapper-locations: classpath:mybatis/*Mapper.xml
+opena-api:
+  key: 4088eb51994deaee870de94c7d9ca30f9041ea67b1856ea0ad0f3911e77b6699
+
 
 ---
 spring.config.activate.on-profile: prod
@@ -14,3 +17,5 @@ server:
   port: 7000
 mybatis:
   mapper-locations: classpath:mybatis/**/*_Mapper.xml
+opena-api:
+  key: 4088eb51994deaee870de94c7d9ca30f9041ea67b1856ea0ad0f3911e77b6699

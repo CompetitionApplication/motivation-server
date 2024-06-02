@@ -19,7 +19,7 @@ public class Farm {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
-    private String userId;
+    private String farm_id;
     private String farm_kind;
     private String farm_name;
     private String farm_zip;

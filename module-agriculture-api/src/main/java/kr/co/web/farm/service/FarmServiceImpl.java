@@ -1,5 +1,6 @@
 package kr.co.web.farm.service;
 
+import kr.co.client.OpenApiClient;
 import kr.co.dto.web.farm.response.FarmsResDto;
 import kr.co.mapper.MemberMapper;
 import kr.co.mapper.FarmMapper;
@@ -16,10 +17,16 @@ public class FarmServiceImpl implements FarmService {
 
     final FarmMapper farmMapper;
     final MemberMapper mapper;
+    final OpenApiClient openApiClient;
 
     @Override
     public List<FarmsResDto> farms(){
         List<FarmsResDto> r =  farmMapper.farms();
         return r;
+    }
+
+    @Override
+    public void test(){
+        openApiClient.test();
     }
 }

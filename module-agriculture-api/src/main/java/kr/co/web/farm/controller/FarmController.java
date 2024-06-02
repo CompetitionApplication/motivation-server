@@ -3,6 +3,7 @@ package kr.co.web.farm.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.common.ListResult;
+import kr.co.common.ObjectResult;
 import kr.co.web.farm.service.FarmService;
 import kr.co.dto.web.farm.response.FarmsResDto;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,12 @@ public class FarmController {
     @GetMapping("/farms")
     public ResponseEntity<?> farms(){
         return ListResult.build(farmService.farms());
+    }
+
+    @Operation(summary = "농장 오픈 api", description = "농장 오픈 api 리스트를 조회 합니다.(작업중)")
+    @GetMapping("/open-api")
+    public ResponseEntity<?> test(){
+        farmService.test();
+        return ObjectResult.ok();
     }
 }

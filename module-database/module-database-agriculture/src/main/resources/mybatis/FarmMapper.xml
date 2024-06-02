@@ -4,8 +4,16 @@
 <mapper namespace="kr.co.mapper.FarmMapper">
     <select id="farms" resultType="FarmsResDto">
         /* FarmMapper.farms */
-        SELECT FARM_KIND
-          FROM farm
+        select case when farm_kind = '01' THEN '농장'
+                    when farm_kind = '02' THEN '목장'
+                    else '체험'
+                end as farmKindNm
+             , farm_name as farmName
+             , farm_zip as farmZip
+             , farm_max_user_cnt as farmMaxUserCnt
+             , farm_use_amt as farmUseAmt
+             , farm_main_image as fileUrl
+          from farm
     </select>
 
 </mapper>
