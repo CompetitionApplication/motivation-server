@@ -11,4 +11,5 @@ public class FarmsResDto {
     private String farmMaxUserCnt;
     private String farmUseAmt;
     private String fileUrl;
+     
 }
