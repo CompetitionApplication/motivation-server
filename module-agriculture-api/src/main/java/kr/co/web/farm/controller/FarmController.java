@@ -1,5 +1,6 @@
 package kr.co.web.farm.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.common.ListResult;
 import kr.co.web.farm.service.FarmService;
@@ -22,6 +23,7 @@ public class FarmController {
 
     final FarmService farmService;
 
+    @Operation(summary = "농장 메인 리스트 조회", description = "농장 메인 리스트를 조회 합니다.(작업중)")
     @GetMapping("/farms")
     public ResponseEntity<?> farms(){
         return ListResult.build(farmService.farms());
