@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 
 @OpenAPIDefinition(
         info = @Info(title = "농축산 API 명세서",
-                description = "농축산 API 명세서 입니다.",
+                description = "농축산 API (웹,앱) 명세서 입니다.",
                 version = "v1"),
         //servers = {@Server(url = "https://api.s2it.kro.kr")}) //prod
         servers = {@Server(url = "/")}) //local
@@ -35,7 +35,7 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("1")
                 .displayName("웹")
-                .pathsToMatch("/api/v1/admin/**")
+                .pathsToMatch("/api/v1/web/**")
                 .build();
     }
 
