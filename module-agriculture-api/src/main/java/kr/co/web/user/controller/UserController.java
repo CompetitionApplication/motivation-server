@@ -1,5 +1,6 @@
 package kr.co.web.user.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -23,13 +24,15 @@ public class UserController {
 
     final UserService userService;
 
+    @Operation(summary = "로그인", description = "사용자 소셜 로그인")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginReqDto loginReqDto) throws Exception {
         return ObjectResult.build(userService.login(loginReqDto));
     }
 
+    @Operation(summary = "토큰 재발급", description = "리프레시토큰ID를 통해 토큰을 재발급 합니다.")
     @GetMapping("/refresh-token")
-    public ResponseEntity<?> refreshToken(@Parameter(description = "리프레시토큰ID", example = "example,,") @RequestParam(required = true) String refreshTokenId) throws Exception {
+    public ResponseEntity<?> refreshToken(@Parameter(description = "리프레시토큰ID", example = "07a76d41-21bc-11ef-81e3-02001701d75b") @RequestParam(required = true) String refreshTokenId) throws Exception {
         return ObjectResult.build(userService.refreshToken(refreshTokenId));
     }
 }
