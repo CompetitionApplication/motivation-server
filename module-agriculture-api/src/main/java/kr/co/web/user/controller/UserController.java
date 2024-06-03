@@ -42,4 +42,10 @@ public class UserController {
         userService.drop(user);
         return ObjectResult.ok();
     }
+
+    @Operation(summary = "공지사항", description = "공지사항을 조회 합니다.(작업중)")
+    @GetMapping("/notice")
+    public ResponseEntity<?> notice(@AuthenticationPrincipal User user) throws Exception {
+        return ObjectResult.ok();
+    }
 }
