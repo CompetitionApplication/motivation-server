@@ -2,6 +2,8 @@ package kr.co.dto.web.farm.response;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class FarmDetailResDto {
 
@@ -15,5 +17,6 @@ public class FarmDetailResDto {
     private String farmLongitude;
     private String farmLatitude;
     private String farmUseTimeDetail;
+    private List<FarmBannerResDto> bannerImageList;
 
 }

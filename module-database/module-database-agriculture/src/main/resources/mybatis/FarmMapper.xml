@@ -108,6 +108,17 @@
                   )
     </update>
 
+    <select id="selectFarmBannerImage" resultType="FarmBannerResDto">
+        /* FarmMapper.selectFarmBannerImage */
+        select c.file_url as bannerImageUrl
+          from farm a
+     left join file_group b
+            on a.farm_banner_image = b.file_group_id
+     left join file c
+            on b.file_group_id = c.file_group_id
+         where a.farm_status = '01'
+           and farm_id = #{farmId}
+    </select>
 </mapper>
 
 

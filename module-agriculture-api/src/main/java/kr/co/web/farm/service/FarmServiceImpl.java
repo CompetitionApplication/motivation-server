@@ -1,6 +1,7 @@
 package kr.co.web.farm.service;
 
 import kr.co.client.OpenApiClient;
+import kr.co.dto.web.farm.response.FarmBannerResDto;
 import kr.co.dto.web.farm.response.FarmDetailResDto;
 import kr.co.dto.web.farm.response.FarmsResDto;
 import kr.co.dto.web.openApiClient.response.FarmClientResDto;
@@ -31,6 +32,8 @@ public class FarmServiceImpl implements FarmService {
     @Override
     public FarmDetailResDto farmDetail(String farmId){
         FarmDetailResDto r = farmMapper.selectFarmByFarmId(farmId);
+        List<FarmBannerResDto> bannerImage = farmMapper.selectFarmBannerImage(farmId);
+        r.setBannerImageList(bannerImage);
         return r;
     }
 
