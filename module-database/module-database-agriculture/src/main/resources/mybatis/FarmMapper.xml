@@ -4,7 +4,8 @@
 <mapper namespace="kr.co.mapper.FarmMapper">
     <select id="selectFarms" resultType="FarmsResDto">
         /* FarmMapper.selectFarms */
-        select case when a.farm_kind = '01' THEN '농장'
+        select a.farm_id as farmId
+             , case when a.farm_kind = '01' THEN '농장'
                     when a.farm_kind = '02' THEN '목장'
                     else '체험'
                 end as farmKindNm

@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class FarmsResDto {
 
+    private String farmId;
     private String farmKindNm;
     private String farmName;
     private String farmZip;
