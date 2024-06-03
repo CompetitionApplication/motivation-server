@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService{
     public LoginResDto login(LoginReqDto loginReqDto){
         LoginResDto r = new LoginResDto();
 
-        User user = userMapper.selectUser(loginReqDto);
+        User user = userMapper.selectUserByEmail(loginReqDto.getUserEmail());
 
         String userId = "";
         if(user == null) {
@@ -42,14 +42,37 @@ public class UserServiceImpl implements UserService{
 
         Refreshtoken refreshtoken = userMapper.selectRefreshtokenByUserId(userId);
 
+        String refreshTokenId = "";
         if(refreshtoken == null){
-            userMapper.insertRefrshtoken(userId, refreshToken);
+            refreshTokenId = commonMapper.selectUUID();
+            userMapper.insertRefrshtoken(userId, refreshToken, refreshTokenId);
         }else{
+            refreshTokenId = refreshtoken.getRefreshtoken_id();
             userMapper.updateRefrshtoken(userId, refreshToken);
         }
 
         r.setAccessToken(accessToken);
-        r.setRefreshTokenId(refreshToken);
+        r.setRefreshTokenId(refreshTokenId);
+
+        return r;
+    }
+
+    @Override
+    public LoginResDto refreshToken(String refreshTokenId){
+        LoginResDto r = new LoginResDto();
+
+        Refreshtoken refreshtoken = userMapper.selectRefreshtokenByRefrshTokenId(refreshTokenId);
+
+        if(refreshtoken != null){
+            User user = userMapper.selectUserByUserId(refreshtoken.getUser_id());
+            String accessToken = jwtUtil.generateToken(user.getUser_email());
+            String refreshToken = jwtUtil.generateRefreshToken(user.getUser_email());
+
+            userMapper.updateRefrshtoken(user.getUser_id(), refreshToken);
+
+            r.setAccessToken(accessToken);
+            r.setRefreshTokenId(refreshTokenId);
+        }
 
         return r;
     }

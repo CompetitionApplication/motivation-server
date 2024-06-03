@@ -11,10 +11,12 @@ import java.nio.file.LinkOption;
 @Mapper
 public interface UserMapper {
 
-    User selectUser(LoginReqDto loginReqDto);
+    User selectUserByEmail(@Param("userEmail") String userEmail);
     void insertUser(@Param("loginReqDto") LoginReqDto loginReqDto, @Param("userId") String userId);
     Refreshtoken selectRefreshtokenByUserId(@Param("userId") String userId);
-    void insertRefrshtoken(@Param("userId") String userId, @Param("refreshToken") String refreshToken);
+    Refreshtoken selectRefreshtokenByRefrshTokenId(@Param("refreshTokenId") String refreshTokenId);
+    void insertRefrshtoken(@Param("userId") String userId, @Param("refreshToken") String refreshToken, @Param("refreshTokenId") String refreshTokenId);
     void updateRefrshtoken(@Param("userId") String userId, @Param("refreshToken") String refreshToken);
+    User selectUserByUserId(@Param("userId") String userId);
 
 }

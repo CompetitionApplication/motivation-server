@@ -6,4 +6,5 @@ import kr.co.dto.web.farm.response.LoginResDto;
 public interface UserService {
 
     LoginResDto login(LoginReqDto loginReqDto);
+    LoginResDto refreshToken(String refreshTokenId);
 }

@@ -6,11 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class LoginReqDto implements Serializable {
+public class LoginReqDto {
     @NotNull(message = "userEmail은 필수 입니다.")
     private String userEmail;
-    private String userName;
-    private String userSex;
-    private String userAge;
-    private String userTourPeriod;
 }

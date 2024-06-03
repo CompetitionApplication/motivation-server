@@ -3,12 +3,15 @@ package kr.co.web.user.controller;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import kr.co.auth.AgricultureUser;
 import kr.co.common.ObjectResult;
 import kr.co.dto.web.farm.request.LoginReqDto;
+import kr.co.entity.User;
 import kr.co.web.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "user", description = "사용자")
@@ -25,8 +28,8 @@ public class UserController {
         return ObjectResult.build(userService.login(loginReqDto));
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginReqDto loginReqDto) throws Exception {
-        return ObjectResult.build(userService.login(loginReqDto));
+    @GetMapping("/refresh-token")
+    public ResponseEntity<?> refreshToken(@Parameter(description = "리프레시토큰ID", example = "example,,") @RequestParam(required = true) String refreshTokenId) throws Exception {
+        return ObjectResult.build(userService.refreshToken(refreshTokenId));
     }
 }
