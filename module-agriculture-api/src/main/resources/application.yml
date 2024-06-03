@@ -7,6 +7,9 @@ server:
   port: 8081
 open-api:
   key: ${OPEN_API_KEY}
+file:
+  uploadPath: ${FILE_UPLOAD_PATH}
+  url: ${FILE_URL}
 
 
 ---
@@ -15,3 +18,6 @@ server:
   port: 7000
 open-api:
   key: ${OPEN_API_KEY}
+file:
+  uploadPath: ${FILE_UPLOAD_PATH}
+  url: ${FILE_URL}

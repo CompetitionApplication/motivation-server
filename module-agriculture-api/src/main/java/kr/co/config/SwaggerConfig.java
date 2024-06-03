@@ -21,6 +21,16 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 @Configuration
 public class SwaggerConfig {
+
+    @Bean
+    public GroupedOpenApi commonGroupApi() {
+        return GroupedOpenApi.builder()
+                .group("3")
+                .displayName("공통")
+                .pathsToMatch("/api/v1/common/**")
+                .build();
+    }
+
     @Bean
     public GroupedOpenApi userGroupApi() {
         return GroupedOpenApi.builder()
@@ -31,7 +41,7 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public GroupedOpenApi adminGroupApi() {
+    public GroupedOpenApi webGroupApi() {
         return GroupedOpenApi.builder()
                 .group("1")
                 .displayName("웹")
