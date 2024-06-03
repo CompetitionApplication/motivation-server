@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 @Configuration
 public class SwaggerConfig {
+    //test
     @Bean
     public GroupedOpenApi userGroupApi() {
         return GroupedOpenApi.builder()
