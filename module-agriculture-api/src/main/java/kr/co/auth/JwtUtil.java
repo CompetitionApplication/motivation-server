@@ -74,4 +74,9 @@ public class JwtUtil {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
+
+    public boolean isExpired(String token, String jwtSecretKey){
+        return Jwts.parser().setSigningKey(jwtSecretKey).parseClaimsJws(token)
+                .getBody().getExpiration().before(new Date());
+    }
 }
