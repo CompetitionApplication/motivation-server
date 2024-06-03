@@ -12,6 +12,8 @@
              , a.farm_zip as farmZip
              , concat(format(a.farm_use_amt, 0), '원') as farmUseAmt
              , c.file_url as farmMainImageUrl
+             , '0' as reviewStar
+             , '0명' as reviewStarCnt
           from farm a
      left join file_group b
             on a.farm_main_image = b.file_group_id

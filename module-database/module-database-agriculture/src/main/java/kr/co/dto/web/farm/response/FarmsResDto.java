@@ -10,5 +10,7 @@ public class FarmsResDto {
     private String farmZip;
     private String farmUseAmt;
     private String farmMainImageUrl;
+    private String reviewStar;
+    private String reviewStarCnt;
 
 }
