@@ -10,7 +10,7 @@ public class AgricultureUser extends User {
 
     public LoginUser loginUser;
     public AgricultureUser(LoginUser loginUser) {
-        super(loginUser.getUser().getUserEmail()
+        super(loginUser.getUser().getUser_email()
                 , ""
                 , true
                 , false

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "web", description = "웹")
+@Tag(name = "farm", description = "농장")
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/web")
+@RequestMapping("/api/v1/web/farm")
 @RequiredArgsConstructor
 public class FarmController {
 
@@ -29,7 +29,7 @@ public class FarmController {
                                                             "01 : 농장<br>" +
                                                             "02 : 목장<br>" +
                                                             "03 : 체험")
-    @GetMapping("/farms")
+    @GetMapping("/list")
     public ResponseEntity<?> farms(@Parameter(description = "농장종류", example = "01") @RequestParam(required = true) String farmKind,
                                    @Parameter(description = "농장이름", example = "다래목장") @RequestParam(required = false) String farmName,
                                    @Parameter(description = "이용요일", example = "월") @RequestParam(required = false) String farmUseDay,
@@ -39,7 +39,7 @@ public class FarmController {
     }
 
     @Operation(summary = "농장 상세 조회", description = "농장 상세 정보를 조회 합니다.")
-    @GetMapping("/farm-detail")
+    @GetMapping("/detail")
     public ResponseEntity<?> farmDetail(@Parameter(description = "농장ID", example = "94a5de3d-2165-11ef-81e3-02001701d75b") @RequestParam(required = true) String farmId){
         return ObjectResult.build(farmService.farmDetail(farmId));
     }

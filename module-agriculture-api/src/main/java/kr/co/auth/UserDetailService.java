@@ -1,8 +1,6 @@
 package kr.co.auth;
 
-import kr.co.common.CommonErrorCode;
-import kr.co.common.CommonException;
-import kr.co.repository.UserRepository;
+import kr.co.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,11 +12,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class UserDetailService implements UserDetailsService {
-    private final UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        LoginUser loginUser = userRepository.findByUserEmail(userId).map(LoginUser::new)
-                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
+        User user = new User();
+        LoginUser loginUser = new LoginUser(user);
 
         return new AgricultureUser(loginUser);
     }

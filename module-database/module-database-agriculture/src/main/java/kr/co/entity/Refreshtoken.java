@@ -1,18 +1,25 @@
 package kr.co.entity;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-@Data
-public class User {
+@Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Refreshtoken {
+
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
+    private String refreshtoken_id;
     private String user_id;
-    private String user_email;
-    private String user_name;
+    private String refreshtoken;
     private String created_id;
     private String created_date;
     private String mod_id;
