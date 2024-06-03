@@ -38,6 +38,12 @@ public class FarmController {
         return ListResult.build(farmService.farms(farmKind,farmName,farmUseDay,farmMaxUserCnt));
     }
 
+    @Operation(summary = "농장 상세 조회", description = "농장 상세 정보를 조회 합니다.")
+    @GetMapping("/farm-detail")
+    public ResponseEntity<?> farmDetail(@Parameter(description = "농장ID", example = "94a5de3d-2165-11ef-81e3-02001701d75b") @RequestParam(required = true) String farmId){
+        return ObjectResult.build(farmService.farmDetail(farmId));
+    }
+
     @Operation(summary = "농장 오픈 api", description = "농림축산식품 공공데이터 api를 호출 후 저장 합니다.")
     @PostMapping("/open-api")
     public ResponseEntity<?> openApi(){

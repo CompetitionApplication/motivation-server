@@ -1,6 +1,7 @@
 package kr.co.web.farm.service;
 
 import kr.co.client.OpenApiClient;
+import kr.co.dto.web.farm.response.FarmDetailResDto;
 import kr.co.dto.web.farm.response.FarmsResDto;
 import kr.co.dto.web.openApiClient.response.FarmClientResDto;
 import kr.co.mapper.MemberMapper;
@@ -24,6 +25,12 @@ public class FarmServiceImpl implements FarmService {
     @Override
     public List<FarmsResDto> farms(String farmKind, String farmName, String farmUseDay, String farmMaxUserCnt){
         List<FarmsResDto> r =  farmMapper.selectFarms(farmKind,farmName,farmUseDay,farmMaxUserCnt);
+        return r;
+    }
+
+    @Override
+    public FarmDetailResDto farmDetail(String farmId){
+        FarmDetailResDto r = farmMapper.selectFarmByFarmId(farmId);
         return r;
     }
 

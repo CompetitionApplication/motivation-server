@@ -34,6 +34,26 @@
       order by a.created_date desc
     </select>
 
+    <select id="selectFarmByFarmId" resultType="FarmDetailResDto">
+        /* FarmMapper.selectFarmByFarmId */
+        select a.farm_id as farmId
+             , case when a.farm_kind = '01' THEN '농장'
+                    when a.farm_kind = '02' THEN '목장'
+                    else '체험'
+                end as farmKindNm
+             , a.farm_name as farmName
+             , a.farm_zip as farmZip
+             , concat(format(a.farm_use_amt, 0), '원') as farmUseAmt
+             , '0' as reviewStar
+             , '0명' as reviewStarCnt
+             , a.farm_longitude as farmLongitude
+             , a.farm_latitude as farmLatitude
+             , concat(a.farm_use_time, ' ', '체험시간 ', a.farm_use_time_detail, '시간') as farmUseTimeDetail
+          from farm a
+         where farm_status = '01'
+           and farm_id = #{farmId}
+    </select>
+
     <select id="selectFarm" resultType="int">
         /* FarmMapper.selectFarm */
         select count(*)
