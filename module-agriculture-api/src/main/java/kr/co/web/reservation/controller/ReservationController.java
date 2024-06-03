@@ -27,4 +27,10 @@ public class ReservationController {
     public ResponseEntity<?> reservationFarm(){
         return ObjectResult.ok();
     }
+
+    @Operation(summary = "농장 예약 내역", description = "농장 예약 내역을 조회 합니다. (작업중)")
+    @GetMapping("/farm-history")
+    public ResponseEntity<?> reservationFarmHistory(){
+        return ObjectResult.ok();
+    }
 }
