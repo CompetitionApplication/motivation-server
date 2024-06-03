@@ -2,8 +2,8 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.mapper.FarmMapper">
-    <select id="farms" resultType="FarmsResDto">
-        /* FarmMapper.farms */
+    <select id="selectFarms" resultType="FarmsResDto">
+        /* FarmMapper.selectFarms */
         select case when farm_kind = '01' THEN '농장'
                     when farm_kind = '02' THEN '목장'
                     else '체험'
@@ -15,6 +15,60 @@
              , farm_main_image as fileUrl
           from farm
     </select>
+
+    <select id="selectFarm" resultType="int">
+        /* FarmMapper.selectFarm */
+        select count(*)
+          from farm
+         where farm_name = #{farmName}
+    </select>
+
+    <update id="insertFarm">
+        /* FarmMapper.insertFarm */
+        insert into farm (
+                    farm_id
+                  , farm_app_id
+                  , farm_app_pw
+                  , farm_area
+                  , farm_name
+                  , farm_owner_name
+                  , farm_fond_de
+                  , farm_intrcn
+                  , farm_zip
+                  , farm_owner_tel
+                  , farm_page
+                  , farm_zip_detail
+                  , farm_zip_code
+                  , farm_latitude
+                  , farm_longitude
+                  , farm_status
+                  , created_id
+                  , created_date
+                  , mod_id
+                  , mod_date
+          ) values (
+                    UUID()
+                  , #{id}
+                  , #{pw}
+                  , #{row.AREA}
+                  , #{row.FARM_NM}
+                  , #{row.RPRSNTV}
+                  , #{row.FOND_DE}
+                  , #{row.FARM_INTRCN}
+                  , #{row.ADDR}
+                  , #{row.TLPHON_NO}
+                  , #{row.HMPG}
+                  , #{row.RDNMADR}
+                  , #{row.NW_ZIP}
+                  , #{row.LA}
+                  , #{row.LO}
+                  , '00'
+                  , 'system'
+                  , CURRENT_TIMESTAMP
+                  , 'system'
+                  , CURRENT_TIMESTAMP
+                  )
+    </update>
 
 </mapper>
 

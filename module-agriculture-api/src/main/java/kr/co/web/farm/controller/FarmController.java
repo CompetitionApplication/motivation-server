@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,10 +31,10 @@ public class FarmController {
         return ListResult.build(farmService.farms());
     }
 
-    @Operation(summary = "농장 오픈 api", description = "농장 오픈 api 리스트를 조회 합니다.(작업중)")
-    @GetMapping("/open-api")
-    public ResponseEntity<?> test(){
-        farmService.test();
+    @Operation(summary = "농장 오픈 api", description = "농림축산식품 공공데이터 api를 호출 후 저장 합니다.")
+    @PostMapping("/open-api")
+    public ResponseEntity<?> openApi(){
+        farmService.openApi();
         return ObjectResult.ok();
     }
 }

@@ -7,5 +7,5 @@ import java.util.List;
 public interface FarmService {
 
     List<FarmsResDto> farms();
-    void test();
+    void openApi();
 }
