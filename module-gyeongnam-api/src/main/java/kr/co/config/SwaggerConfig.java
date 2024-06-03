@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @OpenAPIDefinition(
-        info = @Info(title = "경남 API 명세서",
-                description = "경남 API (웹,앱) 명세서 입니다.",
+        info = @Info(title = "경남 공모전 API 명세서",
+                description = "경남 공모전 API (웹,앱) 명세서 입니다.",
                 version = "v1"),
         //servers = {@Server(url = "https://api.s2it.kro.kr")}) //prod
         servers = {@Server(url = "/")}) //local
