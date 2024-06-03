@@ -30,7 +30,7 @@ public class FarmController {
     public ResponseEntity<?> farms(){
         return ListResult.build(farmService.farms());
     }
-
+   
     @Operation(summary = "농장 오픈 api", description = "농림축산식품 공공데이터 api를 호출 후 저장 합니다.")
     @PostMapping("/open-api")
     public ResponseEntity<?> openApi(){
