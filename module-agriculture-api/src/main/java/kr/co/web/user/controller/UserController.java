@@ -35,4 +35,11 @@ public class UserController {
     public ResponseEntity<?> refreshToken(@Parameter(description = "리프레시토큰ID", example = "07a76d41-21bc-11ef-81e3-02001701d75b") @RequestParam(required = true) String refreshTokenId) throws Exception {
         return ObjectResult.build(userService.refreshToken(refreshTokenId));
     }
+
+    @Operation(summary = "회원 탈퇴", description = "회원정보를 탈퇴 합니다.")
+    @GetMapping("/drop")
+    public ResponseEntity<?> drop(@AuthenticationPrincipal User user) throws Exception {
+        userService.drop(user);
+        return ObjectResult.ok();
+    }
 }

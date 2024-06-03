@@ -7,12 +7,14 @@
         select *
           from user a
          where user_email = #{userEmail}
+           and user_status = '00'
     </select>
 
     <insert id="insertUser">
         /* UserMapper.LoginReqDto */
         insert into user (
                     user_id
+                  , user_status
                   , user_email
                   , created_id
                   , created_date
@@ -20,6 +22,7 @@
                   , mod_date
         ) values (
                    #{userId}
+                 , '00'
                  , #{loginReqDto.userEmail}
                  , 'system'
                  , CURRENT_TIMESTAMP
@@ -75,7 +78,15 @@
         select *
         from user a
         where user_id = #{userId}
+          and user_status = '00'
     </select>
+
+    <update id="updateDropUser">
+        /* UserMapper.updateDropUser */
+        update user
+           set user_status = '01'
+         where user_id = #{user_id}
+    </update>
 </mapper>
 
 

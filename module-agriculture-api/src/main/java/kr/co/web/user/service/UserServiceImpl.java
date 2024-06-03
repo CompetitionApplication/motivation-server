@@ -76,4 +76,9 @@ public class UserServiceImpl implements UserService{
 
         return r;
     }
+
+    @Override
+    public void drop(User user){
+        userMapper.updateDropUser(user);
+    }
 }

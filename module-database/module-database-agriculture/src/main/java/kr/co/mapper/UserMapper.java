@@ -18,5 +18,6 @@ public interface UserMapper {
     void insertRefrshtoken(@Param("userId") String userId, @Param("refreshToken") String refreshToken, @Param("refreshTokenId") String refreshTokenId);
     void updateRefrshtoken(@Param("userId") String userId, @Param("refreshToken") String refreshToken);
     User selectUserByUserId(@Param("userId") String userId);
+    void updateDropUser(User user);
 
 }
