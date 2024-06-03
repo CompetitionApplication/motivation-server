@@ -60,20 +60,20 @@ public class OpenApiClient implements InitializingBean {
         FarmClientReqDto farmClientReqDto = new FarmClientReqDto();
 
         FarmClientResDto farmClientResDto = new FarmClientResDto();
-        String aa = "";
+        FarmClientResDto aa;
         try {
             aa = webClient.get()
                     //.uri(uriBuilder -> uriBuilder.path("/openapi/"+key+"/json/Grid_20150407000000000218_1/1/5")
-                    .uri(uriBuilder -> uriBuilder.path("/openapi/json/Grid_20150407000000000218_1/1/5")
+                    .uri(uriBuilder -> uriBuilder.path("/openapi/sample/json/Grid_20150407000000000218_1/1/5")
                             .queryParam("AREA", "충청")
                             .build())
                     .retrieve()
-                    .bodyToMono(String.class)
+                    .bodyToMono(FarmClientResDto.class)
                     .block();
 
             ObjectMapper objectMapper = new ObjectMapper();
-            FarmClientResDto tt = objectMapper.readValue(aa,FarmClientResDto.class);
-            log.info("#");
+            //FarmClientResDto tt = objectMapper.readValue(aa,FarmClientResDto.class);
+            log.info("result :{}", aa);
 
         } catch (WebClientResponseException we) {
             System.out.println("======> error ::: " + we.getStatusCode().toString());
