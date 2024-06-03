@@ -8,8 +8,7 @@ public class FarmsResDto {
     private String farmKindNm;
     private String farmName;
     private String farmZip;
-    private String farmMaxUserCnt;
     private String farmUseAmt;
-    private String fileUrl;
-     
+    private String farmMainImageUrl;
+
 }

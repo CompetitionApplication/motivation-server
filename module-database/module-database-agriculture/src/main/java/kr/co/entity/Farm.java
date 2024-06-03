@@ -30,7 +30,7 @@ public class Farm {
     private String farm_main_image;
     private String farm_max_user_cnt;
     private String farm_use_amt;
-    private String farm_user_day;
+    private String farm_use_day;
     private String farm_holi_day_yn;
     private String farm_use_time;
     private String farm_free_time;

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface FarmService {
 
-    List<FarmsResDto> farms();
+    List<FarmsResDto> farms(String farmKind, String farmName, String farmUseDay, String farmMaxUserCnt);
     void openApi();
 }

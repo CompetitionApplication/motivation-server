@@ -4,16 +4,31 @@
 <mapper namespace="kr.co.mapper.FarmMapper">
     <select id="selectFarms" resultType="FarmsResDto">
         /* FarmMapper.selectFarms */
-        select case when farm_kind = '01' THEN '농장'
-                    when farm_kind = '02' THEN '목장'
+        select case when a.farm_kind = '01' THEN '농장'
+                    when a.farm_kind = '02' THEN '목장'
                     else '체험'
                 end as farmKindNm
-             , farm_name as farmName
-             , farm_zip as farmZip
-             , farm_max_user_cnt as farmMaxUserCnt
-             , farm_use_amt as farmUseAmt
-             , farm_main_image as fileUrl
-          from farm
+             , a.farm_name as farmName
+             , a.farm_zip as farmZip
+             , concat(format(a.farm_use_amt, 0), '원') as farmUseAmt
+             , c.file_url as farmMainImageUrl
+          from farm a
+     left join file_group b
+            on a.farm_main_image = b.file_group_id
+     left join file c
+            on b.file_group_id = c.file_group_id
+         where farm_status = '01'
+           and a.farm_kind = #{farmKind}
+        <if test='farmName != null and farmName != ""'>
+           and a.farm_name like concat('%', #{farmName}, '%')
+        </if>
+        <if test='farmUseDay != null and farmUseDay != ""'>
+           and a.farm_use_day like concat('%', #{farmUseDay}, '%')
+        </if>
+        <if test='farmMaxUserCnt != null and farmMaxUserCnt != ""'>
+           and a.farm_max_user_cnt <![CDATA[>=]]> CAST(#{farmMaxUserCnt} AS UNSIGNED)
+        </if>
+      order by a.created_date desc
     </select>
 
     <select id="selectFarm" resultType="int">
