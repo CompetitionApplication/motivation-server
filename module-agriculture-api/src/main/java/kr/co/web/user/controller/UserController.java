@@ -37,13 +37,13 @@ public class UserController {
     }
 
     @Operation(summary = "회원 탈퇴", description = "회원정보를 탈퇴 합니다.")
-    @GetMapping("/drop")
+    @PostMapping("/drop")
     public ResponseEntity<?> drop(@AuthenticationPrincipal User user) throws Exception {
         userService.drop(user);
         return ObjectResult.ok();
     }
 
-    @Operation(summary = "공지사항", description = "공지사항을 조회 합니다.(작업중)")
+    @Operation(summary = "공지사항 리스트 조회", description = "공지사항을 조회 합니다.(작업중)")
     @GetMapping("/notice")
     public ResponseEntity<?> notice(@AuthenticationPrincipal User user) throws Exception {
         return ObjectResult.ok();

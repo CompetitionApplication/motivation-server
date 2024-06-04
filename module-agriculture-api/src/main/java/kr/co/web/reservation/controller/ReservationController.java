@@ -30,7 +30,7 @@ public class ReservationController {
         return ObjectResult.build(reservationService.reservationFarm(reservationReqDto,user));
     }
 
-    @Operation(summary = "농장 예약 내역", description = "농장 예약 내역을 조회 합니다.")
+    @Operation(summary = "농장 예약 내역 리스트 조회", description = "농장 예약 내역을 조회 합니다.")
     @GetMapping("/farm-history")
     public ResponseEntity<?> reservationFarmHistory(@AuthenticationPrincipal User user){
         return ListResult.build(reservationService.reservationFarmHistory(user));
