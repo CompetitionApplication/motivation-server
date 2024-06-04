@@ -38,6 +38,7 @@ public class WebSecurityConfig {
                               "/api/v1/web/user/login",
                               "/api/v1/web/user/refresh-token",
                               "/api/v1/web/user/notice",
+                              "/api/v1/web/clause/privacy",
                               "/api/v1/common/file/image/**",
                               "/swagger-ui/**",
                               "/swagger-resources/**",
