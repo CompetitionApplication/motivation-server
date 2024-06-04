@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import kr.co.auth.AgricultureUser;
+import kr.co.common.ListResult;
 import kr.co.common.ObjectResult;
 import kr.co.dto.web.farm.request.LoginReqDto;
 import kr.co.entity.User;
@@ -43,9 +44,9 @@ public class UserController {
         return ObjectResult.ok();
     }
 
-    @Operation(summary = "공지사항 리스트 조회", description = "공지사항을 조회 합니다.(작업중)")
+    @Operation(summary = "공지사항 리스트 조회", description = "공지사항을 조회 합니다.")
     @GetMapping("/notice")
-    public ResponseEntity<?> notice(@AuthenticationPrincipal User user) throws Exception {
-        return ObjectResult.ok();
+    public ResponseEntity<?> notice() throws Exception {
+        return ListResult.build(userService.notice());
     }
 }

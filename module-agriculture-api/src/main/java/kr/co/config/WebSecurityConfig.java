@@ -37,6 +37,7 @@ public class WebSecurityConfig {
         String[] permitUrl = {"/api/v1/web/farm/**",
                               "/api/v1/web/user/login",
                               "/api/v1/web/user/refresh-token",
+                              "/api/v1/web/user/notice",
                               "/api/v1/common/file/image/**",
                               "/swagger-ui/**",
                               "/swagger-resources/**",

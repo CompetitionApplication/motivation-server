@@ -1,12 +1,14 @@
 package kr.co.mapper;
 
 import kr.co.dto.web.farm.request.LoginReqDto;
+import kr.co.dto.web.notice.response.NoticeResDto;
 import kr.co.entity.Refreshtoken;
 import kr.co.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.nio.file.LinkOption;
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -19,5 +21,6 @@ public interface UserMapper {
     void updateRefrshtoken(@Param("userId") String userId, @Param("refreshToken") String refreshToken);
     User selectUserByUserId(@Param("userId") String userId);
     void updateDropUser(User user);
+    List<NoticeResDto> selectNotice();
 
 }

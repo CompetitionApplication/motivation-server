@@ -87,6 +87,15 @@
            set user_status = '01'
          where user_id = #{user_id}
     </update>
+
+    <select id="selectNotice" resultType="NoticeResDto">
+        /* UserMapper.selectNotice */
+        select notice_id as noticeId
+             , notice_title as noticeTitle
+             , notice_content as noticeContent
+             , created_date as noticeDate
+          from notice
+    </select>
 </mapper>
 
 

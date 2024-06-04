@@ -3,6 +3,7 @@ package kr.co.web.user.service;
 import kr.co.auth.JwtUtil;
 import kr.co.dto.web.farm.request.LoginReqDto;
 import kr.co.dto.web.farm.response.LoginResDto;
+import kr.co.dto.web.notice.response.NoticeResDto;
 import kr.co.entity.Refreshtoken;
 import kr.co.entity.User;
 import kr.co.mapper.CommonMapper;
@@ -10,6 +11,8 @@ import kr.co.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -80,5 +83,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public void drop(User user){
         userMapper.updateDropUser(user);
+    }
+
+    @Override
+    public List<NoticeResDto> notice(){
+        List<NoticeResDto> r = userMapper.selectNotice();
+        return r;
     }
 }
