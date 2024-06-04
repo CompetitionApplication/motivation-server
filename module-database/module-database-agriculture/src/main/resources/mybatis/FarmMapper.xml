@@ -119,6 +119,13 @@
          where a.farm_status = '01'
            and farm_id = #{farmId}
     </select>
+
+    <select id="selectFarmByFarmIdForFarm" resultType="Farm">
+        /* FarmMapper.selectFarmByFarmIdForFarm */
+        select *
+          from farm
+         where farm_id = #{farmId}
+    </select>
 </mapper>
 
 

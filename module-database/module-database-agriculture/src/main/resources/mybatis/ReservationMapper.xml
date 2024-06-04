@@ -3,6 +3,88 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.mapper.ReservationMapper">
 
+    <insert id="insertReservation">
+        /* ReservationMapper.insertReservation */
+        insert into reservation (
+                    reservation_id
+                  , user_id
+                  , farm_id
+                  , reservation_name
+                  , reservation_email
+                  , reservation_tel
+                  , reservation_date
+                  , reservation_participants
+                  , reservation_status
+                  , reservation_start_time
+                  , reservation_end_time
+                  , created_id
+                  , created_date
+                  , mod_id
+                  , mod_date
+         ) values (
+                    #{reservationId}
+                  , #{user.user_id}
+                  , #{reservationReqDto.farmId}
+                  , #{reservationReqDto.reservationName}
+                  , #{reservationReqDto.reservationEmail}
+                  , #{reservationReqDto.reservationTel}
+                  , #{reservationReqDto.reservationDate}
+                  , #{reservationReqDto.reservationParticipants}
+                  , '00'
+                  , #{reservationReqDto.reservationStartTime}
+                  , #{reservationReqDto.reservationEndTime}
+                  ,'system'
+                  , CURRENT_TIMESTAMP
+                  , 'system'
+                  , CURRENT_TIMESTAMP
+                 )
+    </insert>
+
+    <select id="selectReservationByReservationId" resultType="ReservationResDto">
+        /* ReservationMapper.selectReservationByReservationId */
+        select a.reservation_name as reservationName
+             , a.reservation_id as reservationId
+             , b.farm_account_no as farmAccountNo
+             , case when b.farm_kind = '01' THEN '농장'
+                    when b.farm_kind = '02' THEN '목장'
+                    else '체험'
+                end as farmKindNm
+             , b.farm_name as farmName
+             , '0' as reviewStar
+             , '0명' as reviewStarCnt
+             , b.farm_owner_tel as farmOwnerTel
+             , concat(b.farm_use_time, ' ', '체험시간 ', b.farm_use_time_detail, '시간') as farmUseTimeDetail
+             , a.reservation_date as reservationDate
+             , a.reservation_participants as reservationParticipants
+             , concat(a.reservation_start_time, ' ~ ', a.reservation_end_time) as reservationTime
+          from reservation a
+     left join farm b
+            on a.farm_id = b.farm_id
+         where a.reservation_id = #{reservationId}
+    </select>
+
+    <select id="selectReservationByUserId" resultType="ReservationHistoryResDto">
+        /* ReservationMapper.selectReservationByUserId */
+        select a.reservation_id as reservationId
+             , b.farm_account_no as farmAccountNo
+             , case when b.farm_kind = '01' THEN '농장'
+                    when b.farm_kind = '02' THEN '목장'
+                    else '체험'
+                end as farmKindNm
+             , b.farm_name as farmName
+             , b.farm_zip as farmZip
+             , b.farm_owner_tel as farmOwnerTel
+             , concat(b.farm_use_time, ' ', '체험시간 ', b.farm_use_time_detail, '시간') as farmUseTimeDetail
+             , a.reservation_date as reservationDate
+             , a.reservation_participants as reservationParticipants
+             , a.reservation_start_time as reservationStartTime
+             , a.reservation_end_time as reservationEndTime
+          from reservation a
+     left join farm b
+            on a.farm_id = b.farm_id
+         where a.user_id = #{user_id}
+    </select>
+
 </mapper>
 
 

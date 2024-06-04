@@ -27,7 +27,12 @@ public enum CommonErrorCode {
     NOT_FOUND_SCRAPING_DATA("A001","스크리핑 데이터를 찾을수 없습니다."),
 
     // 통신
-    FAIL_EXTERNAL_API("B000","외부요청 오류입니다.")
+    FAIL_EXTERNAL_API("B000","외부요청 오류입니다."),
+
+    //농축산(Y)
+    FARM_NOT_FOUND("Y000","농장을 찾을 수 없습니다.")
+
+    //경남(Z)
     ;
 
 
