@@ -26,4 +26,10 @@ public class ClasuseController {
     public ResponseEntity<?> privacyClause() throws Exception {
         return ObjectResult.build(clauseService.privacy());
     }
+
+    @Operation(summary = "약관리스트", description = "약관 리스트를 조회 합니다.")
+    @GetMapping("/list")
+    public ResponseEntity<?> clauseList() throws Exception {
+        return ObjectResult.build(clauseService.clauseList());
+    }
 }

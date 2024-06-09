@@ -13,6 +13,21 @@
             on b.file_group_id = c.file_group_id
     </select>
 
+    <select id="selectClause" resultType="ClauseResDto">
+        /* selectPrivacyClause.selectClause */
+        select case when a.clause_kind = '01' then '개인정보이용약관'
+                    when a.clause_kind = '02' then '마케팅이용약관'
+                    else '기타약관'
+            end as clauseName
+             , c.created_date as clauseDay
+             , c.file_url as clauseUrl
+        from clause a
+   left join file_group b
+          on a.file_group_id = b.file_group_id
+   left join file c
+          on b.file_group_id = c.file_group_id
+    </select>
+
 </mapper>
 
 

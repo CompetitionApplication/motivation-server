@@ -49,6 +49,8 @@
              , a.farm_longitude as farmLongitude
              , a.farm_latitude as farmLatitude
              , concat(a.farm_use_time, ' ', '체험시간 ', a.farm_use_time_detail, '시간') as farmUseTimeDetail
+             , a.farm_owner_tel as farmOwnerTel
+             , a.farm_intrcn as farmIntrcn
           from farm a
          where farm_status = '01'
            and farm_id = #{farmId}

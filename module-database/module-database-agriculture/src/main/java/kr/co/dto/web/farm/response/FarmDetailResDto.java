@@ -1,5 +1,6 @@
 package kr.co.dto.web.farm.response;
 
+import jakarta.validation.constraints.Null;
 import lombok.Data;
 
 import java.util.List;
@@ -18,5 +19,8 @@ public class FarmDetailResDto {
     private String farmLatitude;
     private String farmUseTimeDetail;
     private List<FarmBannerResDto> bannerImageList;
+    private String farmOwnerTel;
+    private String farmIntrcn;
+    private List<Null> reviewList;
 
 }
