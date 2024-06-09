@@ -1,7 +1,7 @@
 package kr.co.web.clause.service;
 
 import kr.co.dto.web.clause.response.PrivacyClauseResDto;
-import kr.co.mapper.ClauseMapper;
+import kr.co.mapper.web.ClauseMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

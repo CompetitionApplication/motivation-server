@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.mapper.FarmMapper">
+<mapper namespace="kr.co.mapper.web.FarmMapper">
     <select id="selectFarms" resultType="FarmsResDto">
         /* FarmMapper.selectFarms */
         select a.farm_id as farmId
@@ -125,6 +125,14 @@
         select *
           from farm
          where farm_id = #{farmId}
+    </select>
+
+    <select id="selectFarmByFarmAppIdAndFarmAppPw" resultType="Farm">
+        /* FarmMapper.selectFarmByFarmAppIdAndFarmAppPw */
+        select *
+          from farm
+         where farm_app_id = #{farmAppId}
+           and farm_app_pw = #{farmAppPw}
     </select>
 </mapper>
 

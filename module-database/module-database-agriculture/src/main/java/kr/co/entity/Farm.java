@@ -20,6 +20,9 @@ public class Farm {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     private String farm_id;
+    private String farm_app_id;
+    private String farm_app_pw;
+    private String farm_app_push_token;
     private String farm_kind;
     private String farm_name;
     private String farm_zip;
@@ -31,8 +34,10 @@ public class Farm {
     private String farm_max_user_cnt;
     private String farm_use_amt;
     private String farm_use_day;
+    private String farm_use_day_detail;
     private String farm_holi_day_yn;
     private String farm_use_time;
+    private String farm_use_time_detail;
     private String farm_free_time;
     private String farm_account_no;
     private String farm_account_bank;

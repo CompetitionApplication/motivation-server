@@ -1,12 +1,8 @@
-package kr.co.mapper;
+package kr.co.mapper.web;
 
-import kr.co.dto.web.farm.response.FarmsResDto;
-import kr.co.dto.web.openApiClient.response.FarmClientResDto;
 import kr.co.entity.File;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 @Mapper
 public interface FileMapper {

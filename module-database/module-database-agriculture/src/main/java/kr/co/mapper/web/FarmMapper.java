@@ -1,4 +1,4 @@
-package kr.co.mapper;
+package kr.co.mapper.web;
 
 import kr.co.dto.web.farm.response.FarmBannerResDto;
 import kr.co.dto.web.farm.response.FarmDetailResDto;
@@ -20,4 +20,5 @@ public interface FarmMapper {
     void insertFarm(@Param("row") FarmClientResDto.Row row, @Param("id") String id, @Param("pw") String pw);
     List<FarmBannerResDto> selectFarmBannerImage(@Param("farmId") String farmId);
     Farm selectFarmByFarmIdForFarm(String farmId);
+    Farm selectFarmByFarmAppIdAndFarmAppPw(String farmAppId, String farmAppPw);
 }

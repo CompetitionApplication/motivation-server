@@ -11,12 +11,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.entity.User;
-import kr.co.mapper.UserMapper;
+import kr.co.mapper.web.WebUserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -28,7 +27,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final UserDetailService userDetailService;
-    private final UserMapper userMapper;
+    private final WebUserMapper webUserMapper;
     @Value("${jwt.secret-access-token}")
     private String SECRET_KEY;
 
@@ -62,7 +61,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if(userId != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            User user = userMapper.selectUserByEmail(userId);
+            User user = webUserMapper.selectUserByUserId(userId);
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                     new UsernamePasswordAuthenticationToken(user, null,null);
             usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

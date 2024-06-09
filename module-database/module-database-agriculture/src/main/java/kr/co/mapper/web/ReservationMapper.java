@@ -1,4 +1,4 @@
-package kr.co.mapper;
+package kr.co.mapper.web;
 
 import kr.co.dto.web.reservation.request.ReservationReqDto;
 import kr.co.dto.web.reservation.response.ReservationHistoryResDto;

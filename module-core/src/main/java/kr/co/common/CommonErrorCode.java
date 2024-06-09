@@ -30,7 +30,10 @@ public enum CommonErrorCode {
     FAIL_EXTERNAL_API("B000","외부요청 오류입니다."),
 
     //농축산(Y)
-    FARM_NOT_FOUND("Y000","농장을 찾을 수 없습니다.")
+    FARM_NOT_FOUND("Y000","농장을 찾을 수 없습니다."),
+    NOT_FOUND_LOGIN_ID("Y001","ID를 찾을수 없습니다."),
+    NOT_FOUND_REFRESHTOKEN_ID("Y002","리프레시토큰 ID를 찾을수 없습니다."),
+    DUPLICATION_ACCOUNT_ID("Y002","중복된 회원가입 ID 입니다.")
 
     //경남(Z)
     ;

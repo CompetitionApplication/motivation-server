@@ -1,4 +1,4 @@
-package kr.co.dto.web.farm.response;
+package kr.co.dto.app.user.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginResDto implements Serializable {
+public class AppLoginResDto implements Serializable {
 
     private String accessToken;
     private String refreshTokenId;
