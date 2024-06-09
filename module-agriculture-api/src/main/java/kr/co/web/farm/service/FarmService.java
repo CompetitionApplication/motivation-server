@@ -10,5 +10,5 @@ public interface FarmService {
     List<FarmsResDto> farms(String farmKind, String farmName, String farmUseDay, String farmMaxUserCnt);
 
     FarmDetailResDto farmDetail(String farmId);
-    void openApi();
+    void openApi() throws Exception;
 }
