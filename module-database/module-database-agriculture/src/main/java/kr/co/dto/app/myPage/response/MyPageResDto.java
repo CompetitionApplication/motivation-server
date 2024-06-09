@@ -10,6 +10,7 @@ public class MyPageResDto {
 
     private String farmId;
     private String farmMainImageUrl;
+    private String farmBannerImageId;
     private String farmName;
     private String farmIntrcn;
     private String farmKind;
@@ -24,6 +25,6 @@ public class MyPageResDto {
     private String farmUseEndTime;
     private String farmUseTimeDetail;
     private String farmUseAmt;
-    private List<FarmBannerResDto> bannerImageList;
+    private List<FarmBannerResDto> FarmBannerImageList;
 
 }

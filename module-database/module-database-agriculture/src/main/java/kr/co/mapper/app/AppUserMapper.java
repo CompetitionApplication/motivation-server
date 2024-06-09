@@ -9,4 +9,6 @@ public interface AppUserMapper {
     void insertRefrshtoken(String farmId, String refreshToken, String refreshTokenId);
     void updateRefrshtoken(String farmId, String refreshToken);
     Refreshtoken selectRefreshtokenByRefrshTokenId(String refreshTokenId);
+
+    void updateAppPushToken(String farmId, String farmAppPushToken);
 }
