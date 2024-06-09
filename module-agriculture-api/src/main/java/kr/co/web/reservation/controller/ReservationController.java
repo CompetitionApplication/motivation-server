@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import kr.co.common.ListResult;
 import kr.co.common.ObjectResult;
+import kr.co.dto.web.reservation.request.ReservationCancelReqDto;
 import kr.co.dto.web.reservation.request.ReservationReqDto;
 import kr.co.entity.User;
 import kr.co.web.reservation.service.ReservationService;
@@ -34,5 +35,12 @@ public class ReservationController {
     @GetMapping("/farm-history")
     public ResponseEntity<?> reservationFarmHistory(@AuthenticationPrincipal User user){
         return ListResult.build(reservationService.reservationFarmHistory(user));
+    }
+
+    @Operation(summary = "농장 예약 취소", description = "농장 예약을 취소 합니다.")
+    @PostMapping("/farm-cancel")
+    public ResponseEntity<?> reservationFarmCancel(@Valid @RequestBody ReservationCancelReqDto reservationCancelReqDto, @AuthenticationPrincipal User user){
+        reservationService.reservationFarmCancel(reservationCancelReqDto,user);
+        return ObjectResult.ok();
     }
 }

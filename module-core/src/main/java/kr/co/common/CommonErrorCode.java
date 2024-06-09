@@ -33,7 +33,8 @@ public enum CommonErrorCode {
     FARM_NOT_FOUND("Y000","농장을 찾을 수 없습니다."),
     NOT_FOUND_LOGIN_ID("Y001","ID를 찾을수 없습니다."),
     NOT_FOUND_REFRESHTOKEN_ID("Y002","리프레시토큰 ID를 찾을수 없습니다."),
-    DUPLICATION_ACCOUNT_ID("Y002","중복된 회원가입 ID 입니다.")
+    DUPLICATION_ACCOUNT_ID("Y003","중복된 회원가입 ID 입니다."),
+    NOT_FOUND_RESERVATION_ID("Y004","예약 ID를 찾을수 없습니다.")
 
     //경남(Z)
     ;

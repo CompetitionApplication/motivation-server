@@ -2,10 +2,12 @@ package kr.co.web.reservation.service;
 
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
+import kr.co.dto.web.reservation.request.ReservationCancelReqDto;
 import kr.co.dto.web.reservation.request.ReservationReqDto;
 import kr.co.dto.web.reservation.response.ReservationHistoryResDto;
 import kr.co.dto.web.reservation.response.ReservationResDto;
 import kr.co.entity.Farm;
+import kr.co.entity.Reservation;
 import kr.co.entity.User;
 import kr.co.mapper.web.CommonMapper;
 import kr.co.mapper.web.FarmMapper;
@@ -41,5 +43,16 @@ public class ReservationServiceImpl implements ReservationService{
     public List<ReservationHistoryResDto> reservationFarmHistory(User user){
         List<ReservationHistoryResDto> r = reservationMapper.selectReservationByUserId(user);
         return r;
+    }
+
+    @Override
+    public void reservationFarmCancel(ReservationCancelReqDto reservationCancelReqDto, User user){
+        Reservation reservation = reservationMapper.selectReservationByReservationIdForReservation(reservationCancelReqDto.getReservationId());
+
+        if(reservation == null){
+            throw new CommonException(CommonErrorCode.NOT_FOUND_RESERVATION_ID.getCode(),CommonErrorCode.NOT_FOUND_RESERVATION_ID.getMessage());
+        }
+
+        reservationMapper.reservationFarmCancel(reservationCancelReqDto,user);
     }
 }

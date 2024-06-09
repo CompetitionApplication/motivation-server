@@ -66,6 +66,10 @@
     <select id="selectReservationByUserId" resultType="ReservationHistoryResDto">
         /* ReservationMapper.selectReservationByUserId */
         select a.reservation_id as reservationId
+             , case when a.reservation_status = '00' THEN '예약대기'
+                    when a.reservation_status = '01' THEN '예약확정'
+                    else '예약취소'
+                end as reservationStatusNm
              , b.farm_account_no as farmAccountNo
              , case when b.farm_kind = '01' THEN '농장'
                     when b.farm_kind = '02' THEN '목장'
@@ -85,6 +89,21 @@
          where a.user_id = #{user_id}
     </select>
 
+    <update id="reservationFarmCancel">
+        /* ReservationMapper.reservationFarmCancel */
+        update reservation
+           set reservation_status = '02'
+             , mod_id = #{user.user_id}
+             , mod_date = CURRENT_TIMESTAMP
+         where reservation_id = #{reservationCancelReqDto.reservationId}
+    </update>
+
+    <select id="selectReservationByReservationIdForReservation" resultType="Reservation">
+        /* ReservationMapper.reservationFarmCancel */
+        select *
+          from reservation
+         where reservation_id = #{reservationId}
+    </select>
 </mapper>
 
 

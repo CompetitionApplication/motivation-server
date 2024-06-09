@@ -62,4 +62,5 @@ public class WebUserController {
     public ResponseEntity<?> myInfo(@AuthenticationPrincipal User user) throws Exception {
         return ObjectResult.build(webUserService.myInfo(user));
     }
+
 }
