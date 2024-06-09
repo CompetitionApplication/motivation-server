@@ -56,6 +56,8 @@ public class AppUserServiceImpl implements AppUserService {
             appUserMapper.updateRefrshtoken(farm.getFarm_id(), refreshToken);
         }
 
+        appUserMapper.updateAppPushToken(farm.getFarm_id(), appLoginReqDto.getFarmAppPushToken());
+
         r.setAccessToken(accessToken);
         r.setRefreshTokenId(refreshTokenId);
 

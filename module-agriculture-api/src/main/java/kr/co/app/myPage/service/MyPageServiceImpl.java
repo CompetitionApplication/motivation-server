@@ -23,7 +23,7 @@ public class MyPageServiceImpl implements MyPageService {
     public MyPageResDto info(User user){
         MyPageResDto r = myPageMapper.info(user);
         List<FarmBannerResDto> bannerImage = farmMapper.selectFarmBannerImage(user.getUser_id());
-        r.setBannerImageList(bannerImage);
+        r.setFarmBannerImageList(bannerImage);
         return r;
     }
 

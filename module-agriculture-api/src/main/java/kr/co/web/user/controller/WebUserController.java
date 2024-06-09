@@ -40,7 +40,7 @@ public class WebUserController {
 
     @Operation(summary = "토큰 재발급", description = "리프레시토큰ID를 통해 토큰을 재발급 합니다.")
     @GetMapping("/refresh-token")
-    public ResponseEntity<?> webRefreshToken(@Parameter(description = "리프레시토큰ID", example = "07a76d41-21bc-11ef-81e3-02001701d75b") @RequestParam(required = true) String refreshTokenId) throws Exception {
+    public ResponseEntity<?> webRefreshToken(@Parameter(description = "리프레시토큰ID", example = "2f101159-265c-11ef-81e3-02001701d75b") @RequestParam(required = true) String refreshTokenId) throws Exception {
         return ObjectResult.build(webUserService.webUserRefreshToken(refreshTokenId));
     }
 

@@ -29,7 +29,7 @@ public class AppUserController {
 
     @Operation(summary = "토큰 재발급", description = "리프레시토큰ID를 통해 토큰을 재발급 합니다.")
     @GetMapping("/refresh-token")
-    public ResponseEntity<?> AppUserRefreshToken(@Parameter(description = "리프레시토큰ID", example = "7b4af5b9-2640-11ef-81e3-02001701d75b") @RequestParam(required = true) String refreshTokenId) throws Exception {
+    public ResponseEntity<?> AppUserRefreshToken(@Parameter(description = "리프레시토큰ID", example = "29af2259-2663-11ef-81e3-02001701d75b") @RequestParam(required = true) String refreshTokenId) throws Exception {
         return ObjectResult.build(appUserService.appUserRefreshToken(refreshTokenId));
     }
 }

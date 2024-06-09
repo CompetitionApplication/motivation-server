@@ -43,6 +43,15 @@
           from refreshtoken
          where refreshtoken_id = #{refreshTokenId}
     </select>
+
+    <update id="updateAppPushToken">
+        /* UserMapper.selectRefreshtokenByRefrshTokenId */
+        update farm
+           set farm_app_push_token = #{farmAppPushToken}
+             , mod_id = #{farmId}
+             , mod_date = CURRENT_TIMESTAMP
+         where farm_id = #{farmId}
+    </update>
 </mapper>
 
 

@@ -29,7 +29,7 @@
               from reservation a
          left join user b
                 on a.user_id = b.user_id
-             where 1=1
+             where b.user_status = '00'
             <if test="homeTab.equals('00') or homeTab.equals('01') or homeTab.equals('02')">
                and reservation_status = #{homeTab}
             </if>
