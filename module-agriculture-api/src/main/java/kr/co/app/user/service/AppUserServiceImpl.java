@@ -1,10 +1,11 @@
 package kr.co.app.user.service;
 
 import kr.co.auth.JwtUtil;
+import kr.co.common.AES256Util;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
-import kr.co.dto.app.user.request.AppLoginReqDto;
-import kr.co.dto.app.user.response.AppLoginResDto;
+import kr.co.dto.app.user.request.AppUserLoginReqDto;
+import kr.co.dto.app.user.response.AppUserLoginResDto;
 import kr.co.entity.Farm;
 import kr.co.entity.Refreshtoken;
 import kr.co.mapper.app.AppUserMapper;
@@ -12,6 +13,7 @@ import kr.co.mapper.web.CommonMapper;
 import kr.co.mapper.web.FarmMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -19,16 +21,22 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AppUserServiceImpl implements AppUserService {
 
+    @Value("${aes.key}")
+    private String aesKEY;
+
+    @Value("${aes.iv}")
+    private String aesIV;
+
     final AppUserMapper appUserMapper;
     final FarmMapper farmMapper;
     final JwtUtil jwtUtil;
     final CommonMapper commonMapper;
 
     @Override
-    public AppLoginResDto appUserLogin(AppLoginReqDto appLoginReqDto){
-        AppLoginResDto r = new AppLoginResDto();
+    public AppUserLoginResDto appUserLogin(AppUserLoginReqDto appLoginReqDto) throws Exception{
+        AppUserLoginResDto r = new AppUserLoginResDto();
 
-        Farm farm = farmMapper.selectFarmByFarmAppIdAndFarmAppPw(appLoginReqDto.getFarmAppId(), appLoginReqDto.getFarmAppPw());
+        Farm farm = farmMapper.selectFarmByFarmAppIdAndFarmAppPw(appLoginReqDto.getFarmAppId(), AES256Util.AES256encrypt(appLoginReqDto.getFarmAppPw(),aesKEY,aesIV));
 
         if(farm == null) {
             throw new CommonException(CommonErrorCode.NOT_FOUND_LOGIN_ID.getCode(), CommonErrorCode.NOT_FOUND_LOGIN_ID.getMessage());
@@ -55,8 +63,8 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppLoginResDto appUserRefreshToken(String refreshTokenId){
-        AppLoginResDto r = new AppLoginResDto();
+    public AppUserLoginResDto appUserRefreshToken(String refreshTokenId){
+        AppUserLoginResDto r = new AppUserLoginResDto();
 
         Refreshtoken refreshtoken = appUserMapper.selectRefreshtokenByRefrshTokenId(refreshTokenId);
 
@@ -69,6 +77,8 @@ public class AppUserServiceImpl implements AppUserService {
 
             r.setAccessToken(accessToken);
             r.setRefreshTokenId(refreshTokenId);
+        }else{
+            throw new CommonException(CommonErrorCode.NOT_FOUND_REFRESHTOKEN_ID.getCode(), CommonErrorCode.NOT_FOUND_REFRESHTOKEN_ID.getMessage());
         }
 
         return r;

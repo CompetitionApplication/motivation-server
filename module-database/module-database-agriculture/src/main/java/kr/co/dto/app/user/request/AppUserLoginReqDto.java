@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class AppLoginReqDto {
+public class AppUserLoginReqDto {
 
     @NotNull
     private String farmAppId;

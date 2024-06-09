@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppLoginResDto implements Serializable {
+public class AppUserLoginResDto implements Serializable {
 
     private String accessToken;
     private String refreshTokenId;

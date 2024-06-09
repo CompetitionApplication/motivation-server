@@ -1,11 +1,11 @@
 package kr.co.app.user.service;
 
-import kr.co.dto.app.user.request.AppLoginReqDto;
-import kr.co.dto.app.user.response.AppLoginResDto;
+import kr.co.dto.app.user.request.AppUserLoginReqDto;
+import kr.co.dto.app.user.response.AppUserLoginResDto;
 
 public interface AppUserService {
 
-    AppLoginResDto appUserLogin(AppLoginReqDto appLoginReqDto);
+    AppUserLoginResDto appUserLogin(AppUserLoginReqDto appUserLoginReqDto) throws Exception;
 
-    AppLoginResDto appUserRefreshToken(String refreshTokenId);
+    AppUserLoginResDto appUserRefreshToken(String refreshTokenId);
 }

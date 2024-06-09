@@ -39,8 +39,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         String[] permitUrl = {"/api/v1/web/farm/**",
                               "/api/v1/web/user/account",
-                              "/api/v1/web/user/login",
-                              "/api/v1/web/user/refresh-token",
+                              "/api/v1/*/user/login",
+                              "/api/v1/*/user/refresh-token",
                               "/api/v1/web/user/notice",
                               "/api/v1/web/clause/privacy",
                               "/api/v1/common/file/image/**",
