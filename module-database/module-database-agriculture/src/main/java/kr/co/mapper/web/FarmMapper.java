@@ -5,6 +5,7 @@ import kr.co.dto.web.farm.response.FarmDetailResDto;
 import kr.co.dto.web.farm.response.FarmsResDto;
 import kr.co.dto.web.openApiClient.response.FarmClientResDto;
 import kr.co.entity.Farm;
+import kr.co.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,4 +22,5 @@ public interface FarmMapper {
     List<FarmBannerResDto> selectFarmBannerImage(@Param("farmId") String farmId);
     Farm selectFarmByFarmIdForFarm(String farmId);
     Farm selectFarmByFarmAppIdAndFarmAppPw(String farmAppId, String farmAppPw);
+    User selectFarmByFarmIdForUser(String farmId);
 }

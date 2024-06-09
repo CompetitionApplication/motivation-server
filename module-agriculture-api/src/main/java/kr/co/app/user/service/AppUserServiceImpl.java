@@ -42,8 +42,8 @@ public class AppUserServiceImpl implements AppUserService {
             throw new CommonException(CommonErrorCode.NOT_FOUND_LOGIN_ID.getCode(), CommonErrorCode.NOT_FOUND_LOGIN_ID.getMessage());
         }
 
-        String accessToken = jwtUtil.generateToken(appLoginReqDto.getFarmAppId());
-        String refreshToken = jwtUtil.generateRefreshToken(appLoginReqDto.getFarmAppId());
+        String accessToken = jwtUtil.generateToken(farm.getFarm_id());
+        String refreshToken = jwtUtil.generateRefreshToken(farm.getFarm_id());
 
         Refreshtoken refreshtoken = appUserMapper.selectRefreshtokenByFarmId(farm.getFarm_id());
 

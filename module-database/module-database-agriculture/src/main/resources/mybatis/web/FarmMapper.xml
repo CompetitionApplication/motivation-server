@@ -136,6 +136,15 @@
          where farm_app_id = #{farmAppId}
            and farm_app_pw = #{farmAppPw}
     </select>
+
+    <select id="selectFarmByFarmIdForUser" resultType="User">
+        /* FarmMapper.selectFarmByFarmIdForFarm */
+        select farm_id as user_id
+             , farm_owner_name as user_name
+             , farm_owner_tel as user_tel
+          from farm
+         where farm_id = #{farmId}
+    </select>
 </mapper>
 
 

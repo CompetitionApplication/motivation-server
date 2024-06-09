@@ -5,11 +5,16 @@
 
     <select id="homeList" resultType="HomeResDto">
         /* HomeMapper.homeList */
-        select case when #{homeTab} = '00' then '예약도착'
+        select a.reservation_id as reservationId
+              , case when #{homeTab} = '00' then '예약도착'
                     when #{homeTab} = '01' then '예약확정'
                     when #{homeTab} = '02' then '예약취소'
                     else '전체'
                 end as homeTab
+             , case when a.reservation_status = '00' then '예약대기'
+                    when a.reservation_status = '01' then '예약확정'
+                    else '예약취소'
+                end as reservationStatusNm
              , b.user_name as userName
              , b.user_tel as userTel
              , b.created_date as createdDate
@@ -32,6 +37,15 @@
                and reservation_status in ('00','01','02')
             </if>
     </select>
+
+    <update id="statusChange">
+        /* HomeMapper.homeList */
+        update reservation
+           set reservation_status = #{statusChangeReqDto.reservationStatus}
+             , mod_id = #{user.user_id}
+             , mod_date = CURRENT_TIMESTAMP
+         where reservation_id = #{statusChangeReqDto.reservationId}
+    </update>
 </mapper>
 
 

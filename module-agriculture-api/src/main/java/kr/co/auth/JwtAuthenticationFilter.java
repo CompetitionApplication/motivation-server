@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.entity.User;
+import kr.co.mapper.app.AppUserMapper;
+import kr.co.mapper.web.FarmMapper;
 import kr.co.mapper.web.WebUserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final UserDetailService userDetailService;
     private final WebUserMapper webUserMapper;
+    private final FarmMapper farmMapper;
     @Value("${jwt.secret-access-token}")
     private String SECRET_KEY;
 
@@ -61,7 +64,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if(userId != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            User user = webUserMapper.selectUserByUserId(userId);
+            User user = new User();
+            if(request.getRequestURI().startsWith("/api/v1/web")){
+                user = webUserMapper.selectUserByUserId(userId);
+            }else{
+                user = farmMapper.selectFarmByFarmIdForUser(userId);
+            }
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                     new UsernamePasswordAuthenticationToken(user, null,null);
             usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

@@ -5,11 +5,13 @@ import kr.co.auth.JwtUtil;
 import kr.co.common.AES256Util;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
+import kr.co.dto.app.home.request.StatusChangeReqDto;
 import kr.co.dto.app.home.response.HomeResDto;
 import kr.co.dto.app.user.request.AppUserLoginReqDto;
 import kr.co.dto.app.user.response.AppUserLoginResDto;
 import kr.co.entity.Farm;
 import kr.co.entity.Refreshtoken;
+import kr.co.entity.User;
 import kr.co.mapper.app.AppUserMapper;
 import kr.co.mapper.app.HomeMapper;
 import kr.co.mapper.web.CommonMapper;
@@ -34,5 +36,9 @@ public class HomeServiceImpl implements HomeService {
         return r;
     }
 
+    @Override
+    public void statusChange(StatusChangeReqDto statusChangeReqDto, User user){
+        homeMapper.statusChange(statusChangeReqDto, user);
+    }
 
 }
