@@ -26,7 +26,7 @@ public class HomeController {
 
     final HomeService homeService;
 
-    @Operation(summary = "홈 조회", description = "홈 메인 리스트를 조회 합니다.<br><br>" +
+    @Operation(summary = "홈 리스트 조회", description = "홈 메인 리스트를 조회 합니다.<br><br>" +
             "[param info]<br>" +
             "* homeTab(홈탭)<br>" +
             "00 : 예약도착<br>" +
