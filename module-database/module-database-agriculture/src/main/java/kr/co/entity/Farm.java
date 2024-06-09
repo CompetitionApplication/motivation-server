@@ -47,6 +47,7 @@ public class Farm {
     private String farm_latitude;
     private String farm_longitude;
     private String farm_page;
+    private String farm_status;
     private String created_id;
     private String created_date;
     private String mod_id;
