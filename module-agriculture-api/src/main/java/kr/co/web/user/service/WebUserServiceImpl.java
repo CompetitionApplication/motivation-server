@@ -14,6 +14,7 @@ import kr.co.mapper.web.CommonMapper;
 import kr.co.mapper.web.WebUserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,12 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class WebUserServiceImpl implements WebUserService {
+
+    @Value("${aes.key}")
+    private String aesKEY;
+
+    @Value("${aes.iv}")
+    private String aesIV;
 
     final WebUserMapper webUserMapper;
 
@@ -33,7 +40,7 @@ public class WebUserServiceImpl implements WebUserService {
     public WebUserLoginResDto webUserLogin(WebUserLoginReqDto webUserLoginReqDto) throws Exception{
         WebUserLoginResDto r = new WebUserLoginResDto();
 
-        User login = webUserMapper.webUserLogin(webUserLoginReqDto.getUserWebId(), AES256Util.encrypt(webUserLoginReqDto.getUserWebPw()));
+        User login = webUserMapper.webUserLogin(webUserLoginReqDto.getUserWebId(), AES256Util.AES256encrypt(webUserLoginReqDto.getUserWebPw(),aesKEY,aesIV));
 
         if(login == null) {
             throw new CommonException(CommonErrorCode.NOT_FOUND_LOGIN_ID.getCode(), CommonErrorCode.NOT_FOUND_LOGIN_ID.getMessage());
@@ -69,7 +76,7 @@ public class WebUserServiceImpl implements WebUserService {
             throw new CommonException(CommonErrorCode.DUPLICATION_ACCOUNT_ID.getCode(), CommonErrorCode.DUPLICATION_ACCOUNT_ID.getMessage());
         }
 
-        webUserAccountReqDto.setUserWebPw(AES256Util.encrypt(webUserAccountReqDto.getUserWebPw()));
+        webUserAccountReqDto.setUserWebPw(AES256Util.AES256encrypt(webUserAccountReqDto.getUserWebPw(),aesKEY,aesIV));
 
         webUserMapper.insertUser(webUserAccountReqDto);
     }
