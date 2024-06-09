@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mapper.app.MyPageMapper">
+
+    <select id="info" resultType="MyPageResDto">
+        /* MyPageMapper.info */
+        select a.farm_id as farmId
+             , c.file_url as farmMainImageUrl
+             , a.farm_name as farmName
+             , a.farm_intrcn as farmIntrcn
+             , a.farm_kind as farmKind
+             , case when a.farm_kind = '01' THEN '농장'
+                    when a.farm_kind = '02' THEN '목장'
+                    else '체험'
+                end as farmKindNm
+             , a.farm_zip as farmZip
+             , a.farm_owner_tel as farmOwnerTel
+             , a.farm_owner_name as farmOwnerName
+             , a.farm_account_no as farmAccountNo
+             , a.farm_use_day as farmUseDay
+             , a.farm_use_time as farmUseTime
+             , SUBSTRING_INDEX(a.farm_use_time, ' ~ ', 1) AS farmUseStartTime
+             , SUBSTRING_INDEX(a.farm_use_time, ' ~ ', -1) AS farmUseEndTime
+             , a.farm_use_time_detail as farmUseTimeDetail
+             , concat(format(a.farm_use_amt, 0), '원') as farmUseAmt
+        from farm a
+   left join file_group b
+          on a.farm_main_image = b.file_group_id
+   left join file c
+          on b.file_group_id = c.file_group_id
+       where farm_id = #{user_id}
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
