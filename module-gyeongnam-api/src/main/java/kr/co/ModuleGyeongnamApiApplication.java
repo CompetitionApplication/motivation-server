@@ -10,5 +10,6 @@ public class ModuleGyeongnamApiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ModuleGyeongnamApiApplication.class, args);
+        //test
     }
 }
