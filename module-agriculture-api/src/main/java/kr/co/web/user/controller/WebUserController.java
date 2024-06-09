@@ -56,4 +56,10 @@ public class WebUserController {
     public ResponseEntity<?> notice() throws Exception {
         return ListResult.build(webUserService.notice());
     }
+
+    @Operation(summary = "내 정보 조회", description = "내 정보를 조회 합니다.")
+    @GetMapping("/my-info")
+    public ResponseEntity<?> myInfo(@AuthenticationPrincipal User user) throws Exception {
+        return ObjectResult.build(webUserService.myInfo(user));
+    }
 }

@@ -6,6 +6,7 @@ import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.web.user.request.WebUserAccountReqDto;
 import kr.co.dto.web.user.request.WebUserLoginReqDto;
+import kr.co.dto.web.user.response.WebUserInfoResDto;
 import kr.co.dto.web.user.response.WebUserLoginResDto;
 import kr.co.dto.web.notice.response.NoticeResDto;
 import kr.co.entity.Refreshtoken;
@@ -111,6 +112,12 @@ public class WebUserServiceImpl implements WebUserService {
     @Override
     public List<NoticeResDto> notice(){
         List<NoticeResDto> r = webUserMapper.selectNotice();
+        return r;
+    }
+
+    @Override
+    public WebUserInfoResDto myInfo(User user){
+        WebUserInfoResDto r = webUserMapper.myInfo(user);
         return r;
     }
 }

@@ -123,6 +123,16 @@
          where user_web_id = #{userWebId}
            and user_status = '00'
     </select>
+
+    <select id="myInfo" resultType="WebUserInfoResDto">
+        /* WebUserMapper.myInfo */
+        select user_email as userEmail
+             , user_tel as userTel
+             , user_name as userName
+             , user_birth as userBirth
+          from user
+         where user_id = #{user_id}
+    </select>
 </mapper>
 
 

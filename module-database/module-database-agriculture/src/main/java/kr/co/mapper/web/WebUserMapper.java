@@ -3,6 +3,7 @@ package kr.co.mapper.web;
 import kr.co.dto.web.user.request.WebUserAccountReqDto;
 import kr.co.dto.web.user.request.WebUserLoginReqDto;
 import kr.co.dto.web.notice.response.NoticeResDto;
+import kr.co.dto.web.user.response.WebUserInfoResDto;
 import kr.co.entity.Refreshtoken;
 import kr.co.entity.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -24,5 +25,6 @@ public interface WebUserMapper {
     List<NoticeResDto> selectNotice();
     User webUserLogin(String userWebId, String userWebPw);
     User webUserByUserWebId(String userWebId);
+    WebUserInfoResDto myInfo(User user);
 
 }
