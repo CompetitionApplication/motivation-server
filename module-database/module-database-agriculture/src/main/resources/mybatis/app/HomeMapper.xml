@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mapper.app.HomeMapper">
+
+    <select id="homeList" resultType="HomeResDto">
+        /* HomeMapper.homeList */
+        select case when #{homeTab} = '00' then '예약도착'
+                    when #{homeTab} = '01' then '예약확정'
+                    when #{homeTab} = '02' then '예약취소'
+                    else '전체'
+                end as homeTab
+             , b.user_name as userName
+             , b.user_tel as userTel
+             , b.created_date as createdDate
+             , concat('총 ', a.reservation_participants,'명') as reservationParticipants
+             , replace(replace(date_format(b.created_date, '%Y년 %c월 %e일 %p %h시 %i분'), 'AM', '오전'), 'PM', '오후') AS reservationDate
+            , case when timestampdiff(minute, b.created_date, now()) <![CDATA[<]]> 60 then concat(timestampdiff(minute, b.created_date, now()), '분 전')
+                   when timestampdiff(hour, b.created_date, now()) <![CDATA[<]]> 24 then concat(timestampdiff(hour, b.created_date, now()), '시간 전')
+                   when timestampdiff(day, b.created_date, now()) <![CDATA[<]]> 7 then concat(timestampdiff(day, b.created_date, now()), '일 전')
+                   when timestampdiff(day, b.created_date, now()) <![CDATA[<]]> 30 then concat(timestampdiff(week, b.created_date, now()), '주 전')
+                   else concat(timestampdiff(month, b.created_date, now()), '개월 전')
+               end as timeAgo
+              from reservation a
+         left join user b
+                on a.user_id = b.user_id
+             where 1=1
+            <if test="homeTab.equals('00') or homeTab.equals('01') or homeTab.equals('02')">
+               and reservation_status = #{homeTab}
+            </if>
+            <if test="homeTab.equals('03')">
+               and reservation_status in ('00','01','02')
+            </if>
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
