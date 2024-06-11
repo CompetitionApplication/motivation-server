@@ -7,7 +7,7 @@ public class FarmReviewResDto {
 
     private String reviewerImage;
     private String reviewerName;
-    private String revieweStarScore;
-    private String revieweContent;
+    private String reviewStarScore;
+    private String reviewContent;
 
 }
