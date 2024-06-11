@@ -28,14 +28,19 @@ public class FarmController {
                                                             "* farmKind(농장종류)<br>" +
                                                             "01 : 농장<br>" +
                                                             "02 : 목장<br>" +
-                                                            "03 : 체험")
+                                                            "03 : 체험<br>" +
+                                                            "* orderByKind(정렬순서구분)<br>" +
+                                                            "createDate : 최신순<br>" +
+                                                            "highUseAmt : 금액높은순<br>" +
+                                                            "lowUseAmt : 금액낮은순")
     @GetMapping("/list")
     public ResponseEntity<?> farms(@Parameter(description = "농장종류", example = "01") @RequestParam(required = true) String farmKind,
                                    @Parameter(description = "농장이름", example = "다래목장") @RequestParam(required = false) String farmName,
                                    @Parameter(description = "이용요일", example = "월") @RequestParam(required = false) String farmUseDay,
-                                   @Parameter(description = "이용인원", example = "3") @RequestParam(required = false) String farmMaxUserCnt){
+                                   @Parameter(description = "이용인원", example = "3") @RequestParam(required = false) String farmMaxUserCnt,
+                                   @Parameter(description = "정렬순서구분", example = "createDate") @RequestParam(required = false) String orderByKind){
 
-        return ListResult.build(farmService.farms(farmKind,farmName,farmUseDay,farmMaxUserCnt));
+        return ListResult.build(farmService.farms(farmKind,farmName,farmUseDay,farmMaxUserCnt,orderByKind));
     }
 
     @Operation(summary = "농장 상세 조회", description = "농장 상세 정보를 조회 합니다.")

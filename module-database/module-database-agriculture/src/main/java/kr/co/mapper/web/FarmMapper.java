@@ -14,12 +14,12 @@ import java.util.List;
 @Mapper
 public interface FarmMapper {
 
-    List<FarmsResDto> selectFarms(@Param("farmKind") String farmKind, @Param("farmName") String farmName, @Param("farmUseDay") String farmUseDay, @Param("farmMaxUserCnt") String farmMaxUserCnt);
+    List<FarmsResDto> selectFarms(String farmKind, String farmName, String farmUseDay, String farmMaxUserCnt, String orderByKind);
 
-    FarmDetailResDto selectFarmByFarmId(@Param("farmId") String farmId);
-    int selectFarm(@Param("farmName") String farmName);
+    FarmDetailResDto selectFarmByFarmId(String farmId);
+    int selectFarm(String farmName);
     void insertFarm(@Param("row") FarmClientResDto.Row row, @Param("id") String id, @Param("pw") String pw);
-    List<FarmBannerResDto> selectFarmBannerImage(@Param("farmId") String farmId);
+    List<FarmBannerResDto> selectFarmBannerImage(String farmId);
     Farm selectFarmByFarmIdForFarm(String farmId);
     Farm selectFarmByFarmAppIdAndFarmAppPw(String farmAppId, String farmAppPw);
     User selectFarmByFarmIdForUser(String farmId);

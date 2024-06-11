@@ -32,8 +32,8 @@ public class FarmServiceImpl implements FarmService {
     final OpenApiClient openApiClient;
 
     @Override
-    public List<FarmsResDto> farms(String farmKind, String farmName, String farmUseDay, String farmMaxUserCnt){
-        List<FarmsResDto> r =  farmMapper.selectFarms(farmKind,farmName,farmUseDay,farmMaxUserCnt);
+    public List<FarmsResDto> farms(String farmKind, String farmName, String farmUseDay, String farmMaxUserCnt, String orderByKind){
+        List<FarmsResDto> r =  farmMapper.selectFarms(farmKind,farmName,farmUseDay,farmMaxUserCnt,orderByKind);
         return r;
     }
 

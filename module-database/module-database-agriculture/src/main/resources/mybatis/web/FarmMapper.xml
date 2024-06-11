@@ -16,6 +16,7 @@
              , '0' as reviewStar
              , '0명' as reviewStarCnt
              , concat('체험시간 ', a.farm_use_time_detail, '시간') as farmUseTimeDetailFormat
+             , a.farm_fond_de as farmFondDe
           from farm a
      left join file_group b
             on a.farm_main_image = b.file_group_id
@@ -32,7 +33,17 @@
         <if test='farmMaxUserCnt != null and farmMaxUserCnt != ""'>
            and a.farm_max_user_cnt <![CDATA[>=]]> CAST(#{farmMaxUserCnt} AS UNSIGNED)
         </if>
-      order by a.created_date desc
+        <if test='orderByKind != null and orderByKind != ""'>
+            <if test="orderByKind.equals('createDate')">
+                order by cast(replace(a.farm_fond_de,'년','') AS unsigned) desc
+            </if>
+            <if test="orderByKind.equals('highUseAmt')">
+                order by cast(a.farm_use_amt AS unsigned) desc
+            </if>
+            <if test="orderByKind.equals('lowUseAmt')">
+                order by cast(a.farm_use_amt AS unsigned)
+            </if>
+        </if>
     </select>
 
     <select id="selectFarmByFarmId" resultType="FarmDetailResDto">

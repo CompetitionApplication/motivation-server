@@ -14,5 +14,5 @@ public class FarmsResDto {
     private String reviewStar;
     private String reviewStarCnt;
     private String farmUseTimeDetailFormat;
-
+    private String farmFondDe;
 }
