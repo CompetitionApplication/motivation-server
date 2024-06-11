@@ -158,6 +158,29 @@
           from farm
          where farm_id = #{farmId}
     </select>
+
+    <select id="selectFarmUseTimeDetailList" resultType="FarmUseTimeDetailResDto">
+        /* FarmMapper.selectFarmUseTimeDetailList */
+        WITH RECURSIVE time_intervals AS (
+               SELECT STR_TO_DATE(SUBSTRING_INDEX(farm_use_time, ' ~ ', 1), '%H:%i') AS start_time
+                    , STR_TO_DATE(SUBSTRING_INDEX(farm_use_time, ' ~ ', -1), '%H:%i') AS end_time
+                    , STR_TO_DATE(SUBSTRING_INDEX(farm_use_time, ' ~ ', 1), '%H:%i') AS current_type_time
+                    , CAST(SUBSTRING_INDEX(farm_use_time_detail, '.', 1) AS SIGNED) AS hour_part
+                    , CAST(SUBSTRING_INDEX(farm_use_time_detail, '.', -1) * 6 AS SIGNED) AS minute_part
+                 FROM farm
+                WHERE farm_id = #{farmId}
+            UNION ALL
+               SELECT start_time
+                    , end_time
+                    , DATE_ADD(current_type_time, INTERVAL hour_part HOUR) + INTERVAL minute_part MINUTE AS current_type_time
+                    , hour_part
+                    , minute_part
+                 FROM time_intervals
+                WHERE DATE_ADD(DATE_ADD(current_type_time, INTERVAL hour_part HOUR), INTERVAL minute_part MINUTE) <![CDATA[<]]> end_time
+        )
+        SELECT TIME_FORMAT(current_type_time, '%H:%i') AS farmUseTimeDetailSlot
+          FROM time_intervals
+    </select>
 </mapper>
 
 

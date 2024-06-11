@@ -4,6 +4,7 @@ import kr.co.client.OpenApiClient;
 import kr.co.common.AES256Util;
 import kr.co.dto.web.farm.response.FarmBannerResDto;
 import kr.co.dto.web.farm.response.FarmDetailResDto;
+import kr.co.dto.web.farm.response.FarmUseTimeDetailResDto;
 import kr.co.dto.web.farm.response.FarmsResDto;
 import kr.co.dto.web.openApiClient.response.FarmClientResDto;
 import kr.co.entity.Farm;
@@ -42,6 +43,8 @@ public class FarmServiceImpl implements FarmService {
         FarmDetailResDto r = farmMapper.selectFarmByFarmId(farmId);
         List<FarmBannerResDto> bannerImage = farmMapper.selectFarmBannerImage(farmId);
         r.setBannerImageList(bannerImage);
+        List<FarmUseTimeDetailResDto> farmUseTimeDetailList = farmMapper.selectFarmUseTimeDetailList(farmId);
+        r.setFarmUseTimeDetailList(farmUseTimeDetailList);
         return r;
     }
 

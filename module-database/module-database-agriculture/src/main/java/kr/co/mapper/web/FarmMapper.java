@@ -2,6 +2,7 @@ package kr.co.mapper.web;
 
 import kr.co.dto.web.farm.response.FarmBannerResDto;
 import kr.co.dto.web.farm.response.FarmDetailResDto;
+import kr.co.dto.web.farm.response.FarmUseTimeDetailResDto;
 import kr.co.dto.web.farm.response.FarmsResDto;
 import kr.co.dto.web.openApiClient.response.FarmClientResDto;
 import kr.co.entity.Farm;
@@ -23,4 +24,5 @@ public interface FarmMapper {
     Farm selectFarmByFarmIdForFarm(String farmId);
     Farm selectFarmByFarmAppIdAndFarmAppPw(String farmAppId, String farmAppPw);
     User selectFarmByFarmIdForUser(String farmId);
+    List<FarmUseTimeDetailResDto> selectFarmUseTimeDetailList(String farmId);
 }
