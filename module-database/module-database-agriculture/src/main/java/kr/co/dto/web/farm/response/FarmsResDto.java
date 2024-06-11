@@ -13,5 +13,6 @@ public class FarmsResDto {
     private String farmMainImageUrl;
     private String reviewStar;
     private String reviewStarCnt;
+    private String farmUseTimeDetailFormat;
 
 }
