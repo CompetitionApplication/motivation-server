@@ -2,10 +2,7 @@ package kr.co.web.farm.service;
 
 import kr.co.client.OpenApiClient;
 import kr.co.common.AES256Util;
-import kr.co.dto.web.farm.response.FarmBannerResDto;
-import kr.co.dto.web.farm.response.FarmDetailResDto;
-import kr.co.dto.web.farm.response.FarmUseTimeDetailResDto;
-import kr.co.dto.web.farm.response.FarmsResDto;
+import kr.co.dto.web.farm.response.*;
 import kr.co.dto.web.openApiClient.response.FarmClientResDto;
 import kr.co.entity.Farm;
 import kr.co.mapper.web.MemberMapper;
@@ -17,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -45,6 +43,10 @@ public class FarmServiceImpl implements FarmService {
         r.setBannerImageList(bannerImage);
         List<FarmUseTimeDetailResDto> farmUseTimeDetailList = farmMapper.selectFarmUseTimeDetailList(farmId);
         r.setFarmUseTimeDetailList(farmUseTimeDetailList);
+        List<FarmReviewResDto> farmReviewResDtoList = new ArrayList<>();
+        FarmReviewResDto farmDetailResDto = new FarmReviewResDto();
+        farmReviewResDtoList.add(farmDetailResDto);
+        r.setReviewList(farmReviewResDtoList);
         return r;
     }
 

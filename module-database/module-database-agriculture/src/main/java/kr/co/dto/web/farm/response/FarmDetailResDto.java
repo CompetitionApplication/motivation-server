@@ -22,7 +22,7 @@ public class FarmDetailResDto {
     private List<FarmBannerResDto> bannerImageList;
     private String farmOwnerTel;
     private String farmIntrcn;
-    private List<Null> reviewList;
+    private List<FarmReviewResDto> reviewList;
     private List<FarmUseTimeDetailResDto> farmUseTimeDetailList;
 
 }
