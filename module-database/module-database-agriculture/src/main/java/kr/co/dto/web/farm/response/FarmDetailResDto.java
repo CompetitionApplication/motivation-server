@@ -17,7 +17,8 @@ public class FarmDetailResDto {
     private String reviewStarCnt;
     private String farmLongitude;
     private String farmLatitude;
-    private String farmUseTimeAndDetailFormat;
+    private String farmUseTimeDetail;
+    private String farmUseTimeAndDetailTimeFormat;
     private List<FarmBannerResDto> bannerImageList;
     private String farmOwnerTel;
     private String farmIntrcn;
