@@ -66,11 +66,11 @@
              , a.farm_longitude as farmLongitude
              , a.farm_latitude as farmLatitude
              , a.farm_use_time_detail as farmUseTimeDetail
-             , concat('체험시간 ',CASE WHEN MOD(a.farm_use_time_detail * 60, 60) = 0 THEN CONCAT(FLOOR(a.farm_use_time_detail), '시간')
-                                     ELSE CONCAT(FLOOR(a.farm_use_time_detail), '시간 ',
-                                                 LPAD(MOD(a.farm_use_time_detail * 60, 60), 2, '0'), '분'
-                                                 )
-                                 END
+             , concat(a.farm_use_time, ' ', '체험시간 ',CASE WHEN MOD(a.farm_use_time_detail * 60, 60) = 0 THEN CONCAT(FLOOR(a.farm_use_time_detail), '시간')
+                                                           ELSE CONCAT(FLOOR(a.farm_use_time_detail), '시간 ',
+                                                                       LPAD(MOD(a.farm_use_time_detail * 60, 60), 2, '0'), '분'
+                                                                       )
+                                                       END
                       ) as farmUseTimeAndDetailTimeFormat
              , a.farm_owner_tel as farmOwnerTel
              , a.farm_intrcn as farmIntrcn
