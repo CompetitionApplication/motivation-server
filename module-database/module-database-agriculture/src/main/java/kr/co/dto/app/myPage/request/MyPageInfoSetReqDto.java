@@ -2,6 +2,7 @@ package kr.co.dto.app.myPage.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
@@ -29,7 +30,8 @@ public class MyPageInfoSetReqDto {
     private String farmIntrcn;
 
     @NotNull(message = "농장구분은 필수입력값입니다.")
-    @Schema(description = "농장구분", example = "01")
+    @Pattern(regexp = "^(01|02|03)$", message = "농장구분은 01,02,03만 허용됩니다.")
+    @Schema(description = "농장구분", example = "01", allowableValues = {"01","02","03"})
     private String farmKind;
 
     @NotNull(message = "농장주소는 필수입력값입니다.")
@@ -61,7 +63,8 @@ public class MyPageInfoSetReqDto {
     private String farmUseEndTime;
 
     @NotNull(message = "체험시간은 필수입력값입니다.")
-    @Schema(description = "체험시간", example = "1.5")
+    @Pattern(regexp = "^(0.5|1.0|1.5|2.0|2.5|3.0|3.5|4.0|4.5|5.0)$", message = "체험시간은 0.5~5.0(0.5단위)만 허용됩니다.")
+    @Schema(description = "체험시간", example = "1.0", allowableValues = {"0.5","1.0","1.5",",,,","5.0"})
     private String farmUseTimeDetail;
 
     @NotNull(message = "체험가격은 필수입력값입니다.")
