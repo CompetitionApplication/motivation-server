@@ -24,7 +24,7 @@ public class MyPageResDto {
     private String farmUseStartTime;
     private String farmUseEndTime;
     private String farmUseTimeDetail;
-    private String farmUseAmt;
+    private String farmUseAmt;  
     private List<FarmBannerResDto> FarmBannerImageList;
 
 }
