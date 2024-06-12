@@ -52,6 +52,13 @@
          where file_id = #{fileId}
     </select>
 
+    <select id="selectFileGroup" resultType="FileGroup">
+        /* FileMapper.selectFileGroup */
+        select *
+          from file_group
+         where file_group_id = #{fileGroupId}
+    </select>
+
 </mapper>
 
 

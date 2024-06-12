@@ -186,6 +186,40 @@
         SELECT TIME_FORMAT(current_type_time, '%H:%i') AS farmUseTimeDetailSlot
           FROM time_intervals
     </select>
+
+    <update id="updateFarm">
+        /* FarmMapper.updateFarm */
+        update farm
+           set farm_main_image = #{farmMainImageId}
+             , farm_banner_image = #{farmBannerImageId}
+             , farm_name = #{farmName}
+             , farm_intrcn = #{farmIntrcn}
+             , farm_kind = #{farmKind}
+             , farm_zip = #{farmZip}
+             , farm_owner_tel = #{farmOwnerTel}
+             , farm_owner_name = #{farmOwnerName}
+             , farm_account_no = #{farmAccountNo}
+             , farm_use_day = #{farmUseDay}
+             , farm_use_time = concat(#{farmUseStartTime},' ~ ',#{farmUseEndTime} )
+             , farm_use_time_detail = #{farmUseTimeDetail}
+             , farm_use_amt = #{farmUseAmt}
+             , farm_status = '01'
+             , mod_id = #{farmId}
+             , mod_date = CURRENT_TIMESTAMP
+         where farm_id = #{farmId}
+    </update>
+
+    <select id="checkFarmUseTimeA" resultType="boolean">
+        /* FarmMapper.checkFarmUseTimeA */
+        select IF(STR_TO_DATE(#{farmUseStartTime}, '%H:%i') <![CDATA[<=]]> STR_TO_DATE(#{farmUseEndTime}, '%H:%i'),TRUE,FALSE)
+          from dual
+    </select>
+
+    <select id="checkFarmUseTimeB" resultType="boolean">
+        /* FarmMapper.checkFarmUseTimeB */
+        select IF(TIMESTAMPDIFF(MINUTE, STR_TO_DATE(#{farmUseStartTime}, '%H:%i'), STR_TO_DATE(#{farmUseEndTime}, '%H:%i')) % (#{farmUseTimeDetail} * 60) = 0,TRUE,FALSE)
+          from dual
+    </select>
 </mapper>
 
 

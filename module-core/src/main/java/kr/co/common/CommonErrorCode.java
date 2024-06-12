@@ -34,7 +34,10 @@ public enum CommonErrorCode {
     NOT_FOUND_LOGIN_ID("Y001","ID를 찾을수 없습니다."),
     NOT_FOUND_REFRESHTOKEN_ID("Y002","리프레시토큰 ID를 찾을수 없습니다."),
     DUPLICATION_ACCOUNT_ID("Y003","중복된 회원가입 ID 입니다."),
-    NOT_FOUND_RESERVATION_ID("Y004","예약 ID를 찾을수 없습니다.")
+    NOT_FOUND_RESERVATION_ID("Y004","예약 ID를 찾을수 없습니다."),
+    CHECK_FARM_USE_TIME_START_END("Y005","영업시간이 잘못되었습니다."),
+    CHECK_FARM_USE_TIME("Y006","체험시간단위가 영업시간내 충족하지 못합니다. 체험시간 또는 엽업시간을 변경해주세요."),
+    NOT_FOUND_FILE_GROUP_ID("Y007","파일그룹 ID를 찾을수 없습니다."),
 
     //경남(Z)
     ;

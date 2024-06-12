@@ -5,18 +5,18 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class MyPageSetReqDto {
+public class MyPageInfoSetReqDto {
 
     @NotNull(message = "농장ID늘 필수입력값입니다.")
     @Schema(description = "농장ID", example = "94a5de3d-2165-11ef-81e3-02001701d75b")
     private String farmId;
 
-    @NotNull(message = "농장대표이미지는 필수입력값입니다.")
-    @Schema(description = "농장대표이미지", example = "4e1ef790-217c-11ef-81e3-02001701d75b")
-    private String farmMainImageUrl;
+    @NotNull(message = "농장대표이미지ID는 필수입력값입니다.")
+    @Schema(description = "농장대표이미지ID", example = "4e1ef790-217c-11ef-81e3-02001701d75b")
+    private String farmMainImageId;
 
-    @NotNull(message = "농장배너이미지는 필수입력값입니다.")
-    @Schema(description = "농장배너이미지", example = "d9d362f0-21bf-11ef-81e3-02001701d75b")
+    @NotNull(message = "농장배너이미지ID는 필수입력값입니다.")
+    @Schema(description = "농장배너이미지ID", example = "d9d362f0-21bf-11ef-81e3-02001701d75b")
     private String farmBannerImageId;
 
     @NotNull(message = "농장이름은 필수입력값입니다.")
@@ -33,39 +33,39 @@ public class MyPageSetReqDto {
     private String farmKind;
 
     @NotNull(message = "농장주소는 필수입력값입니다.")
-    @Schema(description = "농장주소", example = "5fc775a4-265c-11ef-81e3-02001701d75b")
+    @Schema(description = "농장주소", example = "전남 영광군 법성면 대덕리 57-27")
     private String farmZip;
 
     @NotNull(message = "농장연락처는 필수입력값입니다.")
-    @Schema(description = "농장연락처", example = "5fc775a4-265c-11ef-81e3-02001701d75b")
+    @Schema(description = "농장연락처", example = "061-356-3650")
     private String farmOwnerTel;
 
     @NotNull(message = "대표자이름은 필수입력값입니다.")
-    @Schema(description = "대표자이름", example = "5fc775a4-265c-11ef-81e3-02001701d75b")
+    @Schema(description = "대표자이름", example = "김용철 대표")
     private String farmOwnerName;
 
     @NotNull(message = "대표자계좌번호는 필수입력값입니다.")
-    @Schema(description = "대표자계좌번호", example = "5fc775a4-265c-11ef-81e3-02001701d75b")
+    @Schema(description = "대표자계좌번호", example = "신한 4253014492621111 홍길이")
     private String farmAccountNo;
 
     @NotNull(message = "운영요일은 필수입력값입니다.")
-    @Schema(description = "운영요일", example = "5fc775a4-265c-11ef-81e3-02001701d75b")
+    @Schema(description = "운영요일", example = "월,수,금")
     private String farmUseDay;
 
     @NotNull(message = "운영시작시간은 필수입력값입니다.")
-    @Schema(description = "운영시작시간", example = "5fc775a4-265c-11ef-81e3-02001701d75b")
+    @Schema(description = "운영시작시간", example = "13:00")
     private String farmUseStartTime;
 
     @NotNull(message = "운영종료시간 필수입력값입니다.")
-    @Schema(description = "운영종료시간", example = "5fc775a4-265c-11ef-81e3-02001701d75b")
+    @Schema(description = "운영종료시간", example = "17:00")
     private String farmUseEndTime;
 
     @NotNull(message = "체험시간은 필수입력값입니다.")
-    @Schema(description = "체험시간", example = "5fc775a4-265c-11ef-81e3-02001701d75b")
+    @Schema(description = "체험시간", example = "1.5")
     private String farmUseTimeDetail;
 
     @NotNull(message = "체험가격은 필수입력값입니다.")
-    @Schema(description = "체험가격", example = "5fc775a4-265c-11ef-81e3-02001701d75b")
+    @Schema(description = "체험가격", example = "5000")
     private String farmUseAmt;
 
 }

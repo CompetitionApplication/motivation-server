@@ -1,6 +1,7 @@
 package kr.co.mapper.web;
 
 import kr.co.entity.File;
+import kr.co.entity.FileGroup;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,4 +11,5 @@ public interface FileMapper {
     void insertFile(File file);
 
     File selectFile(@Param("fileId") String fileId);
+    FileGroup selectFileGroup(String fileGroupId);
 }
