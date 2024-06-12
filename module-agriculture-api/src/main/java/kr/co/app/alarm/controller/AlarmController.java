@@ -23,7 +23,7 @@ public class AlarmController {
 
     final AlarmService alarmService;
 
-    @Operation(summary = "알람 여부", description = "읽지 않은 알람이 있는지 확인합니다.")
+    @Operation(summary = "알람 여부 조회", description = "읽지 않은 알람이 있는지 확인합니다.")
     @GetMapping("/alarm-count")
     public ResponseEntity<?> alarmCount(@AuthenticationPrincipal User user) throws Exception {
         return ObjectResult.build(alarmService.alarmCount(user));

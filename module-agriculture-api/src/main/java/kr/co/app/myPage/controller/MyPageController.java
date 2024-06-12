@@ -39,7 +39,7 @@ public class MyPageController {
                                                        "1.0 : 1시간<br>" +
                                                        "1.5 : 1시간 30분<br>" +
                                                        ",,,")
-    @PostMapping("/info-set")
+    @PutMapping("/info-set")
     public ResponseEntity<?> infoSet(@Valid @RequestBody MyPageInfoSetReqDto myPageInfoSetReqDto){
         myPageService.infoSet(myPageInfoSetReqDto);
         return ObjectResult.ok();
