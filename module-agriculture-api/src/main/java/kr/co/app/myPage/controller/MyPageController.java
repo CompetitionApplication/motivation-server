@@ -23,7 +23,7 @@ public class MyPageController {
     @Operation(summary = "마이페이지", description = "마이페이지를 조회 합니다.")
     @GetMapping("/info")
     public ResponseEntity<?> info(@AuthenticationPrincipal User user){
-        return ObjectResult.build(myPageService.info(user));
+        return ObjectResult.build(myPageService.info(user));  
     }
 
 
