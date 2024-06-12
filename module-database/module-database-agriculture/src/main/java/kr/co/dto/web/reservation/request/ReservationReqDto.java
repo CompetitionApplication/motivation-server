@@ -19,11 +19,11 @@ public class ReservationReqDto {
     private String reservationEmail;
 
     @NotNull(message = "예약자전화번호는 필수 입력값입니다.")
-    @Schema(description = "예약자전화번호", example = "01012349876")
+    @Schema(description = "예약자전화번호", example = "010-1234-9876")
     private String reservationTel;
 
     @NotNull(message = "예약일자는 필수 입력값입니다.")
-    @Schema(description = "예약일자", example = "7/12")
+    @Schema(description = "예약일자", example = "2024년 7월 12일")
     private String reservationDate;
 
     @NotNull(message = "예약인원은 필수 입력값입니다.")

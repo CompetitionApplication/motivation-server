@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class ReservationHistoryResDto {
     private String reservationId;
+    private String reservationStatus;
     private String reservationStatusNm;
     private String farmAccountNo;
     private String farmKindNm;
@@ -16,4 +17,8 @@ public class ReservationHistoryResDto {
     private String reservationParticipants;
     private String reservationStartTime;
     private String reservationEndTime;
+    private String reservationName;
+    private String reservationEmail;
+    private String reservationTel;
+    private String farmUseAmt;
 }

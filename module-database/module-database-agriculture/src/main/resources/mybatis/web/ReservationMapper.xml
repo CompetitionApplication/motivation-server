@@ -53,7 +53,13 @@
              , '0' as reviewStar
              , '0명' as reviewStarCnt
              , b.farm_owner_tel as farmOwnerTel
-             , concat(b.farm_use_time, ' ', '체험시간 ', b.farm_use_time_detail, '시간') as farmUseTimeDetail
+             , concat(b.farm_use_time, ' ', '체험시간 ',
+                      CASE WHEN MOD(b.farm_use_time_detail * 60, 60) = 0 THEN CONCAT(FLOOR(b.farm_use_time_detail), '시간')
+                           ELSE CONCAT(FLOOR(b.farm_use_time_detail), '시간 ',
+                                       LPAD(MOD(b.farm_use_time_detail * 60, 60), 2, '0'), '분'
+                                      )
+                       END
+                      ) as farmUseTimeDetail
              , a.reservation_date as reservationDate
              , a.reservation_participants as reservationParticipants
              , concat(a.reservation_start_time, ' ~ ', a.reservation_end_time) as reservationTime
@@ -66,6 +72,7 @@
     <select id="selectReservationByUserId" resultType="ReservationHistoryResDto">
         /* ReservationMapper.selectReservationByUserId */
         select a.reservation_id as reservationId
+             , a.reservation_status as reservationStatus
              , case when a.reservation_status = '00' THEN '예약대기'
                     when a.reservation_status = '01' THEN '예약확정'
                     else '예약취소'
@@ -78,11 +85,21 @@
              , b.farm_name as farmName
              , b.farm_zip as farmZip
              , b.farm_owner_tel as farmOwnerTel
-             , concat(b.farm_use_time, ' ', '체험시간 ', b.farm_use_time_detail, '시간') as farmUseTimeDetail
+             , concat(b.farm_use_time, ' ', '체험시간 ',
+                      CASE WHEN MOD(b.farm_use_time_detail * 60, 60) = 0 THEN CONCAT(FLOOR(b.farm_use_time_detail), '시간')
+                           ELSE CONCAT(FLOOR(b.farm_use_time_detail), '시간 ',
+                                       LPAD(MOD(b.farm_use_time_detail * 60, 60), 2, '0'), '분'
+                                       )
+                       END
+                      ) as farmUseTimeDetail
              , a.reservation_date as reservationDate
              , a.reservation_participants as reservationParticipants
              , a.reservation_start_time as reservationStartTime
              , a.reservation_end_time as reservationEndTime
+             , a.reservation_name as reservationName
+             , a.reservation_tel as reservationTel
+             , a.reservation_email as reservationEmail
+             , concat(format(b.farm_use_amt, 0), '원') as farmUseAmt
           from reservation a
      left join farm b
             on a.farm_id = b.farm_id

@@ -15,7 +15,12 @@
              , c.file_url as farmMainImageUrl
              , '0' as reviewStar
              , '0명' as reviewStarCnt
-             , concat('체험시간 ', a.farm_use_time_detail, '시간') as farmUseTimeDetailFormat
+             , concat('체험시간 ',CASE WHEN MOD(a.farm_use_time_detail * 60, 60) = 0 THEN CONCAT(FLOOR(a.farm_use_time_detail), '시간')
+                                     ELSE CONCAT(FLOOR(a.farm_use_time_detail), '시간 ',
+                                                  LPAD(MOD(a.farm_use_time_detail * 60, 60), 2, '0'), '분'
+                                                )
+                                  END
+                     ) as farmUseTimeDetailFormat
              , a.farm_fond_de as farmFondDe
           from farm a
      left join file_group b
