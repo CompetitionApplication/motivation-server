@@ -24,5 +24,7 @@ public class FarmDetailResDto {
     private String farmIntrcn;
     private List<FarmReviewResDto> reviewList;
     private List<FarmUseTimeDetailResDto> farmUseTimeDetailList;
+    private String farmEventDiscountRate;
+    private String farmEventDiscountAmtFormat;
 
 }
