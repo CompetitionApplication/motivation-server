@@ -58,6 +58,13 @@ public class ReservationServiceImpl implements ReservationService{
 
         String reservationEndTime = newTime.format(timeFormatter);
 
+        //중복예약 방어로직
+        int duplicationReservationCnt = reservationMapper.duplicationReservationCnt(reservationReqDto,user,reservationEndTime);
+        if(duplicationReservationCnt > 0){
+            throw new CommonException(CommonErrorCode.DUPLICATION_RESERVATION_TIME.getCode(),CommonErrorCode.DUPLICATION_RESERVATION_TIME.getMessage());
+        }
+
+        //예약
         String reservationId = commonMapper.selectUUID();
         reservationMapper.insertReservation(reservationReqDto,reservationId,user,reservationEndTime);
         ReservationResDto r = reservationMapper.selectReservationByReservationId(reservationId);
