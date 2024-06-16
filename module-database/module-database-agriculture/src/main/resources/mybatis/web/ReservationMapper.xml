@@ -32,7 +32,7 @@
                   , #{reservationReqDto.reservationParticipants}
                   , '00'
                   , #{reservationReqDto.reservationStartTime}
-                  , #{reservationReqDto.reservationEndTime}
+                  , #{reservationEndTime}
                   ,'system'
                   , CURRENT_TIMESTAMP
                   , 'system'

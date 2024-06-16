@@ -34,7 +34,7 @@ public class ReservationReqDto {
     @Schema(description = "예약시작시간", example = "10:00")
     private String reservationStartTime;
 
-    @NotNull(message = "예약종료시간은 필수 입력값입니다.")
-    @Schema(description = "예약종료시간", example = "11:00")
-    private String reservationEndTime;
+    //@NotNull(message = "예약종료시간은 필수 입력값입니다.")
+    //@Schema(description = "예약종료시간", example = "11:00")
+    //private String reservationEndTime;
 }

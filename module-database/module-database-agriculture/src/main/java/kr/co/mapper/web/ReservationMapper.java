@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper
 public interface ReservationMapper {
 
-    void insertReservation(@Param("reservationReqDto") ReservationReqDto reservationReqDto, @Param("reservationId") String reservationId, @Param("user") User user);
+    void insertReservation(@Param("reservationReqDto") ReservationReqDto reservationReqDto, @Param("reservationId") String reservationId, @Param("user") User user, @Param("reservationEndTime") String reservationEndTime);
     ReservationResDto selectReservationByReservationId(String reservationId);
     List<ReservationHistoryResDto> selectReservationByUserId(User user);
     void reservationFarmCancel(@Param("reservationCancelReqDto") ReservationCancelReqDto reservationCancelReqDto, @Param("user") User user);

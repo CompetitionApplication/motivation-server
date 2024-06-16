@@ -2,6 +2,7 @@ package kr.co.web.reservation.service;
 
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
+import kr.co.dto.web.farm.response.FarmUseTimeDetailResDto;
 import kr.co.dto.web.reservation.request.ReservationCancelReqDto;
 import kr.co.dto.web.reservation.request.ReservationReqDto;
 import kr.co.dto.web.reservation.response.ReservationHistoryResDto;
@@ -16,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -33,8 +36,30 @@ public class ReservationServiceImpl implements ReservationService{
         if(farm == null){
             throw new CommonException(CommonErrorCode.FARM_NOT_FOUND.getCode(),CommonErrorCode.FARM_NOT_FOUND.getMessage());
         }
+
+        //체험시간이 영업시간내 시간인지 체크
+        List<FarmUseTimeDetailResDto> farmUseTimeDetailList = farmMapper.selectFarmUseTimeDetailList(farm.getFarm_id());
+        boolean containsTime = farmUseTimeDetailList.stream()
+                .anyMatch(item -> item.getFarmUseTimeDetailSlot().equals(reservationReqDto.getReservationStartTime()));
+
+        if(!containsTime){
+            throw new CommonException(CommonErrorCode.CHECK_FARM_USE_TIME.getCode(), CommonErrorCode.CHECK_FARM_USE_TIME.getMessage());
+        }
+
+        //종료시간 자동 계산
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime time = LocalTime.parse(reservationReqDto.getReservationStartTime(), timeFormatter);
+
+        double interval = Double.parseDouble(farm.getFarm_use_time_detail());
+        int hours = (int) interval;
+        int minutes = (int) ((interval - hours) * 60);
+
+        LocalTime newTime = time.plusHours(hours).plusMinutes(minutes);
+
+        String reservationEndTime = newTime.format(timeFormatter);
+
         String reservationId = commonMapper.selectUUID();
-        reservationMapper.insertReservation(reservationReqDto,reservationId,user);
+        reservationMapper.insertReservation(reservationReqDto,reservationId,user,reservationEndTime);
         ReservationResDto r = reservationMapper.selectReservationByReservationId(reservationId);
         return r;
     }
