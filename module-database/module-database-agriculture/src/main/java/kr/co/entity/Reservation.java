@@ -20,6 +20,10 @@ public class Reservation {
     private String reservation_id;
     private String user_id;
     private String farm_id;
+    private String reservation_name;
+    private String reservation_email;
+    private String reservation_tel;
+    private String reservation_date;
     private int reservation_participants;
     private String reservation_status;
     private String reservation_start_time;

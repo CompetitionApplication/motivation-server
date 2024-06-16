@@ -54,6 +54,7 @@ project(':module-database:module-database-agriculture') {
         implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
         implementation 'org.springframework.boot:spring-boot-starter-security'
         implementation 'org.springframework.boot:spring-boot-starter-validation'
+        implementation 'com.google.firebase:firebase-admin:9.2.0'
     }
 }
 project('module-database:module-database-gyeongnam') {
@@ -102,6 +103,7 @@ project(':module-agriculture-api') {
         implementation 'com.sun.xml.bind:jaxb-core:4.0.1'
         implementation 'javax.xml.bind:jaxb-api:2.3.1'
         implementation 'org.springframework.boot:spring-boot-starter-webflux'
+        implementation 'com.google.firebase:firebase-admin:9.2.0'
     }
 }
 project(':module-gyeongnam-api') {

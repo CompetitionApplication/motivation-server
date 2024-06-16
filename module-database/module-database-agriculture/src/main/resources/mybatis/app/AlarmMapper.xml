@@ -32,6 +32,32 @@
            and alarm_id = #{alarmReadReqDto.alarmId}
     </update>
 
+    <insert id="insertAlarm">
+        /* UserMapper.insertAlarm */
+        insert into alarm (
+                    alarm_id
+                  , farm_id
+                  , alarm_kind
+                  , alarm_title
+                  , alarm_content
+                  , alarm_read_yn
+                  , created_id
+                  , created_date
+                  , mod_id
+                  , mod_date
+          ) values (
+                    UUID()
+                  , #{farm_id}
+                  , '01'
+                  , #{alarm_title}
+                  , #{alarm_content}
+                  , 'N'
+                  , #{created_id}
+                  , CURRENT_TIMESTAMP
+                  , #{created_id}
+                  , CURRENT_TIMESTAMP
+                 )
+    </insert>
 
 </mapper>
 

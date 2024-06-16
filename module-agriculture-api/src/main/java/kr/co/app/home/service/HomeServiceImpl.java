@@ -1,24 +1,16 @@
 package kr.co.app.home.service;
 
-import kr.co.app.user.service.AppUserService;
-import kr.co.auth.JwtUtil;
-import kr.co.common.AES256Util;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.app.home.request.StatusChangeReqDto;
 import kr.co.dto.app.home.response.HomeResDto;
-import kr.co.dto.app.user.request.AppUserLoginReqDto;
-import kr.co.dto.app.user.response.AppUserLoginResDto;
-import kr.co.entity.Farm;
-import kr.co.entity.Refreshtoken;
-import kr.co.entity.User;
-import kr.co.mapper.app.AppUserMapper;
+import kr.co.entity.*;
+import kr.co.mapper.app.AlarmMapper;
 import kr.co.mapper.app.HomeMapper;
-import kr.co.mapper.web.CommonMapper;
 import kr.co.mapper.web.FarmMapper;
+import kr.co.mapper.web.ReservationMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +21,9 @@ import java.util.List;
 public class HomeServiceImpl implements HomeService {
 
     final HomeMapper homeMapper;
+    final FarmMapper farmMapper;
+    final AlarmMapper alarmMapper;
+    final ReservationMapper reservationMapper;
 
     @Override
     public List<HomeResDto> homtList(String homeTab){
@@ -38,6 +33,12 @@ public class HomeServiceImpl implements HomeService {
 
     @Override
     public void statusChange(StatusChangeReqDto statusChangeReqDto, User user){
+        Reservation reservation = reservationMapper.selectReservationByReservationIdForReservation(statusChangeReqDto.getReservationId());
+
+        if(reservation == null){
+            throw new CommonException(CommonErrorCode.NOT_FOUND_RESERVATION_ID.getCode(),CommonErrorCode.NOT_FOUND_RESERVATION_ID.getMessage());
+        }
+
         homeMapper.statusChange(statusChangeReqDto, user);
     }
 
