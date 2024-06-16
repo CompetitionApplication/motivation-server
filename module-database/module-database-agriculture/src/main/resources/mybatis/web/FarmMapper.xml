@@ -11,7 +11,12 @@
                 end as farmKindNm
              , a.farm_name as farmName
              , a.farm_zip as farmZip
-             , concat(format(a.farm_use_amt, 0), '원') as farmUseAmt
+             , concat(format(a.farm_use_amt - (a.farm_use_amt * COALESCE(a.farm_event_dicount_rate,'0') / 100), 0), '원') as farmUseAmt
+             , case when a.farm_event_dicount_rate is not null then true
+                    else false
+                end as farm_event_dicount_YN
+             , concat(COALESCE(a.farm_event_dicount_rate,'0'), '%') as farmEventDiscountRate
+             , concat(format(a.farm_use_amt, 0), '원') as farmEventDiscountOriginalAmt
              , c.file_url as farmMainImageUrl
              , '0' as reviewStar
              , '0명' as reviewStarCnt
@@ -62,7 +67,7 @@
              , a.farm_zip as farmZip
              , concat(format(a.farm_use_amt - (a.farm_use_amt * COALESCE(a.farm_event_dicount_rate,'0') / 100), 0), '원') as farmUseAmt
              , concat(COALESCE(a.farm_event_dicount_rate,'0'), '%') as farmEventDiscountRate
-             , concat(format(a.farm_use_amt, 0), '원') as farmEventDiscountAmtFormat
+             , concat(format(a.farm_use_amt, 0), '원') as farmEventDiscountOriginalAmt
              , '0' as reviewStar
              , '0명' as reviewStarCnt
              , a.farm_longitude as farmLongitude

@@ -15,4 +15,7 @@ public class FarmsResDto {
     private String reviewStarCnt;
     private String farmUseTimeDetailFormat;
     private String farmFondDe;
+    private String farmEventDiscountRate;
+    private String farmEventDiscountOriginalAmt;
+    private boolean farm_event_dicount_YN;
 }
