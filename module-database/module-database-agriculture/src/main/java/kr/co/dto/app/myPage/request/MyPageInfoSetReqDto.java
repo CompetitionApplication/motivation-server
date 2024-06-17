@@ -1,9 +1,13 @@
 package kr.co.dto.app.myPage.request;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class MyPageInfoSetReqDto {
@@ -12,13 +16,13 @@ public class MyPageInfoSetReqDto {
     @Schema(description = "농장ID", example = "94a5de3d-2165-11ef-81e3-02001701d75b")
     private String farmId;
 
-    @NotNull(message = "농장대표이미지ID는 필수입력값입니다.")
-    @Schema(description = "농장대표이미지ID", example = "4e1ef790-217c-11ef-81e3-02001701d75b")
+    @NotNull(message = "농장대표이미지그룹ID는 필수입력값입니다.")
+    @Schema(description = "농장대표이미지그룹ID", example = "4e1ef790-217c-11ef-81e3-02001701d75b")
     private String farmMainImageId;
 
-    @NotNull(message = "농장배너이미지ID는 필수입력값입니다.")
-    @Schema(description = "농장배너이미지ID", example = "d9d362f0-21bf-11ef-81e3-02001701d75b")
-    private String farmBannerImageId;
+    @NotNull(message = "농장배너파일ID는 필수입력값입니다.")
+    @ArraySchema(schema = @Schema(description = "농장배너파일ID 리스트", implementation = file.class))
+    private List<file> farmBannerImageList;
 
     @NotNull(message = "농장이름은 필수입력값입니다.")
     @Schema(description = "농장이름", example = "미르영농조합법인")
@@ -71,4 +75,9 @@ public class MyPageInfoSetReqDto {
     @Schema(description = "체험가격", example = "5000")
     private String farmUseAmt;
 
+    @lombok.Data
+    public static class file {
+        @Schema(description = "배너이미지 파일ID", example = "wrvSTCcYtE")
+        private String bannerImageFileId;
+    }
 }

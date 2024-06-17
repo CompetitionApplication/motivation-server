@@ -202,23 +202,23 @@
     <update id="updateFarm">
         /* FarmMapper.updateFarm */
         update farm
-           set farm_main_image = #{farmMainImageId}
-             , farm_banner_image = #{farmBannerImageId}
-             , farm_name = #{farmName}
-             , farm_intrcn = #{farmIntrcn}
-             , farm_kind = #{farmKind}
-             , farm_zip = #{farmZip}
-             , farm_owner_tel = #{farmOwnerTel}
-             , farm_owner_name = #{farmOwnerName}
-             , farm_account_no = #{farmAccountNo}
-             , farm_use_day = #{farmUseDay}
-             , farm_use_time = concat(#{farmUseStartTime},' ~ ',#{farmUseEndTime} )
-             , farm_use_time_detail = #{farmUseTimeDetail}
-             , farm_use_amt = #{farmUseAmt}
+           set farm_main_image = #{myPageInfoSetReqDto.farmMainImageId}
+             , farm_banner_image = #{fileGroupId}
+             , farm_name = #{myPageInfoSetReqDto.farmName}
+             , farm_intrcn = #{myPageInfoSetReqDto.farmIntrcn}
+             , farm_kind = #{myPageInfoSetReqDto.farmKind}
+             , farm_zip = #{myPageInfoSetReqDto.farmZip}
+             , farm_owner_tel = #{myPageInfoSetReqDto.farmOwnerTel}
+             , farm_owner_name = #{myPageInfoSetReqDto.farmOwnerName}
+             , farm_account_no = #{myPageInfoSetReqDto.farmAccountNo}
+             , farm_use_day = #{myPageInfoSetReqDto.farmUseDay}
+             , farm_use_time = concat(#{myPageInfoSetReqDto.farmUseStartTime},' ~ ',#{myPageInfoSetReqDto.farmUseEndTime} )
+             , farm_use_time_detail = #{myPageInfoSetReqDto.farmUseTimeDetail}
+             , farm_use_amt = #{myPageInfoSetReqDto.farmUseAmt}
              , farm_status = '01'
-             , mod_id = #{farmId}
+             , mod_id = #{myPageInfoSetReqDto.farmId}
              , mod_date = CURRENT_TIMESTAMP
-         where farm_id = #{farmId}
+         where farm_id = #{myPageInfoSetReqDto.farmId}
     </update>
 
     <select id="checkFarmUseTimeA" resultType="boolean">
@@ -231,6 +231,19 @@
         /* FarmMapper.checkFarmUseTimeB */
         select IF(TIMESTAMPDIFF(MINUTE, STR_TO_DATE(#{farmUseStartTime}, '%H:%i'), STR_TO_DATE(#{farmUseEndTime}, '%H:%i')) % (#{farmUseTimeDetail} * 60) = 0,TRUE,FALSE)
           from dual
+    </select>
+
+    <select id="selectFarmBannerImageForMyPageFarmBannerResDto" resultType="MyPageFarmBannerResDto">
+        /* FarmMapper.selectFarmBannerImageForMyPageFarmBannerResDto */
+        select c.file_url as bannerImageUrl
+             , c.file_id as bannerImageFileId
+          from farm a
+     left join file_group b
+            on a.farm_banner_image = b.file_group_id
+     left join file c
+            on b.file_group_id = c.file_group_id
+         where a.farm_status = '01'
+           and farm_id = #{farmId}
     </select>
 </mapper>
 

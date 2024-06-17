@@ -38,7 +38,8 @@ public enum CommonErrorCode {
     CHECK_FARM_USE_TIME_START_END("Y005","영업시간이 잘못되었습니다."),
     CHECK_FARM_USE_TIME("Y006","체험시간단위가 영업시간내 충족하지 못합니다. 체험시간 또는 엽업시간을 변경해주세요."),
     NOT_FOUND_FILE_GROUP_ID("Y007","파일그룹 ID를 찾을수 없습니다."),
-    DUPLICATION_RESERVATION_TIME("Y008", "중복된 예약시간이 존재합니다.")
+    DUPLICATION_RESERVATION_TIME("Y008", "중복된 예약시간이 존재합니다."),
+    NOT_FOUND_FILE_ID("Y009","파일 ID를 찾을수 없습니다.")
 
     //경남(Z)
     ;

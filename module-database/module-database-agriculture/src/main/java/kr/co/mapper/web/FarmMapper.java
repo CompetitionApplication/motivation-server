@@ -1,6 +1,7 @@
 package kr.co.mapper.web;
 
 import kr.co.dto.app.myPage.request.MyPageInfoSetReqDto;
+import kr.co.dto.app.myPage.response.MyPageFarmBannerResDto;
 import kr.co.dto.web.farm.response.FarmBannerResDto;
 import kr.co.dto.web.farm.response.FarmDetailResDto;
 import kr.co.dto.web.farm.response.FarmUseTimeDetailResDto;
@@ -26,7 +27,8 @@ public interface FarmMapper {
     Farm selectFarmByFarmAppIdAndFarmAppPw(String farmAppId, String farmAppPw);
     User selectFarmByFarmIdForUser(String farmId);
     List<FarmUseTimeDetailResDto> selectFarmUseTimeDetailList(String farmId);
-    void updateFarm(MyPageInfoSetReqDto myPageInfoSetReqDto);
+    void updateFarm(@Param("myPageInfoSetReqDto") MyPageInfoSetReqDto myPageInfoSetReqDto, @Param("fileGroupId") String fileGroupId);
     boolean checkFarmUseTimeA(MyPageInfoSetReqDto myPageInfoSetReqDto);
     boolean checkFarmUseTimeB(MyPageInfoSetReqDto myPageInfoSetReqDto);
+    List<MyPageFarmBannerResDto> selectFarmBannerImageForMyPageFarmBannerResDto(String farmId);
 }

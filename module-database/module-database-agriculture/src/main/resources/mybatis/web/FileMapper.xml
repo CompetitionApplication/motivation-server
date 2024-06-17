@@ -59,6 +59,19 @@
          where file_group_id = #{fileGroupId}
     </select>
 
+    <delete id="deleteFileGroup">
+        /* FileMapper.selectFileGroup */
+        delete
+          from file_group
+         where file_group_id = #{fileGroupId}
+    </delete>
+
+    <update id="updateFile">
+        /* FileMapper.updateFile */
+        update file
+           set file_group_id = #{fileGroupId}
+         where file_id = #{fileId}
+    </update>
 </mapper>
 
 

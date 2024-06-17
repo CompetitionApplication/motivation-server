@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "myPage", description = "마이페이지")
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/app/myPage")
+@RequestMapping("/api/v1/app/my-page")
 @RequiredArgsConstructor
 public class MyPageController {
 

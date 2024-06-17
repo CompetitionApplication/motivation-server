@@ -7,6 +7,7 @@
         /* MyPageMapper.info */
         select a.farm_id as farmId
              , c.file_url as farmMainImageUrl
+             , a.farm_main_image as farmMainImageId
              , a.farm_banner_image as farmBannerImageId
              , a.farm_name as farmName
              , a.farm_intrcn as farmIntrcn

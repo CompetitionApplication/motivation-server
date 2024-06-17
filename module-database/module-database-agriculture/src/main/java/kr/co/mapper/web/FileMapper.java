@@ -7,9 +7,11 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface FileMapper {
-    void insertFileGroup(@Param("fileGroupId") String fileGroupId);
+    void insertFileGroup(String fileGroupId);
     void insertFile(File file);
 
-    File selectFile(@Param("fileId") String fileId);
+    File selectFile(String fileId);
     FileGroup selectFileGroup(String fileGroupId);
+    void deleteFileGroup(String fileGroupId);
+    void updateFile(String fileId, String fileGroupId);
 }
