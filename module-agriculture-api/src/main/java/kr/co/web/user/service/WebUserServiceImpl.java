@@ -63,6 +63,7 @@ public class WebUserServiceImpl implements WebUserService {
             webUserMapper.updateRefrshtoken(userId, refreshToken);
         }
 
+        r.setUserWebId(webUserLoginReqDto.getUserWebId());
         r.setAccessToken(accessToken);
         r.setRefreshTokenId(refreshTokenId);
 

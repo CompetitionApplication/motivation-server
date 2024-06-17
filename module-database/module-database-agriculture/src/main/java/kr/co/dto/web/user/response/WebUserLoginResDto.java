@@ -11,6 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class WebUserLoginResDto implements Serializable {
 
+    private String userWebId;
     private String accessToken;
     private String refreshTokenId;
 
