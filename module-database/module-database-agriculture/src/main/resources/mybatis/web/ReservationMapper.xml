@@ -63,9 +63,14 @@
              , a.reservation_date as reservationDate
              , a.reservation_participants as reservationParticipants
              , concat(a.reservation_start_time, ' ~ ', a.reservation_end_time) as reservationTime
+             , d.file_url as farmMainImageUrl
           from reservation a
      left join farm b
             on a.farm_id = b.farm_id
+     left join file_group c
+            on b.farm_main_image = c.file_group_id
+     left join file d
+            on c.file_group_id = d.file_group_id
          where a.reservation_id = #{reservationId}
     </select>
 
