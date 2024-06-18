@@ -11,6 +11,7 @@ import kr.co.entity.File;
 import kr.co.entity.FileGroup;
 import kr.co.entity.User;
 import kr.co.mapper.app.MyPageMapper;
+import kr.co.mapper.web.CommonMapper;
 import kr.co.mapper.web.FarmMapper;
 import kr.co.mapper.web.FileMapper;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class MyPageServiceImpl implements MyPageService {
     final MyPageMapper myPageMapper;
     final FarmMapper farmMapper;
     final FileMapper fileMapper;
+    final CommonMapper commonMapper;
 
     @Override
     public MyPageResDto info(User user){
@@ -53,22 +55,20 @@ public class MyPageServiceImpl implements MyPageService {
         }
 
         //배너이미지 확인
-        File mainFile = fileMapper.selectFile(myPageInfoSetReqDto.getFarmBannerImageList().get(0).getBannerImageFileId());
-        if(mainFile == null){
-            throw new CommonException(CommonErrorCode.NOT_FOUND_FILE_ID.getCode(),CommonErrorCode.NOT_FOUND_FILE_ID.getMessage());
-        }
-        String fileGroupId = mainFile.getFile_group_id();
+        String fileGroupId = commonMapper.selectUUID();
         for(MyPageInfoSetReqDto.file file: myPageInfoSetReqDto.getFarmBannerImageList()){
+            //파일그룹테이블 삭제
             File fileChk = fileMapper.selectFile(file.getBannerImageFileId());
             if(fileChk == null){
                 throw new CommonException(CommonErrorCode.NOT_FOUND_FILE_ID.getCode(),CommonErrorCode.NOT_FOUND_FILE_ID.getMessage());
             }
-            //단건으로 저장된 배너이미지들 한 그룹으로 묶기
-            if(!fileChk.getFile_group_id().equals(fileGroupId)){
-                fileMapper.deleteFileGroup(fileChk.getFile_group_id());
-                fileMapper.updateFile(file.getBannerImageFileId(),fileGroupId);
-            }
+            fileMapper.deleteFileGroup(fileChk.getFile_group_id());
+
+            //파일테이블 파일그룹ID업데이트
+            fileMapper.updateFile(file.getBannerImageFileId(),fileGroupId);
         }
+        //파일그룹테이블 신규채번ID 인서트
+        fileMapper.insertFileGroup(fileGroupId);
 
         //시작시간 종료시간 확인
         if(!farmMapper.checkFarmUseTimeA(myPageInfoSetReqDto)){
