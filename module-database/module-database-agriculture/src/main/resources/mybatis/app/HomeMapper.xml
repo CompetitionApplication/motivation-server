@@ -16,7 +16,7 @@
                     when a.reservation_status = '01' then '예약확정'
                     else '예약취소'
                 end as reservationStatusNm
-             , a.reservation_name as userName
+             , a.reservation_name as userName  
              , a.reservation_tel as userTel
              , a.created_date as createdDate
              , concat('총 ', a.reservation_participants,'명') as reservationParticipants
