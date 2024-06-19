@@ -70,7 +70,7 @@ public class MyPageServiceImpl implements MyPageService {
         //파일그룹테이블 신규채번ID 인서트
         fileMapper.insertFileGroup(fileGroupId);
 
-        //시작시간 종료시간 확인
+        //시작시간 종료시간 확인  
         if(!farmMapper.checkFarmUseTimeA(myPageInfoSetReqDto)){
             throw new CommonException(CommonErrorCode.CHECK_FARM_USE_TIME_START_END.getCode(),CommonErrorCode.CHECK_FARM_USE_TIME_START_END.getMessage());
         }
