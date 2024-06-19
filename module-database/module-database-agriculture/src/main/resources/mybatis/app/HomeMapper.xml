@@ -5,8 +5,9 @@
 
     <select id="homeList" resultType="HomeResDto">
         /* HomeMapper.homeList */
+        select aa.* from (
         select a.reservation_id as reservationId
-              , case when #{homeTab} = '00' then '예약도착'
+             , case when #{homeTab} = '00' then '예약도착'
                     when #{homeTab} = '01' then '예약확정'
                     when #{homeTab} = '02' then '예약취소'
                     else '전체'
@@ -15,27 +16,29 @@
                     when a.reservation_status = '01' then '예약확정'
                     else '예약취소'
                 end as reservationStatusNm
-             , b.user_name as userName
-             , b.user_tel as userTel
-             , b.created_date as createdDate
+             , a.reservation_name as userName
+             , a.reservation_tel as userTel
+             , a.created_date as createdDate
              , concat('총 ', a.reservation_participants,'명') as reservationParticipants
-             , replace(replace(date_format(b.created_date, '%Y년 %c월 %e일 %p %h시 %i분'), 'AM', '오전'), 'PM', '오후') AS reservationDate
-            , case when timestampdiff(minute, b.created_date, now()) <![CDATA[<]]> 60 then concat(timestampdiff(minute, b.created_date, now()), '분 전')
-                   when timestampdiff(hour, b.created_date, now()) <![CDATA[<]]> 24 then concat(timestampdiff(hour, b.created_date, now()), '시간 전')
-                   when timestampdiff(day, b.created_date, now()) <![CDATA[<]]> 7 then concat(timestampdiff(day, b.created_date, now()), '일 전')
-                   when timestampdiff(day, b.created_date, now()) <![CDATA[<]]> 30 then concat(timestampdiff(week, b.created_date, now()), '주 전')
-                   else concat(timestampdiff(month, b.created_date, now()), '개월 전')
-               end as timeAgo
-              from reservation a
-         left join user b
-                on a.user_id = b.user_id
-             where b.user_status = '00'
-            <if test="homeTab.equals('00') or homeTab.equals('01') or homeTab.equals('02')">
-               and reservation_status = #{homeTab}
-            </if>
-            <if test="homeTab.equals('03')">
-               and reservation_status in ('00','01','02')
-            </if>
+             , concat(a.reservation_date,' ',a.reservation_start_time) AS reservationDate
+             , case when timestampdiff(minute, a.created_date, now()) <![CDATA[<]]> 60 then concat(timestampdiff(minute, a.created_date, now()), '분 전')
+                    when timestampdiff(hour, a.created_date, now()) <![CDATA[<]]> 24 then concat(timestampdiff(hour, a.created_date, now()), '시간 전')
+                    when timestampdiff(day, a.created_date, now()) <![CDATA[<]]> 7 then concat(timestampdiff(day, a.created_date, now()), '일 전')
+                    when timestampdiff(day, a.created_date, now()) <![CDATA[<]]> 30 then concat(timestampdiff(week, a.created_date, now()), '주 전')
+                    else concat(timestampdiff(month, a.created_date, now()), '개월 전')
+                end as timeAgo
+         from reservation a
+    left join user b
+           on a.user_id = b.user_id
+        where b.user_status = '00'
+       <if test="homeTab.equals('00') or homeTab.equals('01') or homeTab.equals('02')">
+          and reservation_status = #{homeTab}
+       </if>
+       <if test="homeTab.equals('03')">
+          and reservation_status in ('00','01','02')
+       </if>
+        )aa
+        order by createdDate desc
     </select>
 
     <update id="statusChange">
