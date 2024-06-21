@@ -105,9 +105,14 @@
              , a.reservation_tel as reservationTel
              , a.reservation_email as reservationEmail
              , concat(format(b.farm_use_amt, 0), '원') as farmUseAmt
+             , d.file_url as farmMainImageUrl
           from reservation a
      left join farm b
             on a.farm_id = b.farm_id
+     left join file_group c
+               on b.farm_main_image = c.file_group_id
+     left join file d
+               on c.file_group_id = d.file_group_id
          where a.user_id = #{user_id}
     </select>
 
