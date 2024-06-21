@@ -64,6 +64,7 @@
              , a.reservation_participants as reservationParticipants
              , concat(a.reservation_start_time, ' ~ ', a.reservation_end_time) as reservationTime
              , d.file_url as farmMainImageUrl
+             , b.farm_use_day as farmUseDay
           from reservation a
      left join farm b
             on a.farm_id = b.farm_id
@@ -106,6 +107,7 @@
              , a.reservation_email as reservationEmail
              , concat(format(b.farm_use_amt, 0), '원') as farmUseAmt
              , d.file_url as farmMainImageUrl
+             , b.farm_use_day as farmUseDay
           from reservation a
      left join farm b
             on a.farm_id = b.farm_id

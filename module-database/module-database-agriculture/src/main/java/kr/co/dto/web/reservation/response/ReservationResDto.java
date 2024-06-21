@@ -17,4 +17,5 @@ public class ReservationResDto {
     private String reservationParticipants;
     private String reservationTime;
     private String farmMainImageUrl;
+    private String farmUseDay;
 }

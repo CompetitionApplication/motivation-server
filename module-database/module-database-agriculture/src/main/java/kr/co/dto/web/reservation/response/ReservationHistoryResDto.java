@@ -22,4 +22,5 @@ public class ReservationHistoryResDto {
     private String reservationTel;
     private String farmUseAmt;
     private String farmMainImageUrl;
+    private String farmUseDay;
 }
