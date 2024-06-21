@@ -102,7 +102,7 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
     @Override
-    public List<ReservationHistoryResDto> reservationFarmHistory(User user){
+    public List<ReservationHistoryResDto> reservationFarmHistory(User user){  
         List<ReservationHistoryResDto> r = reservationMapper.selectReservationByUserId(user);
         return r;
     }
