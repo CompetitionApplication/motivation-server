@@ -42,6 +42,9 @@ public class MailServiceImpl implements MailService{
         context.setVariable("totalAmount", reservationMailDto.getTotalAmount());
         context.setVariable("userName", reservationMailDto.getUserName());
         context.setVariable("userTel", reservationMailDto.getUserTel());
+        context.setVariable("middleTitle", reservationMailDto.getMiddleTitle());
+        context.setVariable("smallTitle", reservationMailDto.getSmallTitle());
+
 
         //메일 내용 설정 : 템플릿 프로세스
         String html = templateEngine.process("mail",context);

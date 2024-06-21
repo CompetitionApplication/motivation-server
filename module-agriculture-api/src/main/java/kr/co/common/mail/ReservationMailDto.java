@@ -6,6 +6,8 @@ import lombok.Data;
 public class ReservationMailDto {
 
     private String title;
+    private String middleTitle;
+    private String smallTitle;
     private String toMail;
     private String reservationId;
     private String farmName;
