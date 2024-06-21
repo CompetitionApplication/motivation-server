@@ -3,6 +3,8 @@ package kr.co.web.reservation.service;
 import com.google.firebase.messaging.FirebaseMessaging;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
+import kr.co.common.mail.MailService;
+import kr.co.common.mail.ReservationMailDto;
 import kr.co.dto.web.farm.response.FarmUseTimeDetailResDto;
 import kr.co.dto.web.reservation.request.ReservationCancelReqDto;
 import kr.co.dto.web.reservation.request.ReservationReqDto;
@@ -21,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -38,6 +41,7 @@ public class ReservationServiceImpl implements ReservationService{
     final CommonMapper commonMapper;
     final FarmMapper farmMapper;
     final AlarmMapper alarmMapper;
+    final MailService mailService;
     final FirebaseMessaging firebaseMessaging;
 
 
@@ -129,7 +133,7 @@ public class ReservationServiceImpl implements ReservationService{
 
     @Override
     @Transactional
-    public void reservationFarmCancel(ReservationCancelReqDto reservationCancelReqDto, User user){
+    public void reservationFarmCancel(ReservationCancelReqDto reservationCancelReqDto, User user) throws Exception{
         Reservation reservation = reservationMapper.selectReservationByReservationIdForReservation(reservationCancelReqDto.getReservationId());
 
         if(reservation == null){
@@ -158,5 +162,23 @@ public class ReservationServiceImpl implements ReservationService{
         }catch (Exception e){
             throw new CommonException(CommonErrorCode.FAIL.getCode(),CommonErrorCode.FAIL.getMessage());
         }
+
+        //mail
+        int number = Integer.parseInt(farm.getFarm_use_amt());
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        String formattedNumber = decimalFormat.format(number);
+
+        ReservationMailDto reservationMailDto = new ReservationMailDto();
+        reservationMailDto.setTitle("[we팜] 예약취소 안내 메일");
+        reservationMailDto.setMiddleTitle("예약이 취소되었습니다.");
+        reservationMailDto.setSmallTitle("안녕하세요, 예약취소된 내용을 안내드립니다.");
+        reservationMailDto.setReservationId(reservation.getReservation_id());
+        reservationMailDto.setToMail(reservation.getReservation_email());
+        reservationMailDto.setUserName(reservation.getReservation_name());
+        reservationMailDto.setUserTel(reservation.getReservation_tel());
+        reservationMailDto.setFarmName(farm.getFarm_name());
+        reservationMailDto.setTotalAmount(formattedNumber+"원");
+        reservationMailDto.setReservationDate(reservation.getReservation_date()+" "+reservation.getReservation_start_time()+"~"+reservation.getReservation_end_time());
+        mailService.sendReservationMail(reservationMailDto);
     }
 }

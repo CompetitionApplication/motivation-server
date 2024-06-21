@@ -38,7 +38,7 @@ public class ReservationController {
 
     @Operation(summary = "농장 예약 취소", description = "농장 예약을 취소 합니다.")
     @PutMapping("/farm-cancel")
-    public ResponseEntity<?> reservationFarmCancel(@Valid @RequestBody ReservationCancelReqDto reservationCancelReqDto, @AuthenticationPrincipal User user){
+    public ResponseEntity<?> reservationFarmCancel(@Valid @RequestBody ReservationCancelReqDto reservationCancelReqDto, @AuthenticationPrincipal User user) throws Exception{
         reservationService.reservationFarmCancel(reservationCancelReqDto,user);
         return ObjectResult.ok();
     }

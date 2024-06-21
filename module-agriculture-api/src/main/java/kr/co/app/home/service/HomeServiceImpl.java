@@ -54,11 +54,11 @@ public class HomeServiceImpl implements HomeService {
 
         ReservationMailDto reservationMailDto = new ReservationMailDto();
         if(statusChangeReqDto.getReservationStatus().equals("01")){
-            reservationMailDto.setTitle("we팜 예약확정 안내 메일");
+            reservationMailDto.setTitle("[we팜] 예약확정 안내 메일");
             reservationMailDto.setMiddleTitle("예약이 확정되었습니다.");
             reservationMailDto.setSmallTitle("안녕하세요, 예약확정된 내용을 안내드립니다.");
         }else{
-            reservationMailDto.setTitle("we팜 예약취소 안내 메일");
+            reservationMailDto.setTitle("[we팜] 예약취소 안내 메일");
             reservationMailDto.setMiddleTitle("예약이 취소되었습니다.");
             reservationMailDto.setSmallTitle("안녕하세요, 예약취소된 내용을 안내드립니다.");
         }
