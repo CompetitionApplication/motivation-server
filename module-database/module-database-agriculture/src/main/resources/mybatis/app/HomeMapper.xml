@@ -20,7 +20,7 @@
              , a.reservation_tel as userTel
              , a.created_date as createdDate
              , concat('총 ', a.reservation_participants,'명') as reservationParticipants
-             , concat(a.reservation_date,' ',a.reservation_start_time) AS reservationDate
+             , concat(DATE_FORMAT(a.reservation_date, '%Y년 %m월 %d일'),' ',a.reservation_start_time) AS reservationDate
              , case when timestampdiff(minute, a.created_date, now()) <![CDATA[<]]> 60 then concat(timestampdiff(minute, a.created_date, now()), '분 전')
                     when timestampdiff(hour, a.created_date, now()) <![CDATA[<]]> 24 then concat(timestampdiff(hour, a.created_date, now()), '시간 전')
                     when timestampdiff(day, a.created_date, now()) <![CDATA[<]]> 7 then concat(timestampdiff(day, a.created_date, now()), '일 전')
