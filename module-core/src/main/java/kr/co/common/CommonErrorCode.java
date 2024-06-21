@@ -40,7 +40,8 @@ public enum CommonErrorCode {
     NOT_FOUND_FILE_GROUP_ID("Y007","파일그룹 ID를 찾을수 없습니다."),
     DUPLICATION_RESERVATION_TIME("Y008", "중복된 예약시간이 존재합니다."),
     NOT_FOUND_FILE_ID("Y009","파일 ID를 찾을수 없습니다."),
-    NOT_USE_DAY_RESERVATION("Y010", "예약일이 운영 영업일에 포함되지 않습니다.")
+    NOT_USE_DAY_RESERVATION("Y010", "예약일이 운영 영업일에 포함되지 않습니다."),
+    NOT_DAY("Y011", "운영요일이 잘못되었습니다.")
 
     //경남(Z)
     ;

@@ -70,7 +70,7 @@ public class MyPageServiceImpl implements MyPageService {
         //파일그룹테이블 신규채번ID 인서트
         fileMapper.insertFileGroup(fileGroupId);
 
-        //시작시간 종료시간 확인  
+        //시작시간 종료시간 확인
         if(!farmMapper.checkFarmUseTimeA(myPageInfoSetReqDto)){
             throw new CommonException(CommonErrorCode.CHECK_FARM_USE_TIME_START_END.getCode(),CommonErrorCode.CHECK_FARM_USE_TIME_START_END.getMessage());
         }
@@ -78,6 +78,11 @@ public class MyPageServiceImpl implements MyPageService {
         //체험시간이 시작시간 종료시간에 나눠 떨어지는지 확인
         if(!farmMapper.checkFarmUseTimeB(myPageInfoSetReqDto)){
             throw new CommonException(CommonErrorCode.CHECK_FARM_USE_TIME.getCode(),CommonErrorCode.CHECK_FARM_USE_TIME.getMessage());
+        }
+
+        //운영요일 text체크
+        if(!myPageInfoSetReqDto.getFarmUseDay().matches("^[월화수목금토일,]*$")){
+            throw new CommonException(CommonErrorCode.NOT_DAY.getCode(),CommonErrorCode.NOT_DAY.getMessage());
         }
 
         //업데이트
