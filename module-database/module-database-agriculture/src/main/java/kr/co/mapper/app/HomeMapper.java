@@ -12,6 +12,6 @@ import java.util.List;
 @Mapper
 public interface HomeMapper {
 
-    List<HomeResDto> homeList(String homeTab);
+    List<HomeResDto> homeList(@Param("homeTab") String homeTab, @Param("user") User user);
     void statusChange(@Param("statusChangeReqDto") StatusChangeReqDto statusChangeReqDto, @Param("user") User user);
 }

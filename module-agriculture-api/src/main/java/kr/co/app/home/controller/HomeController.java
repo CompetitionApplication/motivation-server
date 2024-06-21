@@ -34,8 +34,8 @@ public class HomeController {
             "02 : 예약취소<br>" +
             "03 : 전체<br>")
     @GetMapping("/list")
-    public ResponseEntity<?> homeList(@Parameter(description = "홈탭", example = "03") @RequestParam(required = true) String homeTab){
-        return ListResult.build(homeService.homtList(homeTab));
+    public ResponseEntity<?> homeList(@Parameter(description = "홈탭", example = "03") @RequestParam(required = true) String homeTab, @AuthenticationPrincipal User user){
+        return ListResult.build(homeService.homtList(homeTab,user));
     }
 
     @Operation(summary = "예약 상태 변경", description = "예약 상태를 변경합니다.<br><br>" +

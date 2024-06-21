@@ -26,9 +26,9 @@ public class HomeServiceImpl implements HomeService {
     final ReservationMapper reservationMapper;
 
     @Override
-    public List<HomeResDto> homtList(String homeTab){
-        List<HomeResDto> r = homeMapper.homeList(homeTab);
-        return r;  
+    public List<HomeResDto> homtList(String homeTab, User user){
+        List<HomeResDto> r = homeMapper.homeList(homeTab, user);
+        return r;
     }
 
     @Override
