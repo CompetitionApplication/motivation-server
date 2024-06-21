@@ -44,7 +44,7 @@ public class HomeController {
                                                       "01 : 예약확정<br>" +
                                                       "02 : 예약취소<br>")
     @PutMapping("/status-change")
-    public ResponseEntity<?> statusChange(@Valid @RequestBody StatusChangeReqDto statusChangeReqDto, @AuthenticationPrincipal User user){
+    public ResponseEntity<?> statusChange(@Valid @RequestBody StatusChangeReqDto statusChangeReqDto, @AuthenticationPrincipal User user) throws Exception{
         homeService.statusChange(statusChangeReqDto, user);
         return ObjectResult.ok();
     }

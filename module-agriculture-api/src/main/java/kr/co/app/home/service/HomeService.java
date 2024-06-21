@@ -9,5 +9,5 @@ import java.util.List;
 public interface HomeService {
 
     List<HomeResDto> homtList(String homeTab, User user);
-    void statusChange(StatusChangeReqDto statusChangeReqDto, User user);
+    void statusChange(StatusChangeReqDto statusChangeReqDto, User user) throws Exception;
 }
