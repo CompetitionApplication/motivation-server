@@ -20,4 +20,6 @@ public interface ReservationMapper {
     void reservationFarmCancel(@Param("reservationCancelReqDto") ReservationCancelReqDto reservationCancelReqDto, @Param("user") User user);
     Reservation selectReservationByReservationIdForReservation(String reservationId);
     int duplicationReservationCnt(@Param("reservationReqDto") ReservationReqDto reservationReqDto, @Param("user") User user, @Param("reservationEndTime") String reservationEndTime);
+    int useDayChk(String day, String farmId);
+
 }

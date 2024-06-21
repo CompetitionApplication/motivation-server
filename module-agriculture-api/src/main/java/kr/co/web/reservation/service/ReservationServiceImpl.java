@@ -21,6 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -72,6 +74,24 @@ public class ReservationServiceImpl implements ReservationService{
         int duplicationReservationCnt = reservationMapper.duplicationReservationCnt(reservationReqDto,user,reservationEndTime);
         if(duplicationReservationCnt > 0){
             throw new CommonException(CommonErrorCode.DUPLICATION_RESERVATION_TIME.getCode(),CommonErrorCode.DUPLICATION_RESERVATION_TIME.getMessage());
+        }
+
+        //예약날짜가 운영요일인지 체크
+        // 날짜 형식을 위한 포맷터 생성
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // 문자열을 LocalDate 객체로 변환
+        LocalDate date = LocalDate.parse(reservationReqDto.getReservationDate(), formatter);
+
+        // 요일 구하기
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        String[] days = {"월", "화", "수", "목", "금", "토", "일"};
+
+        String day = days[dayOfWeek.getValue() - 1];
+        int useDayChk = reservationMapper.useDayChk(day,reservationReqDto.getFarmId());
+
+        if(useDayChk == 0){
+            throw new CommonException(CommonErrorCode.NOT_USE_DAY_RESERVATION.getCode(),CommonErrorCode.NOT_USE_DAY_RESERVATION.getMessage());
         }
 
         //예약

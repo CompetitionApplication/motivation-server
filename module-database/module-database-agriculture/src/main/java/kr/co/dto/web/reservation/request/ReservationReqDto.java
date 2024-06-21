@@ -23,7 +23,7 @@ public class ReservationReqDto {
     private String reservationTel;
 
     @NotNull(message = "예약일자는 필수 입력값입니다.")
-    @Schema(description = "예약일자", example = "2024년 7월 12일")
+    @Schema(description = "예약일자", example = "2024-08-03")
     private String reservationDate;
 
     @NotNull(message = "예약인원은 필수 입력값입니다.")

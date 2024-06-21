@@ -81,6 +81,7 @@
                       ) as farmUseTimeAndDetailTimeFormat
              , a.farm_owner_tel as farmOwnerTel
              , a.farm_intrcn as farmIntrcn
+             , a.farm_use_day as farmUseDay
           from farm a
          where farm_status = '01'
            and farm_id = #{farmId}
