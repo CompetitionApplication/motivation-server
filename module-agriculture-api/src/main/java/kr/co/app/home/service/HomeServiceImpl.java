@@ -27,7 +27,7 @@ public class HomeServiceImpl implements HomeService {
 
     @Override
     public List<HomeResDto> homtList(String homeTab, User user){
-        List<HomeResDto> r = homeMapper.homeList(homeTab, user);
+        List<HomeResDto> r = homeMapper.homeList(homeTab, user);  
         return r;
     }
 
