@@ -33,7 +33,12 @@
      left join file c
             on b.file_group_id = c.file_group_id
          where farm_status = '01'
-           and a.farm_kind = #{farmKind}
+        <if test="farmKind.equals('01') or farmKind.equals('02') or farmKind.equals('03')">
+            and a.farm_kind = #{farmKind}
+        </if>
+        <if test="farmKind.equals('00')">
+            and a.farm_kind in ('01','02','03')
+        </if>
         <if test='farmName != null and farmName != ""'>
            and a.farm_name like concat('%', #{farmName}, '%')
         </if>
