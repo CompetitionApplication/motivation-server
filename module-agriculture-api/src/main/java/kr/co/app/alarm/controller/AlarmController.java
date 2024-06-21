@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/app/alarm")
 @RequiredArgsConstructor
-public class AlarmController {
+public class AlarmController {  
 
     final AlarmService alarmService;
 
@@ -32,7 +32,7 @@ public class AlarmController {
     @Operation(summary = "알람조회", description = "알람을 조회 합니다.")
     @GetMapping("/alarm")
     public ResponseEntity<?> alarms(@AuthenticationPrincipal User user) throws Exception {
-        return ListResult.build(alarmService.alarms(user));  
+        return ListResult.build(alarmService.alarms(user));
     }
 
     @Operation(summary = "알람 읽음", description = "알람 읽음 입니다.")
