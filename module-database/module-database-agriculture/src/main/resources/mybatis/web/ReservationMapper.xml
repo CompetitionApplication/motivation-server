@@ -98,6 +98,13 @@
                                        )
                        END
                       ) as farmUseTimeDetail
+             , concat(a.reservation_start_time, ' ~ ', a.reservation_end_time, ' ', '체험시간 ',
+                      CASE WHEN MOD(b.farm_use_time_detail * 60, 60) = 0 THEN CONCAT(FLOOR(b.farm_use_time_detail), '시간')
+                           ELSE CONCAT(FLOOR(b.farm_use_time_detail), '시간 ',
+                                       LPAD(MOD(b.farm_use_time_detail * 60, 60), 2, '0'), '분'
+                                       )
+                       END
+                     ) as reservationTime
              , a.reservation_date as reservationDate
              , a.reservation_participants as reservationParticipants
              , a.reservation_start_time as reservationStartTime
