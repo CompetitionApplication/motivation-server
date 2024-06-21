@@ -8,6 +8,11 @@
         select UUID() from dual
     </select>
 
+    <select id="reservationId" resultType="String">
+        /* CommonMapper.reservationId */
+        select concat('R',CONCAT(DATE_FORMAT(NOW(3), '%y%m%d%H%i%s'), LPAD(MICROSECOND(NOW(3)) DIV 1000, 3, '0'))) from dual
+    </select>
+
 
 </mapper>
 

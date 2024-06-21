@@ -95,7 +95,7 @@ public class ReservationServiceImpl implements ReservationService{
         }
 
         //예약
-        String reservationId = commonMapper.selectUUID();
+        String reservationId = commonMapper.reservationId();
         reservationMapper.insertReservation(reservationReqDto,reservationId,user,reservationEndTime);
         ReservationResDto r = reservationMapper.selectReservationByReservationId(reservationId);
 
@@ -122,7 +122,7 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
     @Override
-    public List<ReservationHistoryResDto> reservationFarmHistory(User user){  
+    public List<ReservationHistoryResDto> reservationFarmHistory(User user){
         List<ReservationHistoryResDto> r = reservationMapper.selectReservationByUserId(user);
         return r;
     }
