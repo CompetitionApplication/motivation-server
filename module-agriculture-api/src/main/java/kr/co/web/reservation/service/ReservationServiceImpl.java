@@ -169,7 +169,7 @@ public class ReservationServiceImpl implements ReservationService{
         ReservationMailDto reservationMailDto = new ReservationMailDto();
         reservationMailDto.setUserId(reservation.getUser_id());
         reservationMailDto.setTitle("[we팜] 예약취소 안내 메일");
-        reservationMailDto.setMiddleTitle("예약이 취소되었습니다.");
+        reservationMailDto.setMiddleTitle("예약취소");
         reservationMailDto.setSmallTitle("안녕하세요, 예약취소된 내용을 안내드립니다.");
         reservationMailDto.setReservationId(reservation.getReservation_id());
         reservationMailDto.setToMail(reservation.getReservation_email());
