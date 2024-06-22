@@ -22,6 +22,10 @@ public class MailServiceImpl implements MailService{
 
     @Override
     public void sendReservationMail(ReservationMailDto reservationMailDto) throws Exception{
+
+        log.info("=======MAIL SEND INFO=======");
+        log.info("reservationMailDto ::: {}", reservationMailDto);
+
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
@@ -45,12 +49,14 @@ public class MailServiceImpl implements MailService{
         context.setVariable("middleTitle", reservationMailDto.getMiddleTitle());
         context.setVariable("smallTitle", reservationMailDto.getSmallTitle());
 
-
         //메일 내용 설정 : 템플릿 프로세스
         String html = templateEngine.process("mail",context);
         helper.setText(html, true);
 
         //메일 보내기
         javaMailSender.send(message);
+
+        //메일 발송이력 저장
+
     }
 }

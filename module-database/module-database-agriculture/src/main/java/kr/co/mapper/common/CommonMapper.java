@@ -1,4 +1,4 @@
-package kr.co.mapper.web;
+package kr.co.mapper.common;
 
 import org.apache.ibatis.annotations.Mapper;
 

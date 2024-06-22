@@ -11,7 +11,7 @@ import kr.co.dto.web.user.response.WebUserLoginResDto;
 import kr.co.dto.web.notice.response.NoticeResDto;
 import kr.co.entity.Refreshtoken;
 import kr.co.entity.User;
-import kr.co.mapper.web.CommonMapper;
+import kr.co.mapper.common.CommonMapper;
 import kr.co.mapper.web.WebUserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

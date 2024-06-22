@@ -1,4 +1,4 @@
-package kr.co.mapper.web;
+package kr.co.mapper.common;
 
 import kr.co.entity.File;
 import kr.co.entity.FileGroup;

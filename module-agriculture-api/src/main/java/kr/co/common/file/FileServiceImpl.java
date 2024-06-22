@@ -1,8 +1,8 @@
 package kr.co.common.file;
 
 import kr.co.dto.common.file.response.FileResponseDto;
-import kr.co.mapper.web.CommonMapper;
-import kr.co.mapper.web.FileMapper;
+import kr.co.mapper.common.CommonMapper;
+import kr.co.mapper.common.FileMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;

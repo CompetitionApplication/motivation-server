@@ -15,7 +15,7 @@ import kr.co.entity.Farm;
 import kr.co.entity.Reservation;
 import kr.co.entity.User;
 import kr.co.mapper.app.AlarmMapper;
-import kr.co.mapper.web.CommonMapper;
+import kr.co.mapper.common.CommonMapper;
 import kr.co.mapper.web.FarmMapper;
 import kr.co.mapper.web.ReservationMapper;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +29,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import static kr.co.dto.common.push.PushContent.*;
 
 @Slf4j
 @Service

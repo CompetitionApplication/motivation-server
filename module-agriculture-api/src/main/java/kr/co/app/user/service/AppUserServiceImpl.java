@@ -9,7 +9,7 @@ import kr.co.dto.app.user.response.AppUserLoginResDto;
 import kr.co.entity.Farm;
 import kr.co.entity.Refreshtoken;
 import kr.co.mapper.app.AppUserMapper;
-import kr.co.mapper.web.CommonMapper;
+import kr.co.mapper.common.CommonMapper;
 import kr.co.mapper.web.FarmMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
