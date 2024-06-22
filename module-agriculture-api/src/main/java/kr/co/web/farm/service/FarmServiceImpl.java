@@ -13,6 +13,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -35,17 +36,22 @@ public class FarmServiceImpl implements FarmService {
 
     @Override
     public List<FarmsResDto> farms(String farmKind, String farmName, String farmUseDay, String farmMaxUserCnt, String orderByKind){
-        // 날짜 형식을 위한 포맷터 생성
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        // 문자열을 LocalDate 객체로 변환
-        LocalDate date = LocalDate.parse(farmUseDay, formatter);
+        String day = null;
 
-        // 요일 구하기
-        DayOfWeek dayOfWeek = date.getDayOfWeek();
-        String[] days = {"월", "화", "수", "목", "금", "토", "일"};
+        if(!StringUtils.isEmpty(farmUseDay)){
+            // 날짜 형식을 위한 포맷터 생성
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        String day = days[dayOfWeek.getValue() - 1];
+            // 문자열을 LocalDate 객체로 변환
+            LocalDate date = LocalDate.parse(farmUseDay, formatter);
+
+            // 요일 구하기
+            DayOfWeek dayOfWeek = date.getDayOfWeek();
+            String[] days = {"월", "화", "수", "목", "금", "토", "일"};
+
+            day = days[dayOfWeek.getValue() - 1];
+        }
 
         List<FarmsResDto> r =  farmMapper.selectFarms(farmKind,farmName,day,farmMaxUserCnt,orderByKind);
         return r;
