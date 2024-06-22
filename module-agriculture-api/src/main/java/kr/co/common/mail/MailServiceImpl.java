@@ -50,7 +50,7 @@ public class MailServiceImpl implements MailService{
         context.setVariable("smallTitle", reservationMailDto.getSmallTitle());
 
         //메일 내용 설정 : 템플릿 프로세스
-        String html = templateEngine.process("mail",context);
+        String html = templateEngine.process("MailReservation",context);
         helper.setText(html, true);
 
         //메일 보내기
