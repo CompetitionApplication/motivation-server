@@ -4,7 +4,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.common.mail.MailService;
-import kr.co.common.mail.ReservationMailDto;
+import kr.co.dto.common.mail.ReservationMailDto;
 import kr.co.dto.web.farm.response.FarmUseTimeDetailResDto;
 import kr.co.dto.web.reservation.request.ReservationCancelReqDto;
 import kr.co.dto.web.reservation.request.ReservationReqDto;
@@ -167,6 +167,7 @@ public class ReservationServiceImpl implements ReservationService{
         String formattedNumber = decimalFormat.format(number);
 
         ReservationMailDto reservationMailDto = new ReservationMailDto();
+        reservationMailDto.setUserId(reservationMailDto.getUserId());
         reservationMailDto.setTitle("[we팜] 예약취소 안내 메일");
         reservationMailDto.setMiddleTitle("예약이 취소되었습니다.");
         reservationMailDto.setSmallTitle("안녕하세요, 예약취소된 내용을 안내드립니다.");

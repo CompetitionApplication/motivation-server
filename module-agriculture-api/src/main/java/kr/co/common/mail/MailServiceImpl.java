@@ -1,11 +1,10 @@
 package kr.co.common.mail;
 
 import jakarta.mail.internet.MimeMessage;
-import kr.co.entity.Reservation;
+import kr.co.dto.common.mail.ReservationMailDto;
+import kr.co.mapper.common.MailMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,7 @@ public class MailServiceImpl implements MailService{
 
     final JavaMailSender javaMailSender;
     final SpringTemplateEngine templateEngine;
+    final MailMapper mailMapper;
 
     @Override
     public void sendReservationMail(ReservationMailDto reservationMailDto) throws Exception{
@@ -57,6 +57,6 @@ public class MailServiceImpl implements MailService{
         javaMailSender.send(message);
 
         //메일 발송이력 저장
-
+        mailMapper.insertMailSend(reservationMailDto);
     }
 }

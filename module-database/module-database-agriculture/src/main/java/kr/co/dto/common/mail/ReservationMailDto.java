@@ -1,10 +1,11 @@
-package kr.co.common.mail;
+package kr.co.dto.common.mail;
 
 import lombok.Data;
 
 @Data
 public class ReservationMailDto {
 
+    private String userId;
     private String title;
     private String middleTitle;
     private String smallTitle;

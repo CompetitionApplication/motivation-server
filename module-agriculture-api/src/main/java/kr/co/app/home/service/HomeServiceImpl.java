@@ -3,7 +3,7 @@ package kr.co.app.home.service;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.common.mail.MailService;
-import kr.co.common.mail.ReservationMailDto;
+import kr.co.dto.common.mail.ReservationMailDto;
 import kr.co.dto.app.home.request.StatusChangeReqDto;
 import kr.co.dto.app.home.response.HomeResDto;
 import kr.co.entity.*;
@@ -53,6 +53,7 @@ public class HomeServiceImpl implements HomeService {
         String formattedNumber = decimalFormat.format(number);
 
         ReservationMailDto reservationMailDto = new ReservationMailDto();
+        reservationMailDto.setUserId(reservation.getUser_id());
         if(statusChangeReqDto.getReservationStatus().equals("01")){
             reservationMailDto.setTitle("[we팜] 예약확정 안내 메일");
             reservationMailDto.setMiddleTitle("예약이 확정되었습니다.");
