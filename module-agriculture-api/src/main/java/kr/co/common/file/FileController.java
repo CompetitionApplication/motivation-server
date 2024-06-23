@@ -33,4 +33,10 @@ public class FileController {
                                             @PathVariable(name = "fileId") String fileId) throws Exception, IOException {
         return fileService.showImage(fileId);
     }
+
+    @Operation(summary = "개인정보 이용약관", description = "현재 적용중인 개인정보 이용약관을 조회 합니다.")
+    @GetMapping("/privacy-clause")
+    public ResponseEntity<byte[]> getPrivacyClause() throws Exception {
+        return fileService.getPrivacyClause();
+    }
 }

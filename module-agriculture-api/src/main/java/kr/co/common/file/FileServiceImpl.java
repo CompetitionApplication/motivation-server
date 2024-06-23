@@ -1,6 +1,7 @@
 package kr.co.common.file;
 
 import kr.co.dto.common.file.response.FileResponseDto;
+import kr.co.entity.FileGroup;
 import kr.co.mapper.common.CommonMapper;
 import kr.co.mapper.common.FileMapper;
 import lombok.RequiredArgsConstructor;
@@ -173,6 +174,7 @@ public class FileServiceImpl implements FileService {
         return fileResponseDtoList;
     }
 
+    @Override
     public ResponseEntity<byte[]> showImage(String fileId) throws Exception, IOException {
 
         kr.co.entity.File fileInfo =  fileMapper.selectFile(fileId);
@@ -192,6 +194,24 @@ public class FileServiceImpl implements FileService {
         return result;
     }
 
+    @Override
+    public ResponseEntity<byte[]> getPrivacyClause() throws Exception{
 
+        kr.co.entity.File fileInfo = fileMapper.selectClauseByClauseKind("00");
+
+        File file = new File(fileInfo.getFile_path()+File.separator+fileInfo.getFile_name());
+
+        if(!file.isFile()){
+            throw new Exception();
+        }
+
+        ResponseEntity<byte[]> result = null;
+
+        HttpHeaders header = new HttpHeaders();
+        header.add("Content-type", Files.probeContentType(file.toPath()));
+        result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+
+        return result;
+    }
 
 }

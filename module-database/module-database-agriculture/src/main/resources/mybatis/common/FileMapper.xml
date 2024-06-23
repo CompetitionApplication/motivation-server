@@ -72,6 +72,17 @@
            set file_group_id = #{fileGroupId}
          where file_id = #{fileId}
     </update>
+
+    <select id="selectClauseByClauseKind" resultType="File">
+        /* FileMapper.selectClauseByClauseKind */
+        select c.*
+          from clause a
+     left join file_group b
+            on a.file_group_id = b.file_group_id
+     left join file c
+            on b.file_group_id = c.file_group_id
+         where a.clause_kind = #{clauseKind}
+    </select>
 </mapper>
 
 

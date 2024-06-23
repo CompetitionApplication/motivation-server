@@ -11,6 +11,7 @@
             on a.file_group_id = b.file_group_id
      left join file c
             on b.file_group_id = c.file_group_id
+           and a.clause_kind = '01'
     </select>
 
     <select id="selectClause" resultType="ClauseResDto">

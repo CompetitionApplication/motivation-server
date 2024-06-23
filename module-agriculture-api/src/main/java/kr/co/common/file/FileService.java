@@ -12,4 +12,6 @@ public interface FileService {
     List<FileResponseDto> uploadImage(MultipartHttpServletRequest multipartHttpServletRequest) throws Exception;
 
     ResponseEntity<byte[]> showImage(String fileId) throws Exception, IOException;
+
+    ResponseEntity<byte[]> getPrivacyClause() throws Exception;
 }

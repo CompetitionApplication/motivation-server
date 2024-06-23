@@ -14,4 +14,5 @@ public interface FileMapper {
     FileGroup selectFileGroup(String fileGroupId);
     void deleteFileGroup(String fileGroupId);
     void updateFile(String fileId, String fileGroupId);
+    File selectClauseByClauseKind(String clauseKind);
 }
