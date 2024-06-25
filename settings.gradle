@@ -5,4 +5,7 @@ include 'module-redis'
 include 'module-agriculture-api'
 include 'module-gyeongnam-api'
 include 'module-core'
+include 'module-tourism-api'
+include 'module-database:module-database-tourism'
+findProject(':module-database:module-database-tourism')?.name = 'module-database-tourism'
 

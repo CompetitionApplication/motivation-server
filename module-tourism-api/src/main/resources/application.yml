@@ -1,0 +1,16 @@
+spring.profiles.include:
+  - database-tourism
+  - redis
+---
+spring.config.activate.on-profile: local
+server:
+  port: 8080
+jwt:
+  secret-access-token: ${JWT_SECRET_ACCESS_TOKEN}
+
+---
+spring.config.activate.on-profile: prod
+server:
+  port: 18000
+jwt:
+  secret-access-token: ${JWT_SECRET_ACCESS_TOKEN}
