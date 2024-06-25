@@ -8,5 +8,5 @@ public class WebUserInfoResDto {
     private String userName;
     private String userBirth;
     private String userTel;
-    private String userEamil;
+    private String userEmail;
 }
