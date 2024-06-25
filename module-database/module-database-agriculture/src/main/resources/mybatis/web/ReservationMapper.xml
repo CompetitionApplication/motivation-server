@@ -123,6 +123,7 @@
      left join file d
                on c.file_group_id = d.file_group_id
          where a.user_id = #{user_id}
+      order by a.created_date desc
     </select>
 
     <update id="reservationFarmCancel">
