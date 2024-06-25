@@ -11,6 +11,6 @@ jwt:
 ---
 spring.config.activate.on-profile: prod
 server:
-  port: 7001
+  port: 18080
 jwt:
   secret-access-token: ${JWT_SECRET_ACCESS_TOKEN}
