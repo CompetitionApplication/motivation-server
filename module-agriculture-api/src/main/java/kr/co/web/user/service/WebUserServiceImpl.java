@@ -118,7 +118,7 @@ public class WebUserServiceImpl implements WebUserService {
 
     @Override
     public WebUserInfoResDto myInfo(User user){
-        WebUserInfoResDto r = webUserMapper.myInfo(user);
+        WebUserInfoResDto r = webUserMapper.myInfo(user);  
         return r;
     }
 }
