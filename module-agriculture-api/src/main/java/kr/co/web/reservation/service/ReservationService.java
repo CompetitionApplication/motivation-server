@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ReservationService {
 
-    ReservationResDto reservationFarm(ReservationReqDto reservationReqDto, User user);
+    ReservationResDto reservationFarm(ReservationReqDto reservationReqDto, User user) throws Exception;
     List<ReservationHistoryResDto> reservationFarmHistory(User user);
     void reservationFarmCancel(ReservationCancelReqDto reservationCancelReqDto, User user) throws Exception;
 }

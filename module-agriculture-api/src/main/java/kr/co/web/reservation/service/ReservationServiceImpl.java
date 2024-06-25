@@ -45,7 +45,7 @@ public class ReservationServiceImpl implements ReservationService{
 
     @Override
     @Transactional
-    public ReservationResDto reservationFarm(ReservationReqDto reservationReqDto, User user){
+    public ReservationResDto reservationFarm(ReservationReqDto reservationReqDto, User user) throws Exception{
         Farm farm = farmMapper.selectFarmByFarmIdForFarm(reservationReqDto.getFarmId());
         if(farm == null){
             throw new CommonException(CommonErrorCode.FARM_NOT_FOUND.getCode(),CommonErrorCode.FARM_NOT_FOUND.getMessage());
@@ -119,6 +119,25 @@ public class ReservationServiceImpl implements ReservationService{
         }catch (Exception e){
             throw new CommonException(CommonErrorCode.FAIL.getCode(),CommonErrorCode.FAIL.getMessage());
         }
+
+        //mail
+        int number = Integer.parseInt(farm.getFarm_use_amt());
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        String formattedNumber = decimalFormat.format(number);
+
+        ReservationMailDto reservationMailDto = new ReservationMailDto();
+        reservationMailDto.setUserId(user.getUser_id());
+        reservationMailDto.setTitle("[we팜] 예약대기 안내 메일");
+        reservationMailDto.setMiddleTitle("예약대기");
+        reservationMailDto.setSmallTitle("안녕하세요, 예약대기된 내용을 안내드립니다.(입금 확인후 예약확정 처리 됩니다.)");
+        reservationMailDto.setReservationId(reservationId);
+        reservationMailDto.setToMail(reservationReqDto.getReservationEmail());
+        reservationMailDto.setUserName(reservationReqDto.getReservationName());
+        reservationMailDto.setUserTel(reservationReqDto.getReservationTel());
+        reservationMailDto.setFarmName(farm.getFarm_name());
+        reservationMailDto.setTotalAmount(formattedNumber+"원");
+        reservationMailDto.setReservationDate(reservationReqDto.getReservationDate()+" "+reservationReqDto.getReservationStartTime()+"~"+reservationEndTime);
+        mailService.sendReservationMail(reservationMailDto);
 
         return r;
     }

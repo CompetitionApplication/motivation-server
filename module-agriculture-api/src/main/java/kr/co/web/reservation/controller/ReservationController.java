@@ -26,7 +26,7 @@ public class ReservationController {
 
     @Operation(summary = "농장 예약", description = "농장을 예약 합니다.")
     @PostMapping("/farm")
-    public ResponseEntity<?> reservationFarm(@Valid @RequestBody ReservationReqDto reservationReqDto, @AuthenticationPrincipal User user){
+    public ResponseEntity<?> reservationFarm(@Valid @RequestBody ReservationReqDto reservationReqDto, @AuthenticationPrincipal User user) throws Exception{
         return ObjectResult.build(reservationService.reservationFarm(reservationReqDto,user));
     }
 
