@@ -70,6 +70,19 @@ project('module-database:module-database-gyeongnam') {
         implementation 'org.springframework.boot:spring-boot-starter-validation'
     }
 }
+project('module-database:module-database-tourism') {
+    bootJar { enabled = false }
+    jar { enabled = true }
+    dependencies {
+        implementation project(':module-core')
+        api 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'com.mysql:mysql-connector-j'
+        implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+        implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+    }
+}
 
 project(':module-core') {
     bootJar { enabled = false}
@@ -115,6 +128,22 @@ project(':module-gyeongnam-api') {
 
     dependencies {
         implementation project(':module-database:module-database-gyeongnam')
+        implementation project(':module-redis')
+        implementation project(':module-core')
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        implementation 'io.jsonwebtoken:jjwt:0.9.1'
+        implementation 'com.sun.xml.bind:jaxb-impl:4.0.1'
+        implementation 'com.sun.xml.bind:jaxb-core:4.0.1'
+        implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    }
+}
+project(':module-tourism-api') {
+    bootJar { enabled = true }
+    jar { enabled = true }
+
+    dependencies {
+        implementation project(':module-database:module-database-tourism')
         implementation project(':module-redis')
         implementation project(':module-core')
         implementation 'org.springframework.boot:spring-boot-starter-web'
