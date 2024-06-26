@@ -24,7 +24,7 @@ public class FileController {
     @Operation(summary = "이미지 업로드",description = "이미지를 업로드 합니다.")
     @PostMapping("/images")
     public ResponseEntity<?> uploadImage(MultipartHttpServletRequest multipartHttpServletRequest) throws Exception{
-        return ListResult.build(fileService.uploadImage(multipartHttpServletRequest));
+        return ListResult.build(fileService.uploadImage(multipartHttpServletRequest));   
     }
 
     @Operation(summary = "이미지 열기",description = "url 입력시 해당 이미지를 노출합니다.")
