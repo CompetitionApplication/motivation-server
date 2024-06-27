@@ -126,7 +126,7 @@ public class ReservationServiceImpl implements ReservationService{
         String pushTitle = "예약 알림 도착";
         String pushContent = reservationReqDto.getReservationDate()+" "+reservationReqDto.getReservationName()+"님 예약이 도착했습니다.";
         try {
-            firebaseMessaging.send(makeMessage(farm.getFarm_app_push_token(), pushTitle, pushContent, alarmCnt));
+            firebaseMessaging.send(makeMessage(farm.getFarm_app_push_token(), pushTitle, pushContent, alarmCnt+1));
             Alarm alarm = new Alarm();
             alarm.setFarm_id(farm.getFarm_id());
             alarm.setAlarm_kind("01");
@@ -186,7 +186,7 @@ public class ReservationServiceImpl implements ReservationService{
         String pushTitle = "예약취소 알림 도착";
         String pushContent = reservation.getReservation_date()+" "+reservation.getReservation_name()+"님이 예약을 취소하였습니다.";
         try {
-            firebaseMessaging.send(makeMessage(farm.getFarm_app_push_token(), pushTitle, pushContent, alarmCnt));
+            firebaseMessaging.send(makeMessage(farm.getFarm_app_push_token(), pushTitle, pushContent, alarmCnt+1));
             Alarm alarm = new Alarm();
             alarm.setFarm_id(farm.getFarm_id());
             alarm.setAlarm_kind("01");
