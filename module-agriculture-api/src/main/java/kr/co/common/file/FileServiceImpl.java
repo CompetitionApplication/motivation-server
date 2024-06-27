@@ -84,7 +84,8 @@ public class FileServiceImpl implements FileService {
             boolean allowFileCheck = allowFileType.contains(fileExt.toLowerCase());
 
             if(!allowFileCheck) {
-                throw new Exception();
+                log.info("==============> 파일업로드 확장자 임시 허용 ::: {}",fileExt.toLowerCase());
+                //throw new Exception();
             }
 
             //저장될 경로와 파일명
