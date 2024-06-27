@@ -26,9 +26,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static kr.co.dto.common.push.PushContent.makeMessage;
 
 @Slf4j
 @Service
@@ -49,6 +52,21 @@ public class ReservationServiceImpl implements ReservationService{
         Farm farm = farmMapper.selectFarmByFarmIdForFarm(reservationReqDto.getFarmId());
         if(farm == null){
             throw new CommonException(CommonErrorCode.FARM_NOT_FOUND.getCode(),CommonErrorCode.FARM_NOT_FOUND.getMessage());
+        }
+
+        //과거 날짜 예약 방어로직
+        String reservationDate = reservationReqDto.getReservationDate() + " " + reservationReqDto.getReservationStartTime();
+
+        // DateTimeFormatter를 사용하여 문자열을 LocalDateTime으로 파싱
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateToCompare = LocalDateTime.parse(reservationDate, dateFormatter);
+
+        // 현재 시간
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        // 현재 시간보다 과거일때 return
+        if (dateToCompare.isBefore(currentDateTime)) {
+            throw new CommonException(CommonErrorCode.NOT_PAST_RESERVATION.getCode(),CommonErrorCode.NOT_PAST_RESERVATION.getMessage());
         }
 
         //체험시간이 영업시간내 시간인지 체크

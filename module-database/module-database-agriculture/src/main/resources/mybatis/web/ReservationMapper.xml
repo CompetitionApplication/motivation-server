@@ -148,6 +148,7 @@
           from reservation
          where user_id = #{user.user_id}
            and farm_id = #{reservationReqDto.farmId}
+           and reservation_status in ('00','01')
            and reservation_date = #{reservationReqDto.reservationDate}
            and STR_TO_DATE(#{reservationReqDto.reservationStartTime}, '%H:%i') <![CDATA[<]]> STR_TO_DATE(reservation_end_time, '%H:%i')
            and STR_TO_DATE(#{reservationEndTime}, '%H:%i') <![CDATA[>]]> STR_TO_DATE(reservation_start_time, '%H:%i')
