@@ -125,7 +125,7 @@ public class ReservationServiceImpl implements ReservationService{
         int alarmCnt = alarmMapper.selectAlarmCount(farmUser);
         String pushTitle = "예약 알림 도착";
         String pushContent = reservationReqDto.getReservationDate()+" "+reservationReqDto.getReservationName()+"님 예약이 도착했습니다.";
-        try {
+        try {  
             firebaseMessaging.send(makeMessage(farm.getFarm_app_push_token(), pushTitle, pushContent, alarmCnt));
             Alarm alarm = new Alarm();
             alarm.setFarm_id(farm.getFarm_id());
