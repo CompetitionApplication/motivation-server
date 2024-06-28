@@ -198,7 +198,7 @@ public class ReservationServiceImpl implements ReservationService{
         }catch (Exception e){
             log.error("========> push error ::: {}",e.getMessage());
             //throw new CommonException(CommonErrorCode.FAIL.getCode(),CommonErrorCode.FAIL.getMessage());
-        }  
+        }
 
         //mail
         int number = Integer.parseInt(farm.getFarm_use_amt());

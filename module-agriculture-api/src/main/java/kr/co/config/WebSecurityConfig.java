@@ -77,6 +77,7 @@ public class WebSecurityConfig {
 
         configuration.addAllowedOrigin("http://localhost:3000"); // http://localhost:3001 에서 시작하는 요청은 여기서 설정한 CORS 규칙을 따릅니다.
         configuration.addAllowedOrigin("http://144.24.95.101");
+        configuration.addAllowedOrigin("http://wefarm.kro.kr");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
 
