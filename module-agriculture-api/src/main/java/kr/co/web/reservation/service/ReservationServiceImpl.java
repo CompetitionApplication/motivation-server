@@ -136,7 +136,7 @@ public class ReservationServiceImpl implements ReservationService{
             alarmMapper.insertAlarm(alarm);
         }catch (Exception e){
             log.error("========> push error ::: {}",e.getMessage());
-            throw new CommonException(CommonErrorCode.FAIL.getCode(),CommonErrorCode.FAIL.getMessage());
+            //throw new CommonException(CommonErrorCode.FAIL.getCode(),CommonErrorCode.FAIL.getMessage());
         }
 
         //mail
@@ -197,7 +197,7 @@ public class ReservationServiceImpl implements ReservationService{
             alarmMapper.insertAlarm(alarm);
         }catch (Exception e){
             log.error("========> push error ::: {}",e.getMessage());
-            throw new CommonException(CommonErrorCode.FAIL.getCode(),CommonErrorCode.FAIL.getMessage());
+            //throw new CommonException(CommonErrorCode.FAIL.getCode(),CommonErrorCode.FAIL.getMessage());
         }
 
         //mail
