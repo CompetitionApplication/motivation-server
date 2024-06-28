@@ -135,6 +135,7 @@ public class ReservationServiceImpl implements ReservationService{
             alarm.setCreated_id(user.getUser_id());
             alarmMapper.insertAlarm(alarm);
         }catch (Exception e){
+            log.error("========> push error ::: {}",e.getMessage());
             throw new CommonException(CommonErrorCode.FAIL.getCode(),CommonErrorCode.FAIL.getMessage());
         }
 
@@ -195,6 +196,7 @@ public class ReservationServiceImpl implements ReservationService{
             alarm.setCreated_id(user.getUser_id());
             alarmMapper.insertAlarm(alarm);
         }catch (Exception e){
+            log.error("========> push error ::: {}",e.getMessage());
             throw new CommonException(CommonErrorCode.FAIL.getCode(),CommonErrorCode.FAIL.getMessage());
         }
 
