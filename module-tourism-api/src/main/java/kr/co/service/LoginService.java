@@ -1,5 +1,16 @@
 package kr.co.service;
 
+import jakarta.transaction.Transactional;
+import kr.co.auth.JwtUtil;
+import kr.co.common.AES256Util;
+import kr.co.common.CommonErrorCode;
+import kr.co.common.CommonException;
+import kr.co.dto.LoginReqDto;
+import kr.co.dto.LoginResDto;
+import kr.co.entity.RefreshToken;
+import kr.co.entity.User;
+import kr.co.repository.RefreshTokenRepository;
+import kr.co.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -7,8 +18,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LoginService {
 
+    private final UserRepository userRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final JwtUtil jwtUtil;
 
-/*    @Transactional
+
+    @Transactional
     public LoginResDto login(LoginReqDto loginReqDto) throws Exception {
 
         //:::기존에 정보가 있는 유저인지 확인:::
@@ -29,25 +44,25 @@ public class LoginService {
 
             refreshTokenInfo.updateRefreshToken(refreshToken);
             //::: 결과값 반환 :::
-            return new LoginResDto(accessToken,refreshTokenInfo.getRefreshtokenId());
+            return new LoginResDto(accessToken,refreshTokenInfo.getRefreshTokenId());
 
         } else {
             //:::신규 회원:::
 
             //:::정보 DB저장:::
-            User savedUserInfo = userRepository.save(new User(loginReqDto));
+            User user = userRepository.save(new User(loginReqDto));
 
             //:::엑세스 토큰 발급 , 리프레시 토큰 발급:::
-            String accessToken = jwtUtil.generateToken(savedUserInfo.getUserEmail());
-            String refreshToken = jwtUtil.generateRefreshToken(savedUserInfo.getUserEmail());
+            String accessToken = jwtUtil.generateToken(user.getUserEmail());
+            String refreshToken = jwtUtil.generateRefreshToken(user.getUserEmail());
 
             //::: 리프레시 토큰 DB저장 :::
-            RefreshToken refreshTokenInfo = refreshTokenRepository.save(new RefreshToken(refreshToken, savedUserInfo));
+            RefreshToken refreshTokenInfo = refreshTokenRepository.save(new RefreshToken(refreshToken, user));
 
             //::: 결과값 반환 :::
-            return new LoginResDto(accessToken,refreshTokenInfo.getRefreshtokenId());
+            return new LoginResDto(accessToken,refreshTokenInfo.getRefreshTokenId());
         }
 
 
-    }*/
+    }
 }

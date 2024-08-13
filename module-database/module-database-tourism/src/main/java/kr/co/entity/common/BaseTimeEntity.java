@@ -20,30 +20,24 @@ import java.time.format.DateTimeFormatter;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseTimeEntity {
 
-
-    @CreatedBy
-    private String createdId; // 등록_사용자_ID
-    @LastModifiedBy
-    private String modId; // 수정_사용자_ID
-
     @CreatedDate
     //@Schema(hidden = true)
     @Comment(value = "생성 일자")
-    private String createdDate;
+    private String regDatetime;
 
     @LastModifiedDate
     //@Schema(hidden = true)
     @Comment(value = "수정 일자")
-    private String modDate;
+    private String modDatetime;
 
     @PrePersist
     public void onPrePersist(){
-        this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.modDate = this.createdDate;
+        this.regDatetime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.modDatetime = this.regDatetime;
     }
 
     @PreUpdate
     public void onPreUpdate(){
-        this.modDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.modDatetime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }
