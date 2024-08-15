@@ -2,24 +2,35 @@ package kr.co.service;
 
 import jakarta.transaction.Transactional;
 import kr.co.auth.JwtUtil;
+import kr.co.common.AES256Cipher;
 import kr.co.common.AES256Util;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.LoginReqDto;
 import kr.co.dto.LoginResDto;
+import kr.co.entity.Hobby;
 import kr.co.entity.RefreshToken;
+import kr.co.entity.TripStyle;
 import kr.co.entity.User;
+import kr.co.repository.HobbyRepository;
 import kr.co.repository.RefreshTokenRepository;
+import kr.co.repository.TripStyleRepository;
 import kr.co.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LoginService {
 
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final TripStyleRepository tripStyleRepository;
+    private final HobbyRepository hobbyRepository;
     private final JwtUtil jwtUtil;
 
 
@@ -27,11 +38,11 @@ public class LoginService {
     public LoginResDto login(LoginReqDto loginReqDto) throws Exception {
 
         //:::기존에 정보가 있는 유저인지 확인:::
-        boolean userInfoCheck = userRepository.existsByUserEmail(AES256Util.encrypt(loginReqDto.getUserEmail()));
+        boolean userInfoCheck = userRepository.existsByUserEmail(AES256Cipher.encrypt(loginReqDto.getUserEmail()));
 
         if (userInfoCheck) {
             //:::기존 회원:::
-            User userInfo = userRepository.findByUserEmail(AES256Util.encrypt(loginReqDto.getUserEmail()))
+            User userInfo = userRepository.findByUserEmail(AES256Cipher.encrypt(loginReqDto.getUserEmail()))
                     .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
 
             //:::엑세스 토큰 발급 , 리프레시 토큰 발급:::
@@ -49,8 +60,17 @@ public class LoginService {
         } else {
             //:::신규 회원:::
 
-            //:::정보 DB저장:::
+            //:::유저정보저장:::
             User user = userRepository.save(new User(loginReqDto));
+
+            //:::취미저장:::
+            loginReqDto.getTripStyles().forEach(tripStyle -> {
+                tripStyleRepository.save(new TripStyle(tripStyle, user));
+            });
+            //:::여행스타일저장:::
+            loginReqDto.getHobbyNames().forEach(hobbyName -> {
+                hobbyRepository.save(new Hobby(hobbyName, user));
+            });
 
             //:::엑세스 토큰 발급 , 리프레시 토큰 발급:::
             String accessToken = jwtUtil.generateToken(user.getUserEmail());
@@ -62,7 +82,5 @@ public class LoginService {
             //::: 결과값 반환 :::
             return new LoginResDto(accessToken,refreshTokenInfo.getRefreshTokenId());
         }
-
-
     }
 }

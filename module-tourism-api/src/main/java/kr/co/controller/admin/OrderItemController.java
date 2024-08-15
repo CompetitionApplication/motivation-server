@@ -1,16 +1,11 @@
-package kr.co.controller;
+package kr.co.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kr.co.auth.TourismUser;
-import kr.co.common.ListResult;
-import kr.co.common.PaginationInfo;
-import kr.co.dto.OrderItemResDto;
 import kr.co.service.OrderItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 

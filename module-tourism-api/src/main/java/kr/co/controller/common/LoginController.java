@@ -1,4 +1,4 @@
-package kr.co.controller;
+package kr.co.controller.common;
 
 import jakarta.validation.Valid;
 import kr.co.common.ObjectResult;

@@ -1,10 +1,7 @@
 package kr.co.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import kr.co.common.AES256Util;
+import jakarta.persistence.*;
+import kr.co.common.AES256Cipher;
 import kr.co.dto.LoginReqDto;
 import kr.co.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
@@ -26,25 +23,36 @@ public class User extends BaseTimeEntity {
     @Comment(value = "유저키값")
     private String userId;
 
+    @Enumerated(EnumType.STRING)
+    @Comment(value = "소셜로그인종류")
+    private SocialType socialType;
+
+    @Comment(value = "앱디바이스토큰")
+    private String appDeviceToken;
+
     @Column(length = 100)
+    @Comment(value = "이메일")
     private String userEmail;
 
     @Column(length = 100)
+    @Comment(value = "이름")
     private String userName;
+
     @Column(length = 1)
+    @Comment(value = "성별")
     private String userSex;
 
     @Column(length = 2)
+    @Comment(value = "나이")
     private String userAge;
 
-    @Column(length = 10)
-    private String userTourPeriod;
 
     public User(LoginReqDto dto) throws Exception {
-        this.userEmail = AES256Util.encrypt(dto.getUserEmail());
+        this.socialType = SocialType.valueOf(dto.getSocialType());
+        this.userEmail = AES256Cipher.encrypt(dto.getUserEmail());
+        this.appDeviceToken = dto.getAppDeviceToken();
         this.userName = dto.getUserName();
         this.userSex = dto.getUserSex();
         this.userAge = dto.getUserAge();
-        this.userTourPeriod = dto.getUserTourPeriod();
     }
 }
