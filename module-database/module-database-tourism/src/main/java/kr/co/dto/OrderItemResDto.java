@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class OrderItemResDto {
+    private String orderId;
     private String orderDatetime;
     private String orderUser;
     private String orderPrice;

@@ -29,22 +29,10 @@ public enum CommonErrorCode {
     // 통신
     FAIL_EXTERNAL_API("B000","외부요청 오류입니다."),
 
-    //농축산(Y)
-    FARM_NOT_FOUND("Y000","농장을 찾을 수 없습니다."),
-    NOT_FOUND_LOGIN_ID("Y001","아이디 혹은 비밀번호를 잘못 입력하셨습니다."),
-    NOT_FOUND_REFRESHTOKEN_ID("Y002","리프레시토큰 ID를 찾을수 없습니다."),
-    DUPLICATION_ACCOUNT_ID("Y003","중복된 회원가입 ID 입니다."),
-    NOT_FOUND_RESERVATION_ID("Y004","예약 ID를 찾을수 없습니다."),
-    CHECK_FARM_USE_TIME_START_END("Y005","영업시간이 잘못되었습니다."),
-    CHECK_FARM_USE_TIME("Y006","체험시간단위가 영업시간내 충족하지 못합니다. 체험시간 또는 엽업시간을 변경해주세요."),
-    NOT_FOUND_FILE_GROUP_ID("Y007","파일그룹 ID를 찾을수 없습니다."),
-    DUPLICATION_RESERVATION_TIME("Y008", "중복된 예약시간이 존재합니다."),
-    NOT_FOUND_FILE_ID("Y009","파일 ID를 찾을수 없습니다."),
-    NOT_USE_DAY_RESERVATION("Y010", "예약일이 운영 영업일에 포함되지 않습니다."),
-    NOT_DAY("Y011", "운영요일이 잘못되었습니다."),
-    NOT_PAST_RESERVATION("Y012", "지난 날짜는 예약이 불가합니다.")
-
-    //경남(Z)
+  //관광
+    NOT_EXIST_FILE("D000","파일이 존재하지 않습니다."),
+    FILE_UPLOAD_FAIL("D001","파일 업로드에 실패하였습니다."),
+    NOT_EXIST_GOODS("D002","상품이 존재하지 않습니다."),
     ;
 
 

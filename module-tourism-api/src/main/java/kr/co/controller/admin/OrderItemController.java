@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "order-item", description = "주문")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/order")
+@RequestMapping(value = "/api/v1/orderitem")
 @Slf4j
 public class OrderItemController {
 
     private final OrderItemService orderItemService;
 
     @Operation(summary = "주문 목록 리스트", description = "주문 목록 리스트 입니다.")
-    @GetMapping("/items")
-    public ResponseEntity<?> items(@RequestParam(defaultValue = "0") int page,
+    @GetMapping("/list")
+    public ResponseEntity<?> getOrderItemList(@RequestParam(defaultValue = "0") int page,
                                                  @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(orderItemService.getItems(page, size));
+        return ResponseEntity.ok(orderItemService.getOrderItemList(page, size));
     }
 }

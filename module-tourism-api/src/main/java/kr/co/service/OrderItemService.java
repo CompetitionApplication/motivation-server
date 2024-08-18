@@ -3,7 +3,6 @@ package kr.co.service;
 import kr.co.auth.TourismUser;
 import kr.co.dto.OrderItemResDto;
 import kr.co.entity.OrderItem;
-import kr.co.entity.User;
 import kr.co.repository.OrderItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,10 +21,11 @@ public class OrderItemService {
 
     private final OrderItemRepository orderItemRepository;
 
-    public Page<OrderItemResDto> getItems(int page, int size) {
+    public Page<OrderItemResDto> getOrderItemList(int page, int size) {
         Page<OrderItem> orderItems = orderItemRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")));
         List<OrderItemResDto> orderItemResDtos = orderItems.stream()
                 .map(orderItem -> OrderItemResDto.builder()
+                        .orderId(orderItem.getOrderId())
                         .orderDatetime(orderItem.getRegDatetime())
                         .orderUser(orderItem.getUser().getUserName())
                         .orderPrice(orderItem.getOrderPrice() + "원")
