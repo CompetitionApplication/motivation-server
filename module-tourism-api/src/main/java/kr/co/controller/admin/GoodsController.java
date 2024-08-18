@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/v1/goods")
 @Slf4j
 public class GoodsController {
-//빌드
     private final GoodsService goodsService;
 
     @GetMapping("/list")
