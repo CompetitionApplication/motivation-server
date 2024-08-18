@@ -3,6 +3,7 @@ package kr.co.service;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.FileSaveDto;
+import kr.co.dto.GoodsDetailResDto;
 import kr.co.dto.GoodsResDto;
 import kr.co.dto.GoodsUploadReqDto;
 import kr.co.entity.File;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -90,5 +92,13 @@ public class GoodsService {
         fileRepository.saveAll(fileSaveDtos.stream()
                 .map(fileSaveDto -> new File(fileSaveDto, goods))
                 .collect(Collectors.toList()));
+    }
+
+    @Transactional(readOnly = true)
+    public GoodsDetailResDto getGoodsDetail(String goodsId) {
+        Goods goods = goodsRepository.findById(goodsId)
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GOODS.getCode(), CommonErrorCode.NOT_EXIST_GOODS.getMessage()));
+
+        return new GoodsDetailResDto(goods);
     }
 }

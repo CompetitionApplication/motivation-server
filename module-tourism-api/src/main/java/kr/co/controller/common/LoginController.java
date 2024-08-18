@@ -1,5 +1,6 @@
 package kr.co.controller.common;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import kr.co.common.ObjectResult;
 import kr.co.dto.LoginReqDto;
@@ -19,6 +20,7 @@ public class LoginController {
     private final LoginService loginService;
 
 
+    @Operation(summary = "로그인", description = "로그인을 합니다.")
     @PostMapping("")
     public ResponseEntity<?> login(@RequestBody @Valid LoginReqDto loginReqDto) throws Exception {
         return ObjectResult.build(loginService.login(loginReqDto));

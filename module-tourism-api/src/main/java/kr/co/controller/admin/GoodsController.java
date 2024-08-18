@@ -25,22 +25,29 @@ public class GoodsController {
         return ResponseEntity.ok(goodsService.getGoodsList(page, size));
     }
 
-    @Operation(summary = "굿즈 업로드", description = "굿즈 업로드를 합니다.")
-    @PostMapping("/upload")
+    @Operation(summary = "굿즈 상세 조회", description = "굿즈 상세 조회를 합니다.")
+    @GetMapping("/list/{goodsId}")
+    public ResponseEntity<?> getGoodsDetail(@PathVariable(value = "goodsId") String goodsId) {
+        return ResponseEntity.ok(goodsService.getGoodsDetail(goodsId));
+    }
+
+
+    @Operation(summary = "굿즈 등록", description = "굿즈 등록을 합니다.")
+    @PostMapping("")
     public ResponseEntity<?> uploadGoods(@ModelAttribute GoodsUploadReqDto goodsUploadReqDto) {
         goodsService.uploadGoods(goodsUploadReqDto);
         return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "굿즈 삭제", description = "굿즈 삭제를 합니다.")
-    @DeleteMapping("/delete/{goodsId}")
+    @DeleteMapping("/{goodsId}")
     public ResponseEntity<?> deleteGoods(@PathVariable(value = "goodsId") String goodsId) {
         goodsService.deleteGoods(goodsId);
         return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "굿즈 수정", description = "굿즈 수정을 합니다.")
-    @PutMapping("/update/{goodsId}")
+    @PutMapping("/{goodsId}")
     public ResponseEntity<?> updateGoods(@PathVariable(value = "goodsId") String goodsId,
                                          @ModelAttribute GoodsUploadReqDto goodsUploadReqDto) {
         goodsService.updateGoods(goodsId, goodsUploadReqDto);
