@@ -2,7 +2,7 @@ package kr.co.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kr.co.service.OrderItemService;
+import kr.co.service.admin.OrderItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "order-item", description = "주문")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/orderitem")
+@RequestMapping(value = "/api/v1/order-item")
 @Slf4j
 public class OrderItemController {
 

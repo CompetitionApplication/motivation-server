@@ -16,7 +16,6 @@ public class GoodsDetailResDto {
     private String goodsSize;
 
     public GoodsDetailResDto(Goods goods) {
-        this.goodsId = goods.getGoodsId();
         this.goodsName = goods.getGoodsName();
         this.goodsPrice = goods.getGoodsPrice();
         this.goodsColor = goods.getGoodsColor();

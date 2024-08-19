@@ -4,7 +4,7 @@ package kr.co.controller.admin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.dto.GoodsUploadReqDto;
-import kr.co.service.GoodsService;
+import kr.co.service.admin.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

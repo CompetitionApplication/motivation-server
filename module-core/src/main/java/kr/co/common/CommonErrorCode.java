@@ -3,6 +3,7 @@ package kr.co.common;
 
 public enum CommonErrorCode {
     // common
+    UNAUTHORIZED("UNAUTHORIZED", "권한이 없습니다."),
     SUCCESS("SUCCESS", "정상처리"),
     FAIL("FAIL", "실패"),
     FAIL_SIGN_UP("FAIL", "서비스에 가입할 수 없습니다."),
@@ -47,10 +48,17 @@ public enum CommonErrorCode {
     FILE_UPLOAD_FAIL("D001","파일 업로드에 실패하였습니다."),
     NOT_EXIST_GOODS("D002","상품이 존재하지 않습니다."),
     NOT_EXIST_FILE_GROUP("D003","파일 그룹이 존재하지 않습니다."),
-    ;
-
-
-
+    PASSWORD_NOT_MATCH("D004","비밀번호가 일치하지 않습니다."),
+    LOCKED_USER("D005","계정이 잠겼습니다."),
+    EXPIRED_USER("D006","계정이 만료되었습니다."),
+    EXPIRED_PASSWORD("D007","비밀번호가 만료되었습니다."),
+    NOT_FOUND_TOKEN("D008","토큰이 존재하지 않습니다."),
+    METHOD_NOT_ALLOWED("D009","허용되지 않은 Method로 접근 하셨습니다."),
+    IO_ERROR("D010","입출력 오류가 발생하였습니다."),
+    MISSING_COOKIE("D011","쿠키 정보가 없습니다."),
+    INVALID_DATE_FORMAT("D012","날짜 형식이 잘못되었습니다."),
+    NOT_FOUND_TOUR_PLACE("D013","관광지 정보를 찾을 수 없습니다."),
+    FORBIDDEN("D013","접근 권한이 없습니다.");
 
 
     private final String code;

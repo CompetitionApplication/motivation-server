@@ -1,4 +1,4 @@
-package kr.co.service;
+package kr.co.service.admin;
 
 import kr.co.auth.TourismUser;
 import kr.co.dto.OrderItemResDto;
