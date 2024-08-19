@@ -58,6 +58,7 @@ public enum CommonErrorCode {
     MISSING_COOKIE("D011","쿠키 정보가 없습니다."),
     INVALID_DATE_FORMAT("D012","날짜 형식이 잘못되었습니다."),
     NOT_FOUND_TOUR_PLACE("D013","관광지 정보를 찾을 수 없습니다."),
+    NOT_FOUND_LOCAL_SPECIALTY("D014","지역특산물 정보를 찾을 수 없습니다."),
     FORBIDDEN("D013","접근 권한이 없습니다.");
 
 
