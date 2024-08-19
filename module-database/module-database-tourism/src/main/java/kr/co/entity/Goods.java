@@ -2,6 +2,7 @@ package kr.co.entity;
 
 import jakarta.persistence.*;
 import kr.co.common.AES256Cipher;
+import kr.co.config.BooleanConverter;
 import kr.co.dto.GoodsUploadReqDto;
 import kr.co.dto.LoginReqDto;
 import kr.co.entity.common.BaseTimeEntity;
@@ -38,20 +39,31 @@ public class Goods extends BaseTimeEntity {
     @Comment(value = "굿즈사이즈")
     private String goodsSize;
 
-    @OneToMany(mappedBy = "goods", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<File> files;
+    @Column(columnDefinition = "varchar(1) default 'N'")
+    @Convert(converter = BooleanConverter.class)
+    private boolean delYn;
 
-    public Goods(GoodsUploadReqDto goodsUploadReqDto) {
+    @OneToOne
+    @JoinColumn(name = "file_group_id")
+    private FileGroup fileGroup;
+
+    public Goods(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup) {
         this.goodsName = goodsUploadReqDto.getGoodsName();
         this.goodsPrice = goodsUploadReqDto.getGoodsPrice();
         this.goodsColor = goodsUploadReqDto.getGoodsColor();
         this.goodsSize = goodsUploadReqDto.getGoodsSize();
+        this.fileGroup = fileGroup;
     }
 
-    public void updateGoods(GoodsUploadReqDto goodsUploadReqDto) {
+    public void updateGoods(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup) {
         this.goodsName = goodsUploadReqDto.getGoodsName();
         this.goodsPrice = goodsUploadReqDto.getGoodsPrice();
         this.goodsColor = goodsUploadReqDto.getGoodsColor();
         this.goodsSize = goodsUploadReqDto.getGoodsSize();
+        this.fileGroup = fileGroup;
+    }
+
+    public void deleteGoods() {
+        this.delYn = true;
     }
 }

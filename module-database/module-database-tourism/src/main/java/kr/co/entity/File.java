@@ -33,15 +33,17 @@ public class File extends BaseTimeEntity {
     private String filePath;
 
     @ManyToOne
-    @JoinColumn(name = "goods_id")
-    private Goods goods;
+    @JoinColumn(name = "file_group_id")
+    private FileGroup fileGroup;
 
-    public File(FileSaveDto fileSaveDto, Goods goods) {
+
+
+    public File(FileSaveDto fileSaveDto, FileGroup fileGroup) {
         this.originalName = fileSaveDto.getOriginalName();
         this.storedName = fileSaveDto.getStoredName();
         this.fileType = fileSaveDto.getFileType();
         this.fileSize = fileSaveDto.getFileSize();
         this.filePath = fileSaveDto.getFilePath();
-        this.goods = goods;
+        this.fileGroup = fileGroup;
     }
  }

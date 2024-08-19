@@ -7,7 +7,9 @@ import kr.co.dto.GoodsDetailResDto;
 import kr.co.dto.GoodsResDto;
 import kr.co.dto.GoodsUploadReqDto;
 import kr.co.entity.File;
+import kr.co.entity.FileGroup;
 import kr.co.entity.Goods;
+import kr.co.repository.FileGroupRepository;
 import kr.co.repository.FileRepository;
 import kr.co.repository.GoodsRepository;
 import kr.co.util.FileUtil;
@@ -36,10 +38,11 @@ public class GoodsService {
 
     private final GoodsRepository goodsRepository;
     private final FileRepository fileRepository;
+    private final FileGroupRepository fileGroupRepository;
 
     @Transactional(readOnly = true)
     public Page<GoodsResDto> getGoodsList(int page, int size) {
-        Page<Goods> goods = goodsRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")));
+        Page<Goods> goods = goodsRepository.findAllByDelYnFalse(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")));
         List<GoodsResDto> goodsResDtos = goods.stream()
                 .map(goodsResDto -> GoodsResDto.builder()
                         .goodsId(goodsResDto.getGoodsId())
@@ -59,23 +62,22 @@ public class GoodsService {
             throw new CommonException(CommonErrorCode.NOT_EXIST_FILE.getCode(), CommonErrorCode.NOT_EXIST_FILE.getMessage());
         }
 
-        //상품 정보 저장
-        Goods goods = goodsRepository.save(new Goods(goodsUploadReqDto));
-
-        //파일 업로드
+        //파일 업로드, 파일 그룹 저장
+        FileGroup fileGroup = fileGroupRepository.save(new FileGroup(false));
         List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(goodsUploadReqDto.getGoodsImages(), uploadDir);
         fileRepository.saveAll(fileSaveDtos.stream()
-                .map(fileSaveDto -> new File(fileSaveDto, goods))
+                .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
                 .collect(Collectors.toList()));
 
-
+        //상품 정보 저장
+        goodsRepository.save(new Goods(goodsUploadReqDto,fileGroup));
     }
 
     @Transactional
     public void deleteGoods(String goodsId) {
         Goods goods = goodsRepository.findById(goodsId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GOODS.getCode(), CommonErrorCode.NOT_EXIST_GOODS.getMessage()));
-        goodsRepository.delete(goods);
+        goods.deleteGoods();
     }
 
     @Transactional
@@ -83,15 +85,20 @@ public class GoodsService {
         Goods goods = goodsRepository.findById(goodsId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GOODS.getCode(), CommonErrorCode.NOT_EXIST_GOODS.getMessage()));
 
-        //굿즈 상품 수정
-        goods.updateGoods(goodsUploadReqDto);
         //기존 파일 삭제
-        fileRepository.deleteAll(goods.getFiles());
-        //신규 파일 저장
+        FileGroup fileGroup = fileGroupRepository.findById(goods.getFileGroup().getFileGroupId())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_FILE_GROUP.getCode(), CommonErrorCode.NOT_EXIST_FILE_GROUP.getMessage()));
+        fileGroup.deleteFileGroup(true);
+        //파일 업로드, 파일 그룹 저장
+        FileGroup newFileGroup = fileGroupRepository.save(new FileGroup(false));
         List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(goodsUploadReqDto.getGoodsImages(), uploadDir);
         fileRepository.saveAll(fileSaveDtos.stream()
-                .map(fileSaveDto -> new File(fileSaveDto, goods))
+                .map(fileSaveDto -> new File(fileSaveDto, newFileGroup))
                 .collect(Collectors.toList()));
+
+        //굿즈 상품 수정
+        goods.updateGoods(goodsUploadReqDto,newFileGroup);
+
     }
 
     @Transactional(readOnly = true)

@@ -46,6 +46,7 @@ public enum CommonErrorCode {
     NOT_EXIST_FILE("D000","파일이 존재하지 않습니다."),
     FILE_UPLOAD_FAIL("D001","파일 업로드에 실패하였습니다."),
     NOT_EXIST_GOODS("D002","상품이 존재하지 않습니다."),
+    NOT_EXIST_FILE_GROUP("D003","파일 그룹이 존재하지 않습니다."),
     ;
 
 
