@@ -1,6 +1,6 @@
 package kr.co.dto;
 
-import kr.co.entity.LocalSpecialty;
+import kr.co.entity.LocalItem;
 import lombok.Data;
 
 @Data
@@ -9,9 +9,9 @@ public class LocalSpecialtyDetailResDto {
     private String localSpecialtyPrice;
     private String localSpecialtyStampCount;
 
-    public LocalSpecialtyDetailResDto(LocalSpecialty localSpecialty) {
-        this.localSpecialtyName = localSpecialty.getLocalSpecialtyName();
-        this.localSpecialtyPrice = localSpecialty.getLocalSpecialtyPrice();
-        this.localSpecialtyStampCount = localSpecialty.getLocalSpecialtyStampCount() + "개";
+    public LocalSpecialtyDetailResDto(LocalItem localItem) {
+        this.localSpecialtyName = localItem.getLocalItemName();
+        this.localSpecialtyPrice = localItem.getLocalItemPrice();
+        this.localSpecialtyStampCount = localItem.getLocalItemStampCount() + "개";
     }
 }

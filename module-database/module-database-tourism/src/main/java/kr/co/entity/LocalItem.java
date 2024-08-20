@@ -14,22 +14,22 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class LocalSpecialty extends BaseTimeEntity {
+public class LocalItem extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(columnDefinition = "varchar(38)")
     @Comment(value = "특산품키값")
-    private String localSpecialtyId;
+    private String localItemId;
 
     @Comment(value = "특산품명")
-    private String localSpecialtyName;
+    private String localItemName;
 
     @Comment(value = "특산품금액")
-    private String localSpecialtyPrice;
+    private String localItemPrice;
 
     @Comment(value = "스탬프갯수")
-    private int localSpecialtyStampCount;
+    private int localItemStampCount;
 
     @Column(columnDefinition = "varchar(1) default 'N'")
     @Convert(converter = BooleanConverter.class)
@@ -39,7 +39,7 @@ public class LocalSpecialty extends BaseTimeEntity {
     @JoinColumn(name = "file_group_id")
     private FileGroup fileGroup;
 
-   /* public LocalSpecialty(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup) {
+   /* public localItem(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup) {
         this.goodsName = goodsUploadReqDto.getGoodsName();
         this.goodsPrice = goodsUploadReqDto.getGoodsPrice();
         this.goodsColor = goodsUploadReqDto.getGoodsColor();
