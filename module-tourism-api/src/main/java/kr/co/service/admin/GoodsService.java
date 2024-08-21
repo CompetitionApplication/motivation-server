@@ -55,21 +55,21 @@ public class GoodsService {
     }
 
     @Transactional
-    public void uploadGoods(GoodsUploadReqDto goodsUploadReqDto) {
-        List<MultipartFile> images = goodsUploadReqDto.getGoodsImages();
+    public void uploadGoods(GoodsUploadReqDto goodsUploadReqDto, List<MultipartFile> goodsImages) {
+        List<MultipartFile> images = goodsImages;
         if (images.isEmpty()) {
             throw new CommonException(CommonErrorCode.NOT_EXIST_FILE.getCode(), CommonErrorCode.NOT_EXIST_FILE.getMessage());
         }
 
         //파일 업로드, 파일 그룹 저장
         FileGroup fileGroup = fileGroupRepository.save(new FileGroup(false));
-        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(goodsUploadReqDto.getGoodsImages(), uploadDir);
+        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(images, uploadDir);
         fileRepository.saveAll(fileSaveDtos.stream()
                 .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
                 .collect(Collectors.toList()));
 
         //상품 정보 저장
-        goodsRepository.save(new Goods(goodsUploadReqDto,fileGroup));
+        goodsRepository.save(new Goods(goodsUploadReqDto, fileGroup));
     }
 
     @Transactional
@@ -80,7 +80,7 @@ public class GoodsService {
     }
 
     @Transactional
-    public void updateGoods(String goodsId, GoodsUploadReqDto goodsUploadReqDto) {
+    public void updateGoods(String goodsId, GoodsUploadReqDto goodsUploadReqDto, List<MultipartFile> goodsImages) {
         Goods goods = goodsRepository.findById(goodsId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GOODS.getCode(), CommonErrorCode.NOT_EXIST_GOODS.getMessage()));
 
@@ -90,13 +90,13 @@ public class GoodsService {
         fileGroup.deleteFileGroup(true);
         //파일 업로드, 파일 그룹 저장
         FileGroup newFileGroup = fileGroupRepository.save(new FileGroup(false));
-        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(goodsUploadReqDto.getGoodsImages(), uploadDir);
+        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(goodsImages, uploadDir);
         fileRepository.saveAll(fileSaveDtos.stream()
                 .map(fileSaveDto -> new File(fileSaveDto, newFileGroup))
                 .collect(Collectors.toList()));
 
         //굿즈 상품 수정
-        goods.updateGoods(goodsUploadReqDto,newFileGroup);
+        goods.updateGoods(goodsUploadReqDto, newFileGroup);
 
     }
 

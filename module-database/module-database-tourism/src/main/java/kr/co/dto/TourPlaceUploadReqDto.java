@@ -2,9 +2,6 @@ package kr.co.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @Data
 public class TourPlaceUploadReqDto {
@@ -16,6 +13,11 @@ public class TourPlaceUploadReqDto {
     private String tourPlaceLink;
     @Schema(description = "관광지연락처", example = "02-3700-3900")
     private String tourPlaceContact;
-    @Schema(description = "관광지이미지", example = "image.jpg")
-    private List<MultipartFile> tourPlaceImages;
+
+    public TourPlaceUploadReqDto(String tourPlaceName, String tourPlaceAddress, String tourPlaceLink, String tourPlaceContact) {
+        this.tourPlaceName = tourPlaceName;
+        this.tourPlaceAddress = tourPlaceAddress;
+        this.tourPlaceLink = tourPlaceLink;
+        this.tourPlaceContact = tourPlaceContact;
+    }
 }

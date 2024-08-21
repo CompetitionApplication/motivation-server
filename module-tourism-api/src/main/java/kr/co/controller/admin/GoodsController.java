@@ -3,12 +3,17 @@ package kr.co.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.co.dto.GoodsResDto;
 import kr.co.dto.GoodsUploadReqDto;
 import kr.co.service.admin.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Tag(name = "goods", description = "굿즈")
 @RestController
@@ -19,9 +24,9 @@ public class GoodsController {
     private final GoodsService goodsService;
 
     @Operation(summary = "굿즈 목록 리스트", description = "굿즈 목록 리스트 입니다.")
-    @GetMapping("/list")
-    public ResponseEntity<?> getGoodsList(@RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "10") int size) {
+    @GetMapping(value = "/list", produces = "application/json")
+    public ResponseEntity<Page<GoodsResDto>> getGoodsList(@RequestParam(defaultValue = "0") int page,
+                                                          @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(goodsService.getGoodsList(page, size));
     }
 
@@ -33,9 +38,13 @@ public class GoodsController {
 
 
     @Operation(summary = "굿즈 등록", description = "굿즈 등록을 합니다.")
-    @PostMapping("")
-    public ResponseEntity<?> uploadGoods(@ModelAttribute GoodsUploadReqDto goodsUploadReqDto) {
-        goodsService.uploadGoods(goodsUploadReqDto);
+    @PostMapping(value = "", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadGoods(@RequestParam("goodsName") String goodsName,
+                                         @RequestParam("goodsPrice") String goodsPrice,
+                                         @RequestParam("goodsColor") String goodsColor,
+                                         @RequestParam("goodsSize") String goodsSize,
+                                         @RequestPart List<MultipartFile> goodsImages) {
+        goodsService.uploadGoods(new GoodsUploadReqDto(goodsName,goodsPrice,goodsColor,goodsSize), goodsImages);
         return ResponseEntity.ok().build();
     }
 
@@ -47,10 +56,14 @@ public class GoodsController {
     }
 
     @Operation(summary = "굿즈 수정", description = "굿즈 수정을 합니다.")
-    @PutMapping("/{goodsId}")
+    @PostMapping(value = "/{goodsId}", consumes = "multipart/form-data")
     public ResponseEntity<?> updateGoods(@PathVariable(value = "goodsId") String goodsId,
-                                         @ModelAttribute GoodsUploadReqDto goodsUploadReqDto) {
-        goodsService.updateGoods(goodsId, goodsUploadReqDto);
+                                         @RequestParam("goodsName") String goodsName,
+                                         @RequestParam("goodsPrice") String goodsPrice,
+                                         @RequestParam("goodsColor") String goodsColor,
+                                         @RequestParam("goodsSize") String goodsSize,
+                                         @RequestPart List<MultipartFile> goodsImages) {
+        goodsService.updateGoods(goodsId, new GoodsUploadReqDto(goodsName,goodsPrice,goodsColor,goodsSize), goodsImages);
         return ResponseEntity.ok().build();
     }
 }

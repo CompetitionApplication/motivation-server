@@ -71,25 +71,25 @@ public class TourPlaceService {
     }
 
     @Transactional
-    public void uploadTourPlace(TourPlaceUploadReqDto tourPlaceUploadReqDto) {
-        List<MultipartFile> images = tourPlaceUploadReqDto.getTourPlaceImages();
+    public void uploadTourPlace(TourPlaceUploadReqDto tourPlaceUploadReqDto, List<MultipartFile> tourPlaceImages) {
+        List<MultipartFile> images = tourPlaceImages;
         if (images.isEmpty()) {
             throw new CommonException(CommonErrorCode.NOT_EXIST_FILE.getCode(), CommonErrorCode.NOT_EXIST_FILE.getMessage());
         }
 
         //파일 업로드, 파일 그룹 저장
         FileGroup fileGroup = fileGroupRepository.save(new FileGroup(false));
-        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(tourPlaceUploadReqDto.getTourPlaceImages(), uploadDir);
+        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(tourPlaceImages, uploadDir);
         fileRepository.saveAll(fileSaveDtos.stream()
                 .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
                 .collect(Collectors.toList()));
 
         //관광지 정보 저장
-        tourPlaceRepository.save(new TourPlace(tourPlaceUploadReqDto,fileGroup));
+        tourPlaceRepository.save(new TourPlace(tourPlaceUploadReqDto, fileGroup));
     }
 
     @Transactional
-    public void updateTourPlace(String tourPlaceId, TourPlaceUploadReqDto tourPlaceUploadReqDto) {
+    public void updateTourPlace(String tourPlaceId, TourPlaceUploadReqDto tourPlaceUploadReqDto, List<MultipartFile> tourPlaceImages) {
         TourPlace tourPlace = tourPlaceRepository.findById(tourPlaceId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_TOUR_PLACE.getCode(), CommonErrorCode.NOT_FOUND_TOUR_PLACE.getMessage()));
 
@@ -99,12 +99,12 @@ public class TourPlaceService {
         fileGroup.deleteFileGroup(true);
         //파일 업로드, 파일 그룹 저장
         FileGroup newFileGroup = fileGroupRepository.save(new FileGroup(false));
-        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(tourPlaceUploadReqDto.getTourPlaceImages(), uploadDir);
+        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(tourPlaceImages, uploadDir);
         fileRepository.saveAll(fileSaveDtos.stream()
                 .map(fileSaveDto -> new File(fileSaveDto, newFileGroup))
                 .collect(Collectors.toList()));
 
         //굿즈 상품 수정
-        tourPlace.updateTourPlace(tourPlaceUploadReqDto,newFileGroup);
+        tourPlace.updateTourPlace(tourPlaceUploadReqDto, newFileGroup);
     }
 }
