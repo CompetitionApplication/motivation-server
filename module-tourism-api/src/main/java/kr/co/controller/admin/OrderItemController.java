@@ -2,9 +2,11 @@ package kr.co.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.co.dto.OrderItemResDto;
 import kr.co.service.admin.OrderItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +22,8 @@ public class OrderItemController {
 
     @Operation(summary = "주문 목록 리스트", description = "주문 목록 리스트 입니다.")
     @GetMapping("/list")
-    public ResponseEntity<?> getOrderItemList(@RequestParam(defaultValue = "0") int page,
-                                                 @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<Page<OrderItemResDto>> getOrderItemList(@RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(orderItemService.getOrderItemList(page, size));
     }
 }

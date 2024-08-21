@@ -3,10 +3,13 @@ package kr.co.controller.admin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.dto.GoodsUploadReqDto;
+import kr.co.dto.TourPlaceResDto;
 import kr.co.dto.TourPlaceUploadReqDto;
+import kr.co.service.admin.TourPlaceDetailResDto;
 import kr.co.service.admin.TourPlaceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,14 +28,14 @@ public class TourPlaceController {
 
     @Operation(summary = "관광지 목록 리스트", description = "관광지 목록 리스트 입니다.")
     @GetMapping("/list")
-    public ResponseEntity<?> getTourPlaceList(@RequestParam(defaultValue = "0") int page,
-                                              @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<Page<TourPlaceResDto>> getTourPlaceList(@RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(tourPlaceService.getTourPlaceList(page, size));
     }
 
     @Operation(summary = "관광지 상세 조회", description = "관광지 상세 조회를 합니다.")
     @GetMapping("/list/{tourPlaceId}")
-    public ResponseEntity<?> getTourPlaceDetail(@PathVariable(value = "tourPlaceId") String tourPlaceId) {
+    public ResponseEntity<TourPlaceDetailResDto> getTourPlaceDetail(@PathVariable(value = "tourPlaceId") String tourPlaceId) {
         return ResponseEntity.ok(tourPlaceService.getTourPlaceDetail(tourPlaceId));
     }
 

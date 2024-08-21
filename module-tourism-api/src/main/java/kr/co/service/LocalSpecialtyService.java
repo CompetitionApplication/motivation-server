@@ -39,7 +39,7 @@ public class LocalSpecialtyService {
         return new PageImpl<>(localSpecialtyResDtos, localSpecialties.getPageable(), localSpecialties.getTotalElements());
     }
 
-    public Object getLocalSpecialtyDetail(String localSpecialtyId) {
+    public LocalSpecialtyDetailResDto getLocalSpecialtyDetail(String localSpecialtyId) {
         LocalItem localItem = localSpecialtyRepository.findById(localSpecialtyId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_LOCAL_SPECIALTY.getCode(), CommonErrorCode.NOT_FOUND_LOCAL_SPECIALTY.getMessage()));
 

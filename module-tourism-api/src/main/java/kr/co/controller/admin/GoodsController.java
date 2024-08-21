@@ -3,6 +3,7 @@ package kr.co.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.co.dto.GoodsDetailResDto;
 import kr.co.dto.GoodsResDto;
 import kr.co.dto.GoodsUploadReqDto;
 import kr.co.service.admin.GoodsService;
@@ -32,7 +33,7 @@ public class GoodsController {
 
     @Operation(summary = "굿즈 상세 조회", description = "굿즈 상세 조회를 합니다.")
     @GetMapping("/list/{goodsId}")
-    public ResponseEntity<?> getGoodsDetail(@PathVariable(value = "goodsId") String goodsId) {
+    public ResponseEntity<GoodsDetailResDto> getGoodsDetail(@PathVariable(value = "goodsId") String goodsId) {
         return ResponseEntity.ok(goodsService.getGoodsDetail(goodsId));
     }
 
