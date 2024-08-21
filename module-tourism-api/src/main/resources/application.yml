@@ -5,6 +5,10 @@ spring.profiles.include:
 spring.config.activate.on-profile: local
 server:
   port: 8080
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 jwt:
   secret-access-token: ${JWT_SECRET_ACCESS_TOKEN}
 file:
@@ -15,10 +19,12 @@ file:
 spring.config.activate.on-profile: prod
 server:
   port: 18080
+spring:
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+
 jwt:
   secret-access-token: ${JWT_SECRET_ACCESS_TOKEN}
 file:
