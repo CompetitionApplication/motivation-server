@@ -17,11 +17,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableMethodSecurity(securedEnabled = true,jsr250Enabled = true)
+@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
@@ -34,7 +37,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        String[] permitUrl = {"/api/v1/login/**","/swagger-ui/**","/swagger-resources/**","/v3/api-docs/**"};
+        String[] permitUrl = {"/api/v1/External/tourism/**", "/api/v1/login/**", "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**"};
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)
@@ -53,5 +56,21 @@ public class WebSecurityConfig {
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        //configuration.addAllowedOrigin("http://admin.s2it.kro.kr"); // https://s2it.kro.kr 에서 시작하는 요청은 여기서 설정한 CORS 규칙을 따릅니다.
+        //configuration.addAllowedOrigin("*"); // https://s2it.kro.kr 에서 시작하는 요청은 여기서 설정한 CORS 규칙을 따릅니다.
+        configuration.addAllowedOrigin("http://localhost:3000"); // http://localhost:3001 에서 시작하는 요청은 여기서 설정한 CORS 규칙을 따릅니다.
+        //configuration.addAllowedOrigin("https://api.s2it.kro.kr"); // http://localhost:3001 에서 시작하는 요청은 여기서 설정한 CORS 규칙을 따릅니다.
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
