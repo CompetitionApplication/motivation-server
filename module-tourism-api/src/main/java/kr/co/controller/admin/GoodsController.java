@@ -44,8 +44,11 @@ public class GoodsController {
                                          @RequestParam("goodsPrice") String goodsPrice,
                                          @RequestParam("goodsColor") String goodsColor,
                                          @RequestParam("goodsSize") String goodsSize,
+                                         @RequestParam("goodsSize") String goodsFrom,
+                                         @RequestParam("goodsSize") String goodsReleaseDate,
+                                         @RequestParam("goodsSize") String goodsDeliveryDate,
                                          @RequestPart List<MultipartFile> goodsImages) {
-        goodsService.uploadGoods(new GoodsUploadReqDto(goodsName,goodsPrice,goodsColor,goodsSize), goodsImages);
+        goodsService.uploadGoods(new GoodsUploadReqDto(goodsName,goodsPrice,goodsColor,goodsSize,goodsFrom,goodsReleaseDate,goodsDeliveryDate), goodsImages);
         return ResponseEntity.ok().build();
     }
 
@@ -63,8 +66,11 @@ public class GoodsController {
                                          @RequestParam("goodsPrice") String goodsPrice,
                                          @RequestParam("goodsColor") String goodsColor,
                                          @RequestParam("goodsSize") String goodsSize,
+                                         @RequestParam("goodsSize") String goodsFrom,
+                                         @RequestParam("goodsSize") String goodsReleaseDate,
+                                         @RequestParam("goodsSize") String goodsDeliveryDate,
                                          @RequestPart List<MultipartFile> goodsImages) {
-        goodsService.updateGoods(goodsId, new GoodsUploadReqDto(goodsName,goodsPrice,goodsColor,goodsSize), goodsImages);
+        goodsService.updateGoods(goodsId, new GoodsUploadReqDto(goodsName,goodsPrice,goodsColor,goodsSize,goodsFrom,goodsReleaseDate,goodsDeliveryDate), goodsImages);
         return ResponseEntity.ok().build();
     }
 }

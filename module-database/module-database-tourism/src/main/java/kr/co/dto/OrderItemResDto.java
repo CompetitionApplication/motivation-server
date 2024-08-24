@@ -17,4 +17,5 @@ public class OrderItemResDto {
     private String orderPrice;
     @Schema(description = "주문상태", example = "입금전")
     private String orderStatus;
+
 }

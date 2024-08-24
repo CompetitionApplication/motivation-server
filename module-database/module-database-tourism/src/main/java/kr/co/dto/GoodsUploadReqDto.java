@@ -13,11 +13,21 @@ public class GoodsUploadReqDto {
     private String goodsColor;
     @Schema(description = "굿즈사이즈", example = "L")
     private String goodsSize;
+    @Schema(description = "발송지", example = "서울")
+    private String goodsFrom;
+    @Schema(description = "출시일", example = "2021-01-01")
+    private String goodsReleaseDate;
+    @Schema(description = "예상 배송일", example = "2021-01-01")
+    private String goodsDeliveryDate;
 
-    public GoodsUploadReqDto(String goodsName, String goodsPrice, String goodsColor, String goodsSize) {
+    public GoodsUploadReqDto(String goodsName, String goodsPrice, String goodsColor, String goodsSize, String goodsFrom, String goodsReleaseDate, String goodsDeliveryDate) {
         this.goodsName = goodsName;
         this.goodsPrice = goodsPrice;
         this.goodsColor = goodsColor;
         this.goodsSize = goodsSize;
+        this.goodsFrom = goodsFrom;
+        this.goodsReleaseDate = goodsReleaseDate;
+        this.goodsDeliveryDate = goodsDeliveryDate;
+
     }
 }

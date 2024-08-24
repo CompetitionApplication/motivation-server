@@ -39,6 +39,16 @@ public class Goods extends BaseTimeEntity {
     @Comment(value = "굿즈사이즈")
     private String goodsSize;
 
+    @Comment(value = "발송지")
+    private String goodsFrom;
+
+    @Comment(value = "출시일")
+    private String goodsReleaseDate;
+
+    @Comment(value = "예상 배송일")
+    private String goodsDeliveryDate;
+
+
     @Column(columnDefinition = "varchar(1) default 'N'")
     @Convert(converter = BooleanConverter.class)
     private boolean delYn;
@@ -60,6 +70,9 @@ public class Goods extends BaseTimeEntity {
         this.goodsPrice = goodsUploadReqDto.getGoodsPrice();
         this.goodsColor = goodsUploadReqDto.getGoodsColor();
         this.goodsSize = goodsUploadReqDto.getGoodsSize();
+        this.goodsFrom = goodsUploadReqDto.getGoodsFrom();
+        this.goodsReleaseDate = goodsUploadReqDto.getGoodsReleaseDate();
+        this.goodsDeliveryDate = goodsUploadReqDto.getGoodsDeliveryDate();
         this.fileGroup = fileGroup;
     }
 

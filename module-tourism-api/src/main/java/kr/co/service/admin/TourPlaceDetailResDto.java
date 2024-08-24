@@ -1,7 +1,7 @@
 package kr.co.service.admin;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import kr.co.entity.TourPlace;
+import kr.co.entity.Tourism;
 import lombok.Data;
 
 @Data
@@ -15,10 +15,10 @@ public class TourPlaceDetailResDto {
     @Schema(description = "여행지연락처", example = "02-3700-3900")
     private String tourPlaceContact;
 
-    public TourPlaceDetailResDto(TourPlace tourPlace) {
-        this.tourPlaceName = tourPlace.getTourPlaceName();
-        this.tourPlaceAddress = tourPlace.getTourPlaceAddress();
-        this.tourPlaceLink = tourPlace.getTourPlaceLink();
-        this.tourPlaceContact = tourPlace.getTourPlaceContact();
+    public TourPlaceDetailResDto(Tourism tourism) {
+        this.tourPlaceName = tourism.getTourPlaceName();
+        this.tourPlaceAddress = tourism.getTourPlaceAddress();
+        this.tourPlaceLink = tourism.getTourPlaceLink();
+        this.tourPlaceContact = tourism.getTourPlaceContact();
     }
 }

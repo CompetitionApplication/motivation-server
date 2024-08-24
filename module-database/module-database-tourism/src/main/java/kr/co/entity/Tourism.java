@@ -3,6 +3,7 @@ package kr.co.entity;
 import jakarta.persistence.*;
 import kr.co.config.BooleanConverter;
 import kr.co.dto.TourPlaceUploadReqDto;
+import kr.co.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class TourPlace {
+public class Tourism extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
@@ -37,7 +38,7 @@ public class TourPlace {
     @Convert(converter = BooleanConverter.class)
     private boolean delYn;
 
-    public TourPlace(TourPlaceUploadReqDto tourPlaceUploadReqDto, FileGroup fileGroup) {
+    public Tourism(TourPlaceUploadReqDto tourPlaceUploadReqDto, FileGroup fileGroup) {
         this.tourPlaceName = tourPlaceUploadReqDto.getTourPlaceName();
         this.tourPlaceAddress = tourPlaceUploadReqDto.getTourPlaceAddress();
         this.tourPlaceLink = tourPlaceUploadReqDto.getTourPlaceLink();
