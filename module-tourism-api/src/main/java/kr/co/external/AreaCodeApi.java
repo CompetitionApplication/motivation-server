@@ -3,7 +3,6 @@ package kr.co.external;
 import kr.co.dto.AreaCodeResponse;
 import kr.co.entity.AreaCode;
 import kr.co.repository.AreaCodeRepository;
-import kr.co.repository.CategoryCodeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
