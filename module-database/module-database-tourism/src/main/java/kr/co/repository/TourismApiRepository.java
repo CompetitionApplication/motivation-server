@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TourismApiRepository extends JpaRepository<TourismApi,String> {
-    List<TourismApi> findAllByDelYnFalse();
+
+    List<TourismApi> findAllByDelYnFalseAndCountry(String kor);
 }

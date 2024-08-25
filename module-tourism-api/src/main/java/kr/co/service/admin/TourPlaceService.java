@@ -42,8 +42,8 @@ public class TourPlaceService {
 
     @Transactional(readOnly = true)
     public Page<TourPlaceResDto> getTourPlaceList(int page, int size) {
-        // 관광지 외부 API DATA
-        List<TourismApi> tourismApis = tourismApiRepository.findAllByDelYnFalse();
+        // 관광지 외부 API DATA (한국어 버전만 추출)
+        List<TourismApi> tourismApis = tourismApiRepository.findAllByDelYnFalseAndCountry("KOR");
 
         // 기존 DB의 관광지 데이터 가져오기
         Page<Tourism> tourPlaces = tourPlaceRepository.findAllByDelYnFalse(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")));
