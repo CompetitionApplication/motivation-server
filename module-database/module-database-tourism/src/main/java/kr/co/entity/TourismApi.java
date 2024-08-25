@@ -43,4 +43,8 @@ public class TourismApi extends BaseTimeEntity {
     @Column(columnDefinition = "varchar(1) default 'N'")
     @Convert(converter = BooleanConverter.class)
     private boolean delYn;
+
+    public void delete() {
+        this.delYn = true;
+    }
 }

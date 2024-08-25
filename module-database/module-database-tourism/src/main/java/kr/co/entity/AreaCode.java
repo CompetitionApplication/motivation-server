@@ -1,9 +1,7 @@
 package kr.co.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import kr.co.config.BooleanConverter;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,4 +20,11 @@ public class AreaCode {
     private String code;
     private String name;
     private String country;
+    @Column(columnDefinition = "varchar(1) default 'N'")
+    @Convert(converter = BooleanConverter.class)
+    private boolean delYn;
+
+    public void delete() {
+        this.delYn = true;
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -35,8 +36,15 @@ public class AreaBasedListApi {
 
     private final TourismApiRepository tourismApiRepository;
 
-
+    @Transactional
     public void tourismApi() throws URISyntaxException {
+        //기존 데이터 초기화
+        List<TourismApi> tourismApis = tourismApiRepository.findAll();
+        tourismApis.forEach(tourismApi -> {
+            tourismApi.delete();
+        });
+
+
         List<String> countryUrl = List.of(korUrl, engUrl, chsUrl, jpnUrl);
         List<String> country = List.of("KOR", "ENG", "CHS", "JPN");
 

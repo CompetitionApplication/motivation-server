@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -37,7 +38,14 @@ public class AreaCodeApi {
 
     private final AreaCodeRepository areaCodeRepository;
 
+    @Transactional
     public void areaCode() throws URISyntaxException {
+        //기존 데이터 초기화
+        List<AreaCode> areaCodes = areaCodeRepository.findAll();
+        areaCodes.forEach(areaCode -> {
+            areaCode.delete();
+        });
+
         List<String> countryUrl = List.of(korUrl, engUrl, chsUrl, jpnUrl);
         List<String> country = List.of("KOR", "ENG", "CHS", "JPN");
 
