@@ -27,7 +27,7 @@ public class GoodsController {
     @Operation(summary = "굿즈 목록 리스트", description = "굿즈 목록 리스트 입니다.")
     @GetMapping(value = "/list", produces = "application/json")
     public ResponseEntity<Page<GoodsResDto>> getGoodsList(@RequestParam(defaultValue = "0") int page,
-                                                          @RequestParam(defaultValue = "10") int size) {
+                                                          @RequestParam(defaultValue = "7") int size) {
         return ResponseEntity.ok(goodsService.getGoodsList(page, size));
     }
 

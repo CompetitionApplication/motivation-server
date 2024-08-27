@@ -23,7 +23,7 @@ public class LocalSpecialtyController {
     @Operation(summary = "특산품 목록 리스트", description = "특산품 목록 리스트 입니다.")
     @GetMapping("/list")
     public ResponseEntity<Page<LocalSpecialtyResDto>> getLocalSpecialtyList(@RequestParam(defaultValue = "0") int page,
-                                                                            @RequestParam(defaultValue = "10") int size) {
+                                                                            @RequestParam(defaultValue = "7") int size) {
         return ResponseEntity.ok(localSpecialtyService.getLocalSpecialtyList(page, size));
     }
     @Operation(summary = "특산품 목록 상세 조회", description = "특산품 목록 상세 조회를 합니다.")

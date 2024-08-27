@@ -23,7 +23,7 @@ public class OrderItemController {
     @Operation(summary = "주문 목록 리스트", description = "주문 목록 리스트 입니다.")
     @GetMapping("/list")
     public ResponseEntity<Page<OrderItemResDto>> getOrderItemList(@RequestParam(defaultValue = "0") int page,
-                                                                  @RequestParam(defaultValue = "10") int size) {
+                                                                  @RequestParam(defaultValue = "7") int size) {
         return ResponseEntity.ok(orderItemService.getOrderItemList(page, size));
     }
 }

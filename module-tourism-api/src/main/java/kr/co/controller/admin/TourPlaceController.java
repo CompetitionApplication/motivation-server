@@ -29,7 +29,7 @@ public class TourPlaceController {
     @Operation(summary = "관광지 목록 리스트", description = "관광지 목록 리스트 입니다.")
     @GetMapping("/list")
     public ResponseEntity<Page<TourPlaceResDto>> getTourPlaceList(@RequestParam(defaultValue = "0") int page,
-                                                                  @RequestParam(defaultValue = "10") int size) {
+                                                                  @RequestParam(defaultValue = "7") int size) {
         return ResponseEntity.ok(tourPlaceService.getTourPlaceList(page, size));
     }
 
