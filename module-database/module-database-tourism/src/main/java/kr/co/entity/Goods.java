@@ -61,7 +61,7 @@ public class Goods extends BaseTimeEntity {
     private boolean delYn;
 
     @ManyToOne
-    @JoinColumn(name = "areaCode_id")
+    @JoinColumn(name = "area_code_id")
     private AreaCode areaCode;
 
     @ManyToOne
