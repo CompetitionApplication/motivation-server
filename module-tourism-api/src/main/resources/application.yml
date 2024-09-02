@@ -5,6 +5,7 @@ spring.profiles.include:
 spring.config.activate.on-profile: local
 server:
   port: 8080
+spring:
   servlet:
     multipart:
       max-file-size: 10MB
@@ -12,18 +13,20 @@ server:
 jwt:
   secret-access-token: ${JWT_SECRET_ACCESS_TOKEN}
 file:
-  upload-dir: /Users/kimyoungjae/desktop/file/
-  #upload-dir: /Users/yjkim-mtn/desktop/
+  #upload-dir: /Users/kimyoungjae/desktop/file/
+  upload-dir: /Users/yjkim-mtn/desktop/
 api:
   url:
-    kor-category-code: https://apis.data.go.kr/B551011/KorService1/categoryCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
-    eng-category-code: https://apis.data.go.kr/B551011/EngService1/categoryCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
-    jpn-category-code: https://apis.data.go.kr/B551011/JpnService1/categoryCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
-    chs-category-code: https://apis.data.go.kr/B551011/ChsService1/categoryCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
+
+
     kor-area-code: https://apis.data.go.kr/B551011/KorService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
     eng-area-code: https://apis.data.go.kr/B551011/EngService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
     jpn-area-code: https://apis.data.go.kr/B551011/JpnService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
     chs-area-code: https://apis.data.go.kr/B551011/ChsService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
+    kor-detail-area-code: https://apis.data.go.kr/B551011/KorService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}&areaCode=
+    eng-detail-area-code: https://apis.data.go.kr/B551011/EngService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}&areaCode=
+    jpn-detail-area-code: https://apis.data.go.kr/B551011/JpnService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}&areaCode=
+    chs-detail-area-code: https://apis.data.go.kr/B551011/ChsService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}&areaCode=
     kor-tourism-api: https://apis.data.go.kr/B551011/KorService1/areaBasedList1?MobileOS=ETC&MobileApp=TEST&_type=json&serviceKey=${TOURISM_API_SERVICE_KEY}
     eng-tourism-api: https://apis.data.go.kr/B551011/EngService1/areaBasedList1?MobileOS=ETC&MobileApp=TEST&_type=json&serviceKey=${TOURISM_API_SERVICE_KEY}
     jpn-tourism-api: https://apis.data.go.kr/B551011/JpnService1/areaBasedList1?MobileOS=ETC&MobileApp=TEST&_type=json&serviceKey=${TOURISM_API_SERVICE_KEY}
@@ -44,10 +47,8 @@ file:
   upload-dir: /app/tour/files/
 api:
   url:
-    kor-category-code: https://apis.data.go.kr/B551011/KorService1/categoryCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
-    eng-category-code: https://apis.data.go.kr/B551011/EngService1/categoryCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
-    jpn-category-code: https://apis.data.go.kr/B551011/JpnService1/categoryCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
-    chs-category-code: https://apis.data.go.kr/B551011/ChsService1/categoryCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
+
+
     kor-area-code: https://apis.data.go.kr/B551011/KorService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
     eng-area-code: https://apis.data.go.kr/B551011/EngService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
     jpn-area-code: https://apis.data.go.kr/B551011/JpnService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}

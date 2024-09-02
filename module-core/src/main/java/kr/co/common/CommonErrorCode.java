@@ -59,7 +59,8 @@ public enum CommonErrorCode {
     INVALID_DATE_FORMAT("D012","날짜 형식이 잘못되었습니다."),
     NOT_FOUND_TOUR_PLACE("D013","관광지 정보를 찾을 수 없습니다."),
     NOT_FOUND_LOCAL_SPECIALTY("D014","지역특산물 정보를 찾을 수 없습니다."),
-    FORBIDDEN("D013","접근 권한이 없습니다.");
+    FORBIDDEN("D013","접근 권한이 없습니다."),
+    NOT_FOUND_AREA_CODE("D014","지역코드를 찾을 수 없습니다.");
 
 
     private final String code;

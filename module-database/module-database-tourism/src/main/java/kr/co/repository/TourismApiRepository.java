@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TourismApiRepository extends JpaRepository<TourismApi,String> {
 
-    List<TourismApi> findAllByDelYnFalseAndCountry(String kor);
+    List<TourismApi> findAllByDelYnFalseAndCountry(String country);
 }

@@ -2,6 +2,7 @@ package kr.co.entity;
 
 import jakarta.persistence.*;
 import kr.co.config.BooleanConverter;
+import kr.co.dto.TourismUploadReqDto;
 import kr.co.entity.common.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -20,7 +21,10 @@ public class TourismApi extends BaseTimeEntity {
     private String tourismId;
     private String addr1;
     private String addr2;
+    //지역코드
     private String areacode;
+    //지역상세코드
+    private String detailAreaCode;
     private String booktour;
     private String cat1;
     private String cat2;
@@ -40,11 +44,41 @@ public class TourismApi extends BaseTimeEntity {
     private String title;
     private String zipcode;
     private String country;
+    private String tourismLink;
+
+    @Column(columnDefinition = "varchar(1) default 'N'")
+    @Convert(converter = BooleanConverter.class)
+    private boolean customYn;
     @Column(columnDefinition = "varchar(1) default 'N'")
     @Convert(converter = BooleanConverter.class)
     private boolean delYn;
+    @OneToOne
+    @JoinColumn(name = "file_group_id")
+    private FileGroup fileGroup;
 
     public void delete() {
+        this.delYn = true;
+    }
+
+    public TourismApi(TourismUploadReqDto tourismUploadReqDto, FileGroup fileGroup) {
+        this.title = tourismUploadReqDto.getTourismName();
+        this.addr1 = tourismUploadReqDto.getTourismAddress();
+        this.tel = tourismUploadReqDto.getTourismContact();
+        this.tourismLink = tourismUploadReqDto.getTourismLink();
+        this.areacode = tourismUploadReqDto.getAreaCode();
+        this.detailAreaCode = tourismUploadReqDto.getDetailAreaCode();
+        this.fileGroup = fileGroup;
+    }
+
+    public void updateTourPlace(TourismUploadReqDto tourPlaceUploadReqDto, FileGroup newFileGroup) {
+        this.title = tourPlaceUploadReqDto.getTourismName();
+        this.addr1 = tourPlaceUploadReqDto.getTourismAddress();
+        this.tel = tourPlaceUploadReqDto.getTourismContact();
+        this.tourismLink = tourPlaceUploadReqDto.getTourismLink();
+        this.fileGroup = newFileGroup;
+    }
+
+    public void deleteTourism() {
         this.delYn = true;
     }
 }
