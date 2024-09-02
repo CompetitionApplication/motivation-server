@@ -20,12 +20,16 @@ public class GoodsDetailResDto {
     private String goodsColor;
     @Schema(description = "상품사이즈", example = "L")
     private String goodsSize;
+    private String areaCode;
+    private String detailAreaCode;
 
     public GoodsDetailResDto(Goods goods) {
         this.goodsName = goods.getGoodsName();
         this.goodsPrice = goods.getGoodsPrice();
         this.goodsColor = goods.getGoodsColor();
         this.goodsSize = goods.getGoodsSize();
+        this.areaCode = goods.getAreaCode().getName();
+        this.detailAreaCode = goods.getDetailAreaCode().getName();
     }
 
 }

@@ -53,6 +53,10 @@ api:
     eng-area-code: https://apis.data.go.kr/B551011/EngService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
     jpn-area-code: https://apis.data.go.kr/B551011/JpnService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
     chs-area-code: https://apis.data.go.kr/B551011/ChsService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
+    kor-detail-area-code: https://apis.data.go.kr/B551011/KorService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}&areaCode=
+    eng-detail-area-code: https://apis.data.go.kr/B551011/EngService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}&areaCode=
+    jpn-detail-area-code: https://apis.data.go.kr/B551011/JpnService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}&areaCode=
+    chs-detail-area-code: https://apis.data.go.kr/B551011/ChsService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}&areaCode=
     kor-tourism-api: https://apis.data.go.kr/B551011/KorService1/areaBasedList1?MobileOS=ETC&MobileApp=TEST&_type=json&serviceKey=${TOURISM_API_SERVICE_KEY}
     eng-tourism-api: https://apis.data.go.kr/B551011/EngService1/areaBasedList1?MobileOS=ETC&MobileApp=TEST&_type=json&serviceKey=${TOURISM_API_SERVICE_KEY}
     jpn-tourism-api: https://apis.data.go.kr/B551011/JpnService1/areaBasedList1?MobileOS=ETC&MobileApp=TEST&_type=json&serviceKey=${TOURISM_API_SERVICE_KEY}

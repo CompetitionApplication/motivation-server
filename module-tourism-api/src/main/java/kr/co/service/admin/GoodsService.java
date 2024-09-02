@@ -39,19 +39,19 @@ public class GoodsService {
 
     @Transactional(readOnly = true)
     public Page<GoodsResDto> getGoodsList(int page, int size) {
-        Page<Goods> goods = goodsRepository.findAllByDelYnFalse(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")));
-        List<GoodsResDto> goodsResDtos = goods.stream()
-                .map(goodsResDto -> GoodsResDto.builder()
-                        .goodsId(goodsResDto.getGoodsId())
-                        .goodsName(goodsResDto.getGoodsName())
-                        .goodsPrice(goodsResDto.getGoodsPrice() + "원")
-                        .goodsColor(goodsResDto.getGoodsColor())
-                        .goodsSize(goodsResDto.getGoodsSize())
-                        .areaCode(goodsResDto.getAreaCode().getName())
-                        .detailAreaCode(goodsResDto.getDetailAreaCode().getName())
+        Page<Goods> goodsList = goodsRepository.findAllByDelYnFalse(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")));
+        List<GoodsResDto> goodsResDtos = goodsList.stream()
+                .map(goods -> GoodsResDto.builder()
+                        .goodsId(goods.getGoodsId())
+                        .goodsName(goods.getGoodsName())
+                        .goodsPrice(goods.getGoodsPrice() + "원")
+                        .goodsColor(goods.getGoodsColor())
+                        .goodsSize(goods.getGoodsSize())
+                        .areaCode(goods.getAreaCode().getName())
+                        .detailAreaCode(goods.getDetailAreaCode().getName())
                         .build())
                 .collect(Collectors.toList());
-        return new PageImpl<>(goodsResDtos, goods.getPageable(), goods.getTotalElements());
+        return new PageImpl<>(goodsResDtos, goodsList.getPageable(), goodsList.getTotalElements());
     }
 
     @Transactional
