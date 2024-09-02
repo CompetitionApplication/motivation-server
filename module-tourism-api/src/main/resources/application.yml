@@ -47,8 +47,6 @@ file:
   upload-dir: /app/tour/files/
 api:
   url:
-
-
     kor-area-code: https://apis.data.go.kr/B551011/KorService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
     eng-area-code: https://apis.data.go.kr/B551011/EngService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
     jpn-area-code: https://apis.data.go.kr/B551011/JpnService1/areaCode1?MobileOS=ETC&_type=json&MobileApp=TEST&serviceKey=${TOURISM_API_SERVICE_KEY}
