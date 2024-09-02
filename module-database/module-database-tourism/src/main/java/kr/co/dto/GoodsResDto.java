@@ -17,4 +17,6 @@ public class GoodsResDto {
     private String goodsColor;
     @Schema(description = "굿즈사이즈", example = "L")
     private String goodsSize;
+    private String areaCode;
+    private String detailAreaCode;
 }

@@ -22,7 +22,7 @@ import java.util.List;
 public class Goods extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name="uuid2", strategy = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "varchar(38)")
     @Comment(value = "굿즈키값")
     private String goodsId;
@@ -48,24 +48,41 @@ public class Goods extends BaseTimeEntity {
     @Comment(value = "예상 배송일")
     private String goodsDeliveryDate;
 
+    @Comment(value = "뱃지 해금 개수")
+    private Integer badgeOpenCount;
+
+    @Comment(value = "굿즈 해금 유무")
+    @Column(columnDefinition = "varchar(1) default 'N'")
+    @Convert(converter = BooleanConverter.class)
+    private boolean openYn;
 
     @Column(columnDefinition = "varchar(1) default 'N'")
     @Convert(converter = BooleanConverter.class)
     private boolean delYn;
 
+    @ManyToOne
+    @JoinColumn(name = "areaCode_id")
+    private AreaCode areaCode;
+
+    @ManyToOne
+    @JoinColumn(name = "detail_area_code_id")
+    private DetailAreaCode detailAreaCode;
+
     @OneToOne
     @JoinColumn(name = "file_group_id")
     private FileGroup fileGroup;
 
-    public Goods(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup) {
+    public Goods(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup, AreaCode areaCode, DetailAreaCode detailAreaCode) {
         this.goodsName = goodsUploadReqDto.getGoodsName();
         this.goodsPrice = goodsUploadReqDto.getGoodsPrice();
         this.goodsColor = goodsUploadReqDto.getGoodsColor();
         this.goodsSize = goodsUploadReqDto.getGoodsSize();
         this.fileGroup = fileGroup;
+        this.areaCode = areaCode;
+        this.detailAreaCode = detailAreaCode;
     }
 
-    public void updateGoods(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup) {
+    public void updateGoods(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup, AreaCode areaCode, DetailAreaCode detailAreaCode) {
         this.goodsName = goodsUploadReqDto.getGoodsName();
         this.goodsPrice = goodsUploadReqDto.getGoodsPrice();
         this.goodsColor = goodsUploadReqDto.getGoodsColor();
@@ -74,6 +91,8 @@ public class Goods extends BaseTimeEntity {
         this.goodsReleaseDate = goodsUploadReqDto.getGoodsReleaseDate();
         this.goodsDeliveryDate = goodsUploadReqDto.getGoodsDeliveryDate();
         this.fileGroup = fileGroup;
+        this.areaCode = areaCode;
+        this.detailAreaCode = detailAreaCode;
     }
 
     public void deleteGoods() {

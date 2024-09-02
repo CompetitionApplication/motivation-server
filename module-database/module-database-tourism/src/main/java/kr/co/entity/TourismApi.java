@@ -18,7 +18,7 @@ public class TourismApi extends BaseTimeEntity {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(columnDefinition = "varchar(38)")
-    private String tourismId;
+    private String tourismApiId;
     private String addr1;
     private String addr2;
     //지역코드
@@ -56,6 +56,10 @@ public class TourismApi extends BaseTimeEntity {
     @JoinColumn(name = "file_group_id")
     private FileGroup fileGroup;
 
+    @ManyToOne
+    @JoinColumn(name = "badge_code")
+    private BadgeCode badgeCode;
+
     public void delete() {
         this.delYn = true;
     }
@@ -68,6 +72,7 @@ public class TourismApi extends BaseTimeEntity {
         this.areacode = tourismUploadReqDto.getAreaCode();
         this.detailAreaCode = tourismUploadReqDto.getDetailAreaCode();
         this.fileGroup = fileGroup;
+        this.customYn = true;
     }
 
     public void updateTourPlace(TourismUploadReqDto tourPlaceUploadReqDto, FileGroup newFileGroup) {
@@ -76,6 +81,7 @@ public class TourismApi extends BaseTimeEntity {
         this.tel = tourPlaceUploadReqDto.getTourismContact();
         this.tourismLink = tourPlaceUploadReqDto.getTourismLink();
         this.fileGroup = newFileGroup;
+        this.customYn = true;
     }
 
     public void deleteTourism() {
