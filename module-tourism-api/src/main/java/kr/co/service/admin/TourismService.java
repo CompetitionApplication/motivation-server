@@ -4,10 +4,7 @@ package kr.co.service.admin;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.*;
-import kr.co.entity.AreaCode;
-import kr.co.entity.File;
-import kr.co.entity.FileGroup;
-import kr.co.entity.TourismApi;
+import kr.co.entity.*;
 import kr.co.repository.*;
 import kr.co.util.FileUtil;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +35,7 @@ public class TourismService {
     private final TourismApiRepository tourismApiRepository;
     private final AreaCodeRepository areaCodeRepository;
     private final DetailAreaCodeRepository detailAreaCodeRepository;
+    private final BadgeCodeRepository badgeCodeRepository;
 
     @Transactional(readOnly = true)
     public Page<TourPlaceResDto> getTourismList(int page, int size) {
@@ -117,12 +116,15 @@ public class TourismService {
                 .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
                 .collect(Collectors.toList()));
 
+        BadgeCode badgeCode = badgeCodeRepository.findById(tourismUploadReqDto.getBadgeCode())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
+
         //관광지 정보 저장
-        tourismApiRepository.save(new TourismApi(tourismUploadReqDto, fileGroup));
+        tourismApiRepository.save(new TourismApi(tourismUploadReqDto, fileGroup, badgeCode));
     }
 
     @Transactional
-    public void updateTourism(String tourismId, TourismUploadReqDto tourPlaceUploadReqDto, List<MultipartFile> tourPlaceImages) {
+    public void updateTourism(String tourismId, TourismUploadReqDto tourismUploadReqDto, List<MultipartFile> tourPlaceImages) {
         TourismApi tourismApi = tourismApiRepository.findById(tourismId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_TOUR_PLACE.getCode(), CommonErrorCode.NOT_FOUND_TOUR_PLACE.getMessage()));
 
@@ -137,7 +139,10 @@ public class TourismService {
                 .map(fileSaveDto -> new File(fileSaveDto, newFileGroup))
                 .collect(Collectors.toList()));
 
+        BadgeCode badgeCode = badgeCodeRepository.findById(tourismUploadReqDto.getBadgeCode())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
+
         //관광지 정보 수정
-        tourismApi.updateTourPlace(tourPlaceUploadReqDto, newFileGroup);
+        tourismApi.updateTourPlace(tourismUploadReqDto, newFileGroup,badgeCode);
     }
 }

@@ -26,6 +26,7 @@ public class OrderItemService {
         List<OrderItemResDto> orderItemResDtos = orderItems.stream()
                 .map(orderItem -> OrderItemResDto.builder()
                         .orderId(orderItem.getOrderId())
+                        .goodsId(orderItem.getGoods().getGoodsId())
                         .orderDatetime(orderItem.getRegDatetime())
                         .orderUser(orderItem.getUser().getUserName())
                         .orderPrice(orderItem.getOrderPrice() + "원")

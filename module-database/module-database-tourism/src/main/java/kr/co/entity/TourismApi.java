@@ -64,23 +64,29 @@ public class TourismApi extends BaseTimeEntity {
         this.delYn = true;
     }
 
-    public TourismApi(TourismUploadReqDto tourismUploadReqDto, FileGroup fileGroup) {
+    public TourismApi(TourismUploadReqDto tourismUploadReqDto, FileGroup fileGroup, BadgeCode badgeCode) {
         this.title = tourismUploadReqDto.getTourismName();
         this.addr1 = tourismUploadReqDto.getTourismAddress();
         this.tel = tourismUploadReqDto.getTourismContact();
         this.tourismLink = tourismUploadReqDto.getTourismLink();
         this.areacode = tourismUploadReqDto.getAreaCode();
         this.detailAreaCode = tourismUploadReqDto.getDetailAreaCode();
+        this.mapx = tourismUploadReqDto.getTourismMapX();
+        this.mapy = tourismUploadReqDto.getTourismMapY();
         this.fileGroup = fileGroup;
+        this.badgeCode = badgeCode;
         this.customYn = true;
     }
 
-    public void updateTourPlace(TourismUploadReqDto tourPlaceUploadReqDto, FileGroup newFileGroup) {
+    public void updateTourPlace(TourismUploadReqDto tourPlaceUploadReqDto, FileGroup newFileGroup, BadgeCode badgeCode) {
         this.title = tourPlaceUploadReqDto.getTourismName();
         this.addr1 = tourPlaceUploadReqDto.getTourismAddress();
         this.tel = tourPlaceUploadReqDto.getTourismContact();
         this.tourismLink = tourPlaceUploadReqDto.getTourismLink();
+        this.mapx = tourPlaceUploadReqDto.getTourismMapX();
+        this.mapy = tourPlaceUploadReqDto.getTourismMapY();
         this.fileGroup = newFileGroup;
+        this.badgeCode = badgeCode;
         this.customYn = true;
     }
 

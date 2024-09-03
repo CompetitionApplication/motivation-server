@@ -9,6 +9,8 @@ import lombok.Data;
 public class OrderItemResDto {
     @Schema(description = "주문 ID", example = "1")
     private String orderId;
+    @Schema(description = "굿즈 ID", example = "굿즈ID")
+    private String goodsId;
     @Schema(description = "주문일시", example = "2021-08-01 12:00:00")
     private String orderDatetime;
     @Schema(description = "주문자", example = "홍길동")

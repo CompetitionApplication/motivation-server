@@ -28,19 +28,19 @@ public class TourIsmController {
     @Operation(summary = "관광지 목록 리스트", description = "관광지 목록 리스트 입니다.")
     @GetMapping("/list")
     public ResponseEntity<Page<TourPlaceResDto>> getTourismList(@RequestParam(defaultValue = "0") int page,
-                                                                  @RequestParam(defaultValue = "7") int size) {
+                                                                @RequestParam(defaultValue = "7") int size) {
         return ResponseEntity.ok(tourismService.getTourismList(page, size));
     }
 
     @Operation(summary = "지역코드 목록 리스트", description = "지역코드 목록 리스트 입니다.")
     @GetMapping("/area-code/list")
-    public ResponseEntity<?> areaCodeList(){
+    public ResponseEntity<?> areaCodeList() {
         return ResponseEntity.ok(tourismService.areaCodeList());
     }
 
     @Operation(summary = "관광지 상세코드리스트 조회", description = "관광지 상세코드 리스트를 조회 합니다.")
     @GetMapping("/detail-code/{areaCodeId}")
-    public ResponseEntity<?> detailAreaCodeList(@PathVariable(value = "areaCodeId") String areaCodeId){
+    public ResponseEntity<?> detailAreaCodeList(@PathVariable(value = "areaCodeId") String areaCodeId) {
         return ResponseEntity.ok(tourismService.detailAreaCodeList(areaCodeId));
     }
 
@@ -65,9 +65,12 @@ public class TourIsmController {
                                          @RequestParam("tourismContact") String tourismContact,
                                          @RequestParam("areaCode") String areaCode,
                                          @RequestParam("detailAreaCode") String detailAreaCode,
+                                         @RequestParam("mapX") String tourismMapX,
+                                         @RequestParam("mapY") String tourismMapY,
+                                         @RequestParam("badgeCode") String badgeCode,
                                          @RequestPart List<MultipartFile> tourismImages) {
         tourismService.uploadTourPlace(
-                new TourismUploadReqDto(tourismName, tourismAddress, tourismLink, tourismContact,areaCode,detailAreaCode),
+                new TourismUploadReqDto(tourismName, tourismAddress, tourismLink, tourismContact, areaCode, detailAreaCode,tourismMapX,tourismMapY,badgeCode),
                 tourismImages);
         return ResponseEntity.ok().build();
     }
@@ -81,8 +84,11 @@ public class TourIsmController {
                                          @RequestParam("tourPlaceContact") String tourPlaceContact,
                                          @RequestParam("areaCode") String areaCode,
                                          @RequestParam("detailAreaCode") String detailAreaCode,
+                                         @RequestParam("mapX") String tourismMapX,
+                                         @RequestParam("mapY") String tourismMapY,
+                                         @RequestParam("badgeCode") String badgeCode,
                                          @RequestPart List<MultipartFile> tourPlaceImages) {
-        tourismService.updateTourism(tourismApiId, new TourismUploadReqDto(tourPlaceName, tourPlaceAddress, tourPlaceLink, tourPlaceContact,areaCode,detailAreaCode),
+        tourismService.updateTourism(tourismApiId, new TourismUploadReqDto(tourPlaceName, tourPlaceAddress, tourPlaceLink, tourPlaceContact, areaCode, detailAreaCode,tourismMapX,tourismMapY,badgeCode),
                 tourPlaceImages);
         return ResponseEntity.ok().build();
     }

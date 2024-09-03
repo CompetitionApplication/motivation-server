@@ -17,13 +17,22 @@ public class TourismUploadReqDto {
     private String areaCode;
     @Schema(description = "상세지역코드", example = "1")
     private String detailAreaCode;
+    @Schema(description = "관광지맵X", example = "126.9769")
+    private String tourismMapX;
+    @Schema(description = "관광지맵Y", example = "37.5769")
+    private String tourismMapY;
+    @Schema(description = "뱃지코드", example = "1")
+    private String badgeCode;
 
-    public TourismUploadReqDto(String tourismName, String tourismAddress, String tourismLink, String tourismContact, String areaCode, String detailAreaCode) {
+    public TourismUploadReqDto(String tourismName, String tourismAddress, String tourismLink, String tourismContact, String areaCode, String detailAreaCode,String tourismMapX,String tourismMapY,String badgeCode) {
         this.tourismName = tourismName;
         this.tourismAddress = tourismAddress;
         this.tourismLink = tourismLink;
         this.tourismContact = tourismContact;
         this.areaCode = areaCode;
         this.detailAreaCode = detailAreaCode;
+        this.tourismMapX = tourismMapX;
+        this.tourismMapY = tourismMapY;
+        this.badgeCode = badgeCode;
     }
 }
