@@ -39,6 +39,14 @@ public class LocalItem extends BaseTimeEntity {
     @JoinColumn(name = "file_group_id")
     private FileGroup fileGroup;
 
+    @ManyToOne
+    @JoinColumn(name = "area_code_id")
+    private AreaCode areaCode;
+
+    @ManyToOne
+    @JoinColumn(name = "detail_area_code_id")
+    private DetailAreaCode detailAreaCode;
+
    /* public localItem(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup) {
         this.goodsName = goodsUploadReqDto.getGoodsName();
         this.goodsPrice = goodsUploadReqDto.getGoodsPrice();

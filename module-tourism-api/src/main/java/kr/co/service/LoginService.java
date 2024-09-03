@@ -2,6 +2,7 @@ package kr.co.service;
 
 import jakarta.transaction.Transactional;
 import kr.co.auth.JwtUtil;
+import kr.co.auth.TourismUser;
 import kr.co.common.AES256Cipher;
 import kr.co.common.AES256Util;
 import kr.co.common.CommonErrorCode;
@@ -18,6 +19,7 @@ import kr.co.repository.TripStyleRepository;
 import kr.co.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class LocalSpecialtyResDto {
+public class LocalItemResDto {
     @Schema(description = "특산품 ID", example = "1")
     private String localSpecialtyId;
     @Schema(description = "특산품명", example = "한과")
