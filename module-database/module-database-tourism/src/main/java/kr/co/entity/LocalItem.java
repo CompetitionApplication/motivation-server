@@ -2,6 +2,7 @@ package kr.co.entity;
 
 import jakarta.persistence.*;
 import kr.co.config.BooleanConverter;
+import kr.co.dto.LocalItemUploadReqDto;
 import kr.co.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,8 +29,8 @@ public class LocalItem extends BaseTimeEntity {
     @Comment(value = "특산품금액")
     private String localItemPrice;
 
-    @Comment(value = "스탬프갯수")
-    private int localItemStampCount;
+    @Comment(value = "뱃지 갯수")
+    private int localItemBadgeCount;
 
     @Column(columnDefinition = "varchar(1) default 'N'")
     @Convert(converter = BooleanConverter.class)
@@ -47,15 +48,16 @@ public class LocalItem extends BaseTimeEntity {
     @JoinColumn(name = "detail_area_code_id")
     private DetailAreaCode detailAreaCode;
 
-   /* public localItem(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup) {
-        this.goodsName = goodsUploadReqDto.getGoodsName();
-        this.goodsPrice = goodsUploadReqDto.getGoodsPrice();
-        this.goodsColor = goodsUploadReqDto.getGoodsColor();
-        this.goodsSize = goodsUploadReqDto.getGoodsSize();
+    public LocalItem(LocalItemUploadReqDto localItemUploadReqDto,AreaCode areaCode, DetailAreaCode detailAreaCode, FileGroup fileGroup) {
+        this.localItemName = localItemUploadReqDto.getLocalItemName();
+        this.localItemPrice = localItemUploadReqDto.getLocalItemPrice();
+        this.localItemBadgeCount = localItemUploadReqDto.getLocalItemBadgeCount();
+        this.areaCode = areaCode;
+        this.detailAreaCode = detailAreaCode;
         this.fileGroup = fileGroup;
     }
 
-    public void updateGoods(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup) {
+  /*  public void updateGoods(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup) {
         this.goodsName = goodsUploadReqDto.getGoodsName();
         this.goodsPrice = goodsUploadReqDto.getGoodsPrice();
         this.goodsColor = goodsUploadReqDto.getGoodsColor();

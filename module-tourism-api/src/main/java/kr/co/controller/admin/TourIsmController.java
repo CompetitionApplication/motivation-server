@@ -87,9 +87,9 @@ public class TourIsmController {
                                          @RequestParam("mapX") String tourismMapX,
                                          @RequestParam("mapY") String tourismMapY,
                                          @RequestParam("badgeCode") String badgeCode,
-                                         @RequestPart List<MultipartFile> tourPlaceImages) {
+                                         @RequestPart List<MultipartFile> tourismImages) {
         tourismService.updateTourism(tourismApiId, new TourismUploadReqDto(tourPlaceName, tourPlaceAddress, tourPlaceLink, tourPlaceContact, areaCode, detailAreaCode,tourismMapX,tourismMapY,badgeCode),
-                tourPlaceImages);
+                tourismImages);
         return ResponseEntity.ok().build();
     }
 

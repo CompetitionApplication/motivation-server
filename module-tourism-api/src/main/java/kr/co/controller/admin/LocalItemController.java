@@ -4,17 +4,21 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.dto.LocalItemDetailResDto;
 import kr.co.dto.LocalItemResDto;
+import kr.co.dto.LocalItemUploadReqDto;
 import kr.co.service.LocalItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Tag(name = "local-specialty", description = "특산품")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/local-specialty")
+@RequestMapping(value = "/api/v1/local-item")
 @Slf4j
 public class LocalItemController {
 
@@ -30,5 +34,16 @@ public class LocalItemController {
     @GetMapping("/list/{localSpecialtyId}")
     public ResponseEntity<LocalItemDetailResDto> getLocalItemDetail(@PathVariable(value = "localSpecialtyId") String localItemId) {
         return ResponseEntity.ok(localItemService.getLocalItemDetail(localItemId));
+    }
+    @Operation(summary = "특산품 등록", description = "특산품 등록 합니다")
+    @PostMapping("/")
+    public ResponseEntity<?> uploadLocalItem(@RequestParam("localItemName") String localItemName,
+                                             @RequestParam("localItemPrice") String localItemPrice,
+                                             @RequestParam("localItemBadgeCount") int localItemBadgeCount,
+                                             @RequestParam("areaCode") String areaCode,
+                                             @RequestParam("detailAreaCode") String detailAreaCode,
+                                             @RequestPart List<MultipartFile> localItemImages) {
+        localItemService.uploadLocalItem(new LocalItemUploadReqDto(localItemName, localItemPrice, localItemBadgeCount, areaCode, detailAreaCode), localItemImages);
+        return ResponseEntity.ok().build();
     }
 }

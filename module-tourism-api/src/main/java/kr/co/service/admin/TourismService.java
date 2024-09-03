@@ -124,7 +124,7 @@ public class TourismService {
     }
 
     @Transactional
-    public void updateTourism(String tourismId, TourismUploadReqDto tourismUploadReqDto, List<MultipartFile> tourPlaceImages) {
+    public void updateTourism(String tourismId, TourismUploadReqDto tourismUploadReqDto, List<MultipartFile> tourismImages) {
         TourismApi tourismApi = tourismApiRepository.findById(tourismId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_TOUR_PLACE.getCode(), CommonErrorCode.NOT_FOUND_TOUR_PLACE.getMessage()));
 
@@ -134,7 +134,7 @@ public class TourismService {
         fileGroup.deleteFileGroup(true);
         //파일 업로드, 파일 그룹 저장
         FileGroup newFileGroup = fileGroupRepository.save(new FileGroup(false));
-        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(tourPlaceImages, uploadDir);
+        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(tourismImages, uploadDir);
         fileRepository.saveAll(fileSaveDtos.stream()
                 .map(fileSaveDto -> new File(fileSaveDto, newFileGroup))
                 .collect(Collectors.toList()));

@@ -63,7 +63,8 @@ public enum CommonErrorCode {
     NOT_FOUND_AREA_CODE("D014","지역코드를 찾을 수 없습니다."),
     NOT_EXIST_AREA_CODE("D015","지역코드가 존재하지 않습니다."),
     NOT_EXIST_DETAIL_AREA_CODE("D016","상세지역코드가 존재하지 않습니다."),
-    NOT_EXIST_BADGE_CODE("D017","뱃지코드가 존재하지 않습니다.");
+    NOT_EXIST_BADGE_CODE("D017","뱃지코드가 존재하지 않습니다."),
+    NOT_FOUND_DETAIL_AREA_CODE("D018","상세지역코드를 찾을 수 없습니다.");
 
 
     private final String code;
