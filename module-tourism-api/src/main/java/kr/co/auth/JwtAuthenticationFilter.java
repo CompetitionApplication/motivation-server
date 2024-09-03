@@ -8,8 +8,13 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import kr.co.common.AES256Cipher;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
+import kr.co.dto.app.common.ServiceUser;
+import kr.co.entity.User;
+import kr.co.mapper.app.UserMapper;
+import kr.co.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +30,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final UserDetailService userDetailService;
+    private final UserMapper userMapper;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
@@ -49,6 +55,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }catch(MalformedJwtException e){
                 logger.error("the token is not valid!", e);
                 throw new CommonException(CommonErrorCode.WRONG_TOKEN.getCode(), CommonErrorCode.WRONG_TOKEN.getMessage(), e);
+            } catch (Exception e) {
+                throw new CommonException(CommonErrorCode.FAIL.getCode(), CommonErrorCode.FAIL.getMessage(), e);
             }
         }else{
             logger.warn("couldn't find bearer string, will ignore the header");
@@ -58,8 +66,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if(userId != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = this.userDetailService.loadUserByUsername(userId);
             if (jwtUtil.validateToken(jwt,userDetails)) {
+                //유저만 교체(web,app 유저 분기시 해당 조회 로직 수정)
+                ServiceUser serviceUser = userMapper.selectUserByUserEmail(userId);
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null,null);
+                        new UsernamePasswordAuthenticationToken(serviceUser, null,null);
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
