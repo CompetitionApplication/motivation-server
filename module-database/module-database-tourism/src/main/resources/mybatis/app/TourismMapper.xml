@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mapper.app.TourismMapper">
+
+    <select id="selectTourismApi" resultType="TourismApi">
+        /* UserMapper.selectTourismApi */
+        select *
+          from tourism_api
+         where country = 'KOR'
+    </select>
+
+    <select id="selectTourismApiForTopRank" resultType="TourismApi">
+        /* UserMapper.selectTourismApi */
+        select *
+          from tourism_api
+         where tourism_api_id in ( select c.tourism_api_id
+                                     from (select b.tourism_api_id
+                                                , (checkCnt / 1000) + (favoriteCnt / 10) + visitCnt as totalScore
+                                                , row_number() over (order by (checkCnt / 1000) + (favoriteCnt / 10) + visitCnt desc) as rn
+                                             from (select a.tourism_api_id
+                                                        , (select count(*) from tourism_check where tourism_api_id = a.tourism_api_id)    as checkCnt
+                                                        , (select count(*) from tourism_visit where tourism_api_id = a.tourism_api_id)    as visitCnt
+                                                        , (select count(*) from tourism_favorite where tourism_api_id = a.tourism_api_id) as favoriteCnt
+                                                     from tourism_api a
+                                                    where country = 'KOR'
+                                                 group by a.tourism_api_id) b
+                                           ) c
+                                     where c.rn <![CDATA[<=]]> 15
+                                   )
+    </select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
