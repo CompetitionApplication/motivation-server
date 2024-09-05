@@ -2,6 +2,8 @@ package kr.co.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 
 @Getter
@@ -14,4 +16,8 @@ public class BadgeCode {
     private String badgeCode;
 
     private String badgeCodeType;
+
+    @OneToOne
+    @JoinColumn(name = "file_group_id")
+    private FileGroup fileGroup;
 }

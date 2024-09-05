@@ -2,9 +2,7 @@ package kr.co.service.app;
 
 import kr.co.dto.app.common.ServiceUser;
 import kr.co.dto.app.home.request.OpenGoodsReqDto;
-import kr.co.dto.app.home.response.OpenGoodsResDto;
-import kr.co.dto.app.home.response.MainResDto;
-import kr.co.dto.app.home.response.TourDto;
+import kr.co.dto.app.home.response.*;
 import kr.co.entity.TourismApi;
 import kr.co.mapper.app.HomeMapper;
 import kr.co.mapper.app.TourismMapper;
@@ -28,7 +26,7 @@ public class HomeService {
         MainResDto r = new MainResDto();
 
         //뱃지 카운트 조회
-        int badgeCnt = homeMapper.selectUserBadgeByUserId(serviceUser.getUserId());
+        int badgeCnt = homeMapper.selectUserBadgeByUserIdForCnt(serviceUser.getUserId());
         r.setBadgeCnt(Integer.toString(badgeCnt));
 
         //추천활동지 조회
@@ -71,6 +69,20 @@ public class HomeService {
 
         //오픈,미오픈 굿즈
         r.removeIf(obj -> !openGoodsReqDto.getOpenYn().equals(obj.getGoodsOpenYn()));
+
+        return r;
+    }
+
+    public CollectBadgeResDto getCollectBadges(ServiceUser serviceUser){
+
+        CollectBadgeResDto r = new CollectBadgeResDto();
+
+        //획득 뱃지 리스트
+        List<CollectBadgeDto> collectBadgeDtoList = homeMapper.selectUserBadgeByUserIdForCollect(serviceUser.getUserId());
+        r.setCollectBadgeDtoList(collectBadgeDtoList);
+
+        //총 획득 뱃지 카운트
+        r.setTotalCollectBadgeCnt(Integer.toString(collectBadgeDtoList.size()));
 
         return r;
     }

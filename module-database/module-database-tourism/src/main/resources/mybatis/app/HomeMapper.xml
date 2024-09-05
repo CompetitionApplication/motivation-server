@@ -3,8 +3,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.mapper.app.HomeMapper">
 
-    <select id="selectUserBadgeByUserId" resultType="Integer">
-        /* HomeMapper.selectUserBadgeByUserId */
+    <select id="selectUserBadgeByUserIdForCnt" resultType="Integer">
+        /* HomeMapper.selectUserBadgeByUserIdForCnt */
         select count(*)
           from user_badge
          where user_id = #{userId}
@@ -39,6 +39,20 @@
            on f.file_group_id = g.file_group_id
     </select>
 
+    <select id="selectUserBadgeByUserIdForCollect" resultType="CollectBadgeDto">
+        /* HomeMapper.selectUserBadgeByUserIdForCollect */
+        select c.badge_code_type as badgeCodeType
+             , e.file_url as fileUrl
+          from user_badge a
+     left join tourism_api b
+            on a.tourism_api_id = b.tourism_api_id
+     left join badge_code c
+            on b.badge_code = c.badge_code
+     left join file_group d
+               on c.file_group_id = d.file_group_id
+     left join file e
+               on d.file_group_id = e.file_group_id
+    </select>
 
 </mapper>
 

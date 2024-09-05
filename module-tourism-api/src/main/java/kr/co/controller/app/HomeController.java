@@ -37,4 +37,10 @@ public class HomeController {
     public ResponseEntity<?> getOpenGoods(@RequestBody OpenGoodsReqDto openGoodsReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         return ObjectResult.build(homeService.getPossibleBuy(openGoodsReqDto, serviceUser));
     }
+
+    @Operation(summary = "뱃지", description = "획득한 뱃지 리스트 입니다.")
+    @GetMapping(value = "/collect-badges")
+    public ResponseEntity<?> getCollectBadges(@AuthenticationPrincipal ServiceUser serviceUser) {
+        return ObjectResult.build(homeService.getCollectBadges(serviceUser));
+    }
 }
