@@ -10,6 +10,35 @@
          where user_id = #{userId}
     </select>
 
+    <select id="selectGoodsListForOpenYn" resultType="OpenGoodsResDto">
+        /* HomeMapper.selectGoodsListForOpenYn */
+        select a.goods_id as goodsId
+             , a.goods_name as goodsName
+             , a.goods_price as goodsPrice
+             , g.file_url as fileUrl
+             , case when a.badge_open_count <![CDATA[<=]]> (select count(*)
+                                                              from user_badge c
+                                                         left join tourism_api d
+                                                                on c.tourism_api_id = d.tourism_api_id
+                                                         left join area_code e
+                                                                on d.areacode = e.code
+                                                               and e.country = 'KOR'
+                                                             where c.user_id = #{userId}
+                                                               and d.country = 'KOR'
+                                                               and d.areacode = b.code
+                                                            ) then 'Y'
+                     else 'N'
+                 end as goodsOpenYn
+         from goods a
+    left join area_code b
+           on a.area_code_id = b.area_code_id
+          and b.country = 'KOR'
+    left join file_group f
+           on a.file_group_id = f.file_group_id
+    left join file g
+           on f.file_group_id = g.file_group_id
+    </select>
+
 
 </mapper>
 

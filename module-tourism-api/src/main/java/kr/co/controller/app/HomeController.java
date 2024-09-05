@@ -6,6 +6,7 @@ import kr.co.auth.TourismUser;
 import kr.co.common.ObjectResult;
 import kr.co.dto.GoodsResDto;
 import kr.co.dto.app.common.ServiceUser;
+import kr.co.dto.app.home.request.OpenGoodsReqDto;
 import kr.co.dto.app.home.response.MainResDto;
 import kr.co.service.app.HomeService;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,11 @@ public class HomeController {
     @GetMapping(value = "/main")
     public ResponseEntity<?> getMain(@AuthenticationPrincipal ServiceUser serviceUser) {
         return ObjectResult.build(homeService.getMain(serviceUser));
+    }
+
+    @Operation(summary = "굿즈", description = "구매가능/불가능 굿즈 리스트 입니다.")
+    @GetMapping(value = "/open-goods")
+    public ResponseEntity<?> getOpenGoods(@RequestBody OpenGoodsReqDto openGoodsReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
+        return ObjectResult.build(homeService.getPossibleBuy(openGoodsReqDto, serviceUser));
     }
 }

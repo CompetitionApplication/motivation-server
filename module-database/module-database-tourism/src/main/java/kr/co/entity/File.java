@@ -31,6 +31,8 @@ public class File extends BaseTimeEntity {
     private long fileSize;
     @Comment(value = "파일경로")
     private String filePath;
+    @Comment(value = "파일url")
+    private String fileUrl;
 
     @ManyToOne
     @JoinColumn(name = "file_group_id")

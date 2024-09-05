@@ -1,18 +1,15 @@
 package kr.co.service.app;
 
-import kr.co.auth.TourismUser;
 import kr.co.dto.app.common.ServiceUser;
+import kr.co.dto.app.home.request.OpenGoodsReqDto;
+import kr.co.dto.app.home.response.OpenGoodsResDto;
 import kr.co.dto.app.home.response.MainResDto;
 import kr.co.dto.app.home.response.TourDto;
 import kr.co.entity.TourismApi;
 import kr.co.mapper.app.HomeMapper;
 import kr.co.mapper.app.TourismMapper;
-import kr.co.mapper.app.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -63,6 +60,17 @@ public class HomeService {
             tourTopList.add(tourDto);
         }
         r.setTourTopList(tourTopList);
+
+        return r;
+    }
+
+    public List<OpenGoodsResDto> getPossibleBuy(OpenGoodsReqDto openGoodsReqDto, ServiceUser serviceUser){
+
+        //굿즈 리스트
+        List<OpenGoodsResDto> r = homeMapper.selectGoodsListForOpenYn(serviceUser.getUserId());
+
+        //오픈,미오픈 굿즈
+        r.removeIf(obj -> !openGoodsReqDto.getOpenYn().equals(obj.getGoodsOpenYn()));
 
         return r;
     }
