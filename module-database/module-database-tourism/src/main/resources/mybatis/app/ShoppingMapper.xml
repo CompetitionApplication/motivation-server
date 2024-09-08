@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mapper.app.ShoppingMapper">
+
+    <select id="selectGoodsForNew" resultType="ShoppingGoodsDto">
+        /* ShoppingMapper.selectGoodsForNew */
+        WITH tb_temp AS (select c.code as code
+                           from user_badge a
+                      left join tourism_api b
+                             on a.tourism_api_id = b.tourism_api_id
+                            and b.country = 'KOR'
+                      left join area_code c
+                             on b.areacode = c.code
+                            and c.country = 'KOR'
+                      left join user d
+                             on a.user_id = d.user_id
+                          where a.user_id = #{userId}
+        )
+        select a.goods_id as goodsId
+             , a.goods_name as goodsName
+             , a.goods_price as goodsPrice
+             , e.file_url as fileUrl
+             , a.badge_open_count as badgeOpenCount
+             , count(c.code) as badgeCollectCnt
+             , case when a.badge_open_count <![CDATA[<=]]> count(c.code) then 'Y'
+                    else 'N'
+                end as aa
+         from goods a
+    left join area_code b
+           on a.area_code_id = b.area_code_id
+          and b.country = 'KOR'
+    left join tb_temp c
+           on b.code = c.code
+    left join file_group d
+           on a.file_group_id = d.file_group_id
+    left join file e
+           on d.file_group_id = e.file_group_id
+     group by a.goods_id
+            , a.goods_name
+            , a.goods_price
+            , e.file_url
+            , a.badge_open_count
+        where a.reg_datetime >= date_sub(now(), interval 1 month)
+    </select>
+
+    <select id="selectGoodsForMz" resultType="ShoppingGoodsDto">
+        /* ShoppingMapper.selectGoodsForMz */
+        select a.goodsId
+             , a.goodsName
+             , a.goodsPrice
+             , a.fileUrl
+             , a.badgeOpenCount
+             , a.badgeCollectCnt
+             , a.rn
+         from (select a.goodsId
+                    , a.goodsName
+                    , a.goodsPrice
+                    , a.fileUrl
+                    , a.badgeOpenCount
+                    , a.badgeCollectCnt
+                    , row_number() over (order by score) as rn
+                 from (WITH tb_temp AS (select c.code as code
+                                          from user_badge a
+                                     left join tourism_api b
+                                            on a.tourism_api_id = b.tourism_api_id
+                                           and b.country = 'KOR'
+                                     left join area_code c
+                                            on b.areacode = c.code
+                                           and c.country = 'KOR'
+                                     left join user d
+                                            on a.user_id = d.user_id
+                                         where a.user_id = #{userId}
+                         )
+                         select a.goods_id as goodsId
+                              , a.goods_name as goodsName
+                              , a.goods_price as goodsPrice
+                              , i.file_url as fileUrl
+                              , a.badge_open_count as badgeOpenCount
+                              , count(c.code) as badgeCollectCnt
+                              , count(distinct e.goods_visit_id) /1000 + count(distinct d.goods_buy_id) as score
+                           from goods a
+                      left join area_code b
+                             on a.area_code_id = b.area_code_id
+                            and b.country = 'KOR'
+                      left join tb_temp c
+                             on b.code = c.code
+                      left join goods_buy d
+                             on a.goods_id = d.goods_id
+                      left join goods_visit e
+                             on a.goods_id = e.goods_id
+                      left join user f
+                             on d.user_id = f.user_id
+                      left join user g
+                             on e.user_id = g.user_id
+                      left join file_group h
+                             on a.file_group_id = h.file_group_id
+                      left join file i
+                             on h.file_group_id = i.file_group_id
+                          where f.user_age between 20 and 40
+                            and g.user_age between 20 and 40
+                       group by a.goods_id
+                              , a.goods_name
+                              , a.goods_price
+                              , i.file_url
+                              , a.badge_open_count
+                       ) a
+               )a
+         where rn between 1 and 10
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
