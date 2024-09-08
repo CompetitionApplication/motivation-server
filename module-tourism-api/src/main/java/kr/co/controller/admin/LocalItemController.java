@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.dto.LocalItemDetailResDto;
 import kr.co.dto.LocalItemResDto;
 import kr.co.dto.LocalItemUploadReqDto;
-import kr.co.service.LocalItemService;
+import kr.co.service.admin.LocalItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

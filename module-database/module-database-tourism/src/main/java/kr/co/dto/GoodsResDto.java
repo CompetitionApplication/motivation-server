@@ -17,6 +17,14 @@ public class GoodsResDto {
     private String goodsColor;
     @Schema(description = "굿즈사이즈", example = "L")
     private String goodsSize;
+    @Schema(description = "발송지", example = "어디")
+    private String goodsFrom;
+    @Schema(description = "상품 출시일", example = "2021-01-01")
+    private String goodsReleaseDate;
+    @Schema(description = "예상 배송일", example = "2021-01-01")
+    private String goodsDeliveryDate;
+    @Schema(description = "뱃지 해금 개수", example = "1")
+    private Integer badgeOpenCount;
     private String areaCode;
     private String detailAreaCode;
 }

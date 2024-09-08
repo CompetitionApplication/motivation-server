@@ -10,12 +10,15 @@ public class LocalItemDetailResDto {
     private String localSpecialtyName;
     @Schema(description = "특산품가격", example = "10000")
     private String localSpecialtyPrice;
-    @Schema(description = "특산품뱃지개수", example = "10개")
-    private String localSpecialtyBadgeCount;
+    @Schema(description = "지역코드", example = "1")
+    private String areaCode;
+    @Schema(description = "상세지역코드", example = "1")
+    private String detailAreaCode;
 
     public LocalItemDetailResDto(LocalItem localItem) {
         this.localSpecialtyName = localItem.getLocalItemName();
         this.localSpecialtyPrice = localItem.getLocalItemPrice();
-        this.localSpecialtyBadgeCount = localItem.getLocalItemBadgeCount() + "개";
+        this.areaCode = localItem.getAreaCode().getName();
+        this.detailAreaCode = localItem.getDetailAreaCode().getName();
     }
 }

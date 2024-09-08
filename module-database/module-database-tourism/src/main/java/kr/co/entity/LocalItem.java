@@ -29,9 +29,6 @@ public class LocalItem extends BaseTimeEntity {
     @Comment(value = "특산품금액")
     private String localItemPrice;
 
-    @Comment(value = "뱃지 갯수")
-    private int localItemBadgeCount;
-
     @Column(columnDefinition = "varchar(1) default 'N'")
     @Convert(converter = BooleanConverter.class)
     private boolean delYn;
@@ -51,7 +48,6 @@ public class LocalItem extends BaseTimeEntity {
     public LocalItem(LocalItemUploadReqDto localItemUploadReqDto,AreaCode areaCode, DetailAreaCode detailAreaCode, FileGroup fileGroup) {
         this.localItemName = localItemUploadReqDto.getLocalItemName();
         this.localItemPrice = localItemUploadReqDto.getLocalItemPrice();
-        this.localItemBadgeCount = localItemUploadReqDto.getLocalItemBadgeCount();
         this.areaCode = areaCode;
         this.detailAreaCode = detailAreaCode;
         this.fileGroup = fileGroup;

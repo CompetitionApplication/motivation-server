@@ -1,4 +1,4 @@
-package kr.co.service;
+package kr.co.service.admin;
 
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
@@ -42,10 +42,9 @@ public class LocalItemService {
         Page<LocalItem> localSpecialties = localItemRepository.findAllByDelYnFalse(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")));
         List<LocalItemResDto> localItemResDtos = localSpecialties.stream()
                 .map(localItemDto -> LocalItemResDto.builder()
-                        .localSpecialtyId(localItemDto.getLocalItemId())
-                        .localSpecialtyName(localItemDto.getLocalItemName())
-                        .localSpecialtyPrice(localItemDto.getLocalItemPrice() + "원")
-                        .localSpecialtyStampCount(localItemDto.getLocalItemBadgeCount() + "개")
+                        .localItemId(localItemDto.getLocalItemId())
+                        .localItemName(localItemDto.getLocalItemName())
+                        .localItemPrice(localItemDto.getLocalItemPrice() + "원")
                         .build())
                 .collect(Collectors.toList());
         return new PageImpl<>(localItemResDtos, localSpecialties.getPageable(), localSpecialties.getTotalElements());

@@ -42,7 +42,7 @@ public class Goods extends BaseTimeEntity {
     @Comment(value = "발송지")
     private String goodsFrom;
 
-    @Comment(value = "출시일")
+    @Comment(value = "상품 출시일")
     private String goodsReleaseDate;
 
     @Comment(value = "예상 배송일")

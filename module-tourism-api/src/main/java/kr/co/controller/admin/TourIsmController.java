@@ -2,6 +2,8 @@ package kr.co.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.co.dto.AreaCodeResDto;
+import kr.co.dto.DetailAreaCodeResDto;
 import kr.co.dto.TourPlaceResDto;
 import kr.co.dto.TourismUploadReqDto;
 import kr.co.service.admin.TourismApiDetailResDto;
@@ -34,13 +36,13 @@ public class TourIsmController {
 
     @Operation(summary = "지역코드 목록 리스트", description = "지역코드 목록 리스트 입니다.")
     @GetMapping("/area-code/list")
-    public ResponseEntity<?> areaCodeList() {
+    public ResponseEntity<List<AreaCodeResDto>> areaCodeList() {
         return ResponseEntity.ok(tourismService.areaCodeList());
     }
 
     @Operation(summary = "관광지 상세코드리스트 조회", description = "관광지 상세코드 리스트를 조회 합니다.")
     @GetMapping("/detail-code/{areaCodeId}")
-    public ResponseEntity<?> detailAreaCodeList(@PathVariable(value = "areaCodeId") String areaCodeId) {
+    public ResponseEntity<List<DetailAreaCodeResDto>> detailAreaCodeList(@PathVariable(value = "areaCodeId") String areaCodeId) {
         return ResponseEntity.ok(tourismService.detailAreaCodeList(areaCodeId));
     }
 

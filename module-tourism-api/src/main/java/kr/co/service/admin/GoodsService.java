@@ -47,6 +47,10 @@ public class GoodsService {
                         .goodsPrice(goods.getGoodsPrice() + "원")
                         .goodsColor(goods.getGoodsColor())
                         .goodsSize(goods.getGoodsSize())
+                        .goodsFrom(goods.getGoodsFrom())
+                        .goodsReleaseDate(goods.getGoodsReleaseDate())
+                        .goodsDeliveryDate(goods.getGoodsDeliveryDate())
+                        .badgeOpenCount(goods.getBadgeOpenCount())
                         .areaCode(goods.getAreaCode().getName())
                         .detailAreaCode(goods.getDetailAreaCode().getName())
                         .build())
@@ -117,6 +121,10 @@ public class GoodsService {
         Goods goods = goodsRepository.findById(goodsId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GOODS.getCode(), CommonErrorCode.NOT_EXIST_GOODS.getMessage()));
 
-        return new GoodsDetailResDto(goods);
+        List<String> goodsImages = goods.getFileGroup().getFiles().stream()
+                .map(file -> file.getFilePath())
+                .collect(Collectors.toList());
+
+        return new GoodsDetailResDto(goods,goodsImages);
     }
 }

@@ -26,4 +26,21 @@ public class OrderItemController {
                                                                   @RequestParam(defaultValue = "7") int size) {
         return ResponseEntity.ok(orderItemService.getOrderItemList(page, size));
     }
+
+    @Operation(summary = "주문 상태 리스트", description = "주문 상태 리스트 입니다.")
+    @GetMapping("/status")
+    public ResponseEntity<?> getOrderStatusList() {
+        return ResponseEntity.ok(orderItemService.getOrderStatusList());
+    }
+
+    @Operation(summary = "주문 상태 변경", description = "주문 상태 변경합니다.")
+    @PutMapping("/{orderId}")
+    public ResponseEntity<?> updateOrderStatus(@PathVariable(value = "orderId") String orderId,
+                                               @RequestParam(value = "orderStatus") String orderStatus) {
+        orderItemService.updateOrderStatus(orderId, orderStatus);
+        return ResponseEntity.ok().build();
+    }
+
+
+
 }

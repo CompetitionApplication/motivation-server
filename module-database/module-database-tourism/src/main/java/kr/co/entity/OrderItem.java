@@ -46,4 +46,8 @@ public class OrderItem extends BaseTimeEntity {
         this.user = user;
         this.orderStatus = OrderStatus.ITEM_SHIPPED;
     }
+
+    public void updateOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 }

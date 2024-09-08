@@ -48,6 +48,7 @@ public class TourismService {
                         .tourPlaceId(api.getContentid())
                         .tourPlaceName(api.getTitle())
                         .tourPlaceAddress(api.getAddr1() + " " + api.getAddr2())
+                        .tourPlaceLink("")
                         .tourPlaceContact(api.getTel())
                         .build())
                 .collect(Collectors.toList());
@@ -83,15 +84,11 @@ public class TourismService {
         TourismApi tourismApi = tourismApiRepository.findById(tourismId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_TOUR_PLACE.getCode(), CommonErrorCode.NOT_FOUND_TOUR_PLACE.getMessage()));
 
-        FileGroup fileGroup = fileGroupRepository.findById(tourismApi.getFileGroup().getFileGroupId())
-                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_FILE_GROUP.getCode(), CommonErrorCode.NOT_EXIST_FILE_GROUP.getMessage()));
 
-        List<File> files = fileRepository.findAllByFileGroup(fileGroup);
-        List<String> fileUrl = new ArrayList<>();
-        files.forEach(file -> {
-            fileUrl.add(file.getFilePath());
-        });
-        return new TourismApiDetailResDto(tourismApi, fileUrl);
+        List<String> tourismImages = tourismApi.getFileGroup().getFiles().stream()
+                .map(file -> file.getFilePath())
+                .collect(Collectors.toList());
+        return new TourismApiDetailResDto(tourismApi, tourismImages);
     }
 
     @Transactional
