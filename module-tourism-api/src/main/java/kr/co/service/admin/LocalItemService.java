@@ -79,4 +79,37 @@ public class LocalItemService {
         //특산품 정보 저장
         localItemRepository.save(new LocalItem(localItemUploadReqDto,areaCode,detailAreaCode, fileGroup));
     }
+
+    @Transactional
+    public void deleteLocalItem(String localItemId) {
+        LocalItem localItem = localItemRepository.findById(localItemId)
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_LOCAL_ITEM.getCode(), CommonErrorCode.NOT_FOUND_LOCAL_ITEM.getMessage()));
+        localItem.deleteLocalItem();
+    }
+
+    @Transactional
+    public void updateLocalItem(String localItemId, LocalItemUploadReqDto localItemUploadReqDto, List<MultipartFile> localItemImages) {
+        LocalItem localItem = localItemRepository.findById(localItemId)
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_LOCAL_ITEM.getCode(), CommonErrorCode.NOT_FOUND_LOCAL_ITEM.getMessage()));
+
+        List<MultipartFile> images = localItemImages;
+        if (images.isEmpty()) {
+            throw new CommonException(CommonErrorCode.NOT_EXIST_FILE.getCode(), CommonErrorCode.NOT_EXIST_FILE.getMessage());
+        }
+
+        //파일 업로드, 파일 그룹 저장
+        FileGroup fileGroup = fileGroupRepository.save(new FileGroup(false));
+        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(localItemImages, uploadDir);
+        fileRepository.saveAll(fileSaveDtos.stream()
+                .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
+                .collect(Collectors.toList()));
+
+        AreaCode areaCode = areaCodeRepository.findById(localItemUploadReqDto.getAreaCode())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_AREA_CODE.getCode(), CommonErrorCode.NOT_FOUND_AREA_CODE.getMessage()));
+
+        DetailAreaCode detailAreaCode = detailAreaCodeRepository.findById(localItemUploadReqDto.getDetailAreaCode())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_DETAIL_AREA_CODE.getCode(), CommonErrorCode.NOT_FOUND_DETAIL_AREA_CODE.getMessage()));
+
+        localItem.updateLocalItem(localItemUploadReqDto, areaCode, detailAreaCode, fileGroup);
+    }
 }

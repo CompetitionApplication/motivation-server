@@ -33,6 +33,7 @@ public class GiveLocalItemService {
     }
 
 
+    @Transactional(readOnly = true)
     public List<GiveLocalItemResDto> getGiveLocalItemList(ServiceUser serviceUser) {
         List<GiveLocalItem> giveLocalItems = giveLocalItemRepository.findAllByRegUserEmail(serviceUser.getUserEmail());
         return giveLocalItems.stream()
@@ -42,5 +43,24 @@ public class GiveLocalItemService {
                         .badgeCode(giveLocalItem.getBadgeCode().getBadgeCode())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updateLocalItem(String giveLocalItemId, GiveLocalItemReqDto giveLocalItemReqDto) {
+        GiveLocalItem giveLocalItem = giveLocalItemRepository.findById(giveLocalItemId)
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getCode(), CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getMessage()));
+
+        BadgeCode badgeCode = badgeCodeRepository.findById(giveLocalItemReqDto.getBadgeCode())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
+
+        giveLocalItem.updateLocalItem(giveLocalItemReqDto, badgeCode);
+    }
+
+    @Transactional
+    public void deleteLocalItem(String giveLocalItemId) {
+        GiveLocalItem giveLocalItem = giveLocalItemRepository.findById(giveLocalItemId)
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getCode(), CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getMessage()));
+
+        giveLocalItem.deleteGiveLocalItem();
     }
 }

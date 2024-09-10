@@ -62,7 +62,7 @@ public class GoodsController {
     }
 
     @Operation(summary = "굿즈 수정", description = "굿즈 수정을 합니다.")
-    @PostMapping(value = "/{goodsId}", consumes = "multipart/form-data")
+    @PutMapping(value = "/{goodsId}", consumes = "multipart/form-data")
     public ResponseEntity<?> updateGoods(@PathVariable(value = "goodsId") String goodsId,
                                          @RequestParam("goodsName") String goodsName,
                                          @RequestParam("goodsPrice") String goodsPrice,

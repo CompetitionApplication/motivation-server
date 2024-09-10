@@ -48,4 +48,13 @@ public class GiveLocalItem extends BaseTimeEntity {
         this.badgeCode = badgeCode;
     }
 
+    public void updateLocalItem(GiveLocalItemReqDto giveLocalItemReqDto, BadgeCode badgeCode) {
+        this.giveLocalItemName = giveLocalItemReqDto.getGiveLocalItemName();
+        this.giveLocalItemPrice = giveLocalItemReqDto.getGiveLocalItemPrice();
+        this.badgeCode = badgeCode;
+    }
+
+    public void deleteGiveLocalItem() {
+        this.delYn = true;
+    }
 }

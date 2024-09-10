@@ -53,15 +53,16 @@ public class LocalItem extends BaseTimeEntity {
         this.fileGroup = fileGroup;
     }
 
-  /*  public void updateGoods(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup) {
-        this.goodsName = goodsUploadReqDto.getGoodsName();
-        this.goodsPrice = goodsUploadReqDto.getGoodsPrice();
-        this.goodsColor = goodsUploadReqDto.getGoodsColor();
-        this.goodsSize = goodsUploadReqDto.getGoodsSize();
-        this.fileGroup = fileGroup;
-    }*/
 
-    public void deleteGoods() {
+    public void deleteLocalItem() {
         this.delYn = true;
+    }
+
+    public void updateLocalItem(LocalItemUploadReqDto localItemUploadReqDto, AreaCode areaCode, DetailAreaCode detailAreaCode, FileGroup fileGroup) {
+        this.localItemName = localItemUploadReqDto.getLocalItemName();
+        this.localItemPrice = localItemUploadReqDto.getLocalItemPrice();
+        this.areaCode = areaCode;
+        this.detailAreaCode = detailAreaCode;
+        this.fileGroup = fileGroup;
     }
 }

@@ -27,14 +27,16 @@ public class LocalItemController {
     @Operation(summary = "특산품 목록 리스트", description = "특산품 목록 리스트 입니다.")
     @GetMapping("/list")
     public ResponseEntity<Page<LocalItemResDto>> getLocalItemList(@RequestParam(defaultValue = "0") int page,
-                                                                       @RequestParam(defaultValue = "7") int size) {
+                                                                  @RequestParam(defaultValue = "7") int size) {
         return ResponseEntity.ok(localItemService.getLocalItemList(page, size));
     }
+
     @Operation(summary = "특산품 목록 상세 조회", description = "특산품 목록 상세 조회를 합니다.")
     @GetMapping("/list/{localSpecialtyId}")
     public ResponseEntity<LocalItemDetailResDto> getLocalItemDetail(@PathVariable(value = "localSpecialtyId") String localItemId) {
         return ResponseEntity.ok(localItemService.getLocalItemDetail(localItemId));
     }
+
     @Operation(summary = "특산품 등록", description = "특산품 등록 합니다")
     @PostMapping("/")
     public ResponseEntity<?> uploadLocalItem(@RequestParam("localItemName") String localItemName,
@@ -46,4 +48,25 @@ public class LocalItemController {
         localItemService.uploadLocalItem(new LocalItemUploadReqDto(localItemName, localItemPrice, localItemBadgeCount, areaCode, detailAreaCode), localItemImages);
         return ResponseEntity.ok().build();
     }
+
+    @Operation(summary = "특산품 수정", description = "특산품 수정을 합니다.")
+    @PutMapping("/{localItemId}")
+    public ResponseEntity<?> updateLocalItem(@PathVariable(value = "localItemId") String localItemId,
+                                             @RequestParam("localItemName") String localItemName,
+                                             @RequestParam("localItemPrice") String localItemPrice,
+                                             @RequestParam("localItemBadgeCount") int localItemBadgeCount,
+                                             @RequestParam("areaCode") String areaCode,
+                                             @RequestParam("detailAreaCode") String detailAreaCode,
+                                             @RequestPart List<MultipartFile> localItemImages) {
+        localItemService.updateLocalItem(localItemId, new LocalItemUploadReqDto(localItemName, localItemPrice, localItemBadgeCount, areaCode, detailAreaCode), localItemImages);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "특산품 삭제", description = "특산품 삭제를 합니다.")
+    @DeleteMapping("/{localItemId}")
+    public ResponseEntity<?> deleteLocalItem(@PathVariable(value = "localItemId") String localItemId) {
+        localItemService.deleteLocalItem(localItemId);
+        return ResponseEntity.ok().build();
+    }
 }
+
