@@ -25,6 +25,8 @@ public class UserBadge {
     @JoinColumn(name = "tourism_api_id")
     private TourismApi tourismApi;
 
-
-
+    public UserBadge(User user, TourismApi tourismApi) {
+        this.user = user;
+        this.tourismApi = tourismApi;
+    }
 }

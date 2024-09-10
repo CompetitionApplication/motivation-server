@@ -72,7 +72,7 @@ public class TourIsmController {
                                          @RequestParam("badgeCode") String badgeCode,
                                          @RequestPart List<MultipartFile> tourismImages) {
         tourismService.uploadTourPlace(
-                new TourismUploadReqDto(tourismName, tourismAddress, tourismLink, tourismContact, areaCode, detailAreaCode,tourismMapX,tourismMapY,badgeCode),
+                new TourismUploadReqDto(tourismName, tourismAddress, tourismLink, tourismContact, areaCode, detailAreaCode, tourismMapX, tourismMapY, badgeCode),
                 tourismImages);
         return ResponseEntity.ok().build();
     }
@@ -90,7 +90,7 @@ public class TourIsmController {
                                          @RequestParam("mapY") String tourismMapY,
                                          @RequestParam("badgeCode") String badgeCode,
                                          @RequestPart List<MultipartFile> tourismImages) {
-        tourismService.updateTourism(tourismApiId, new TourismUploadReqDto(tourPlaceName, tourPlaceAddress, tourPlaceLink, tourPlaceContact, areaCode, detailAreaCode,tourismMapX,tourismMapY,badgeCode),
+        tourismService.updateTourism(tourismApiId, new TourismUploadReqDto(tourPlaceName, tourPlaceAddress, tourPlaceLink, tourPlaceContact, areaCode, detailAreaCode, tourismMapX, tourismMapY, badgeCode),
                 tourismImages);
         return ResponseEntity.ok().build();
     }
