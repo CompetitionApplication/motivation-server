@@ -66,7 +66,8 @@ public enum CommonErrorCode {
     NOT_EXIST_BADGE_CODE("D017","뱃지코드가 존재하지 않습니다."),
     NOT_FOUND_DETAIL_AREA_CODE("D018","상세지역코드를 찾을 수 없습니다."),
     NOT_FOUND_LOCAL_ITEM("D019","지역특산물을 찾을 수 없습니다."),
-    NOT_EXIST_GIVE_LOCAL_ITEM("D020","지역특산물이 존재하지 않습니다.");
+    NOT_EXIST_GIVE_LOCAL_ITEM("D020","지역특산물이 존재하지 않습니다."),
+    NOT_FOUND_ORDER("D021","주문을 찾을 수 없습니다.");
 
 
     private final String code;

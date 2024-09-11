@@ -1,6 +1,7 @@
 package kr.co.entity;
 
 import jakarta.persistence.*;
+import kr.co.config.BooleanConverter;
 import kr.co.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ public class OrderItem extends BaseTimeEntity {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(columnDefinition = "varchar(38)")
-    private String orderId;
+    private String orderItemId;
 
     @Comment(value = "주문금액")
     private int orderPrice;
@@ -27,6 +28,9 @@ public class OrderItem extends BaseTimeEntity {
     @Comment(value = "주문상태")
     private OrderStatus orderStatus;
 
+    @Column(columnDefinition = "varchar(1) default 'N'")
+    @Convert(converter = BooleanConverter.class)
+    private boolean delYn;
 
     @OneToOne
     @JoinColumn(name = "goods_id")
@@ -49,5 +53,9 @@ public class OrderItem extends BaseTimeEntity {
 
     public void updateOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public void deleteOrderItem() {
+        this.delYn = true;
     }
 }

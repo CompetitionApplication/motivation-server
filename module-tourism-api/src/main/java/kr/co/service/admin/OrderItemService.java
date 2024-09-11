@@ -1,7 +1,10 @@
 package kr.co.service.admin;
 
 import kr.co.auth.TourismUser;
+import kr.co.common.CommonErrorCode;
+import kr.co.common.CommonException;
 import kr.co.dto.OrderItemResDto;
+import kr.co.dto.OrderStatusUpdateReqDto;
 import kr.co.entity.OrderItem;
 import kr.co.entity.OrderStatus;
 import kr.co.repository.OrderItemRepository;
@@ -24,10 +27,10 @@ public class OrderItemService {
     private final OrderItemRepository orderItemRepository;
 
     public Page<OrderItemResDto> getOrderItemList(int page, int size) {
-        Page<OrderItem> orderItems = orderItemRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")));
+        Page<OrderItem> orderItems = orderItemRepository.findAllByDelYnFalse(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")));
         List<OrderItemResDto> orderItemResDtos = orderItems.stream()
                 .map(orderItem -> OrderItemResDto.builder()
-                        .orderId(orderItem.getOrderId())
+                        .orderId(orderItem.getOrderItemId())
                         .goodsId(orderItem.getGoods().getGoodsId())
                         .orderDatetime(orderItem.getRegDatetime())
                         .orderUser(orderItem.getUser().getUserName())
@@ -53,9 +56,16 @@ public class OrderItemService {
     }
 
     @Transactional
-    public void updateOrderStatus(String orderId, String orderStatus) {
-        OrderItem orderItem = orderItemRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("주문 정보가 없습니다."));
-        orderItem.updateOrderStatus(OrderStatus.valueOf(orderStatus));
+    public void updateOrderStatus(OrderStatusUpdateReqDto orderStatusUpdateReqDto) {
+        OrderItem orderItem = orderItemRepository.findById(orderStatusUpdateReqDto.getOrderItemId())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ORDER.getCode(), CommonErrorCode.NOT_FOUND_ORDER.getMessage()));
+        orderItem.updateOrderStatus(OrderStatus.valueOf(orderStatusUpdateReqDto.getOrderStatus()));
+    }
+
+    @Transactional
+    public void deleteOrderItem(String orderItemId) {
+        OrderItem orderItem = orderItemRepository.findById(orderItemId)
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ORDER.getCode(), CommonErrorCode.NOT_FOUND_ORDER.getMessage()));
+        orderItem.deleteOrderItem();
     }
 }

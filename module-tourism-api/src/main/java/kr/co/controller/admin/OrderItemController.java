@@ -3,6 +3,7 @@ package kr.co.controller.admin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.dto.OrderItemResDto;
+import kr.co.dto.OrderStatusUpdateReqDto;
 import kr.co.service.admin.OrderItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,10 +35,15 @@ public class OrderItemController {
     }
 
     @Operation(summary = "주문 상태 변경", description = "주문 상태 변경합니다.")
-    @PutMapping("/{orderId}")
-    public ResponseEntity<?> updateOrderStatus(@PathVariable(value = "orderId") String orderId,
-                                               @RequestParam(value = "orderStatus") String orderStatus) {
-        orderItemService.updateOrderStatus(orderId, orderStatus);
+    @PutMapping("")
+    public ResponseEntity<?> updateOrderStatus(@RequestBody OrderStatusUpdateReqDto orderStatusUpdateReqDto) {
+        orderItemService.updateOrderStatus(orderStatusUpdateReqDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity<?> deleteOrderItem(@PathVariable(value = "orderId") String orderId) {
+        orderItemService.deleteOrderItem(orderId);
         return ResponseEntity.ok().build();
     }
 
