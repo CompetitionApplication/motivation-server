@@ -42,6 +42,7 @@ public class GoodsController {
     @PostMapping(value = "", consumes = "multipart/form-data")
     public ResponseEntity<?> uploadGoods(@RequestParam("goodsName") String goodsName,
                                          @RequestParam("goodsPrice") String goodsPrice,
+                                         @RequestParam("badgeOpenCount") Integer badgeOpenCount,
                                          @RequestParam("goodsColor") String goodsColor,
                                          @RequestParam("goodsSize") String goodsSize,
                                          @RequestParam("goodsFrom") String goodsFrom,
@@ -50,7 +51,7 @@ public class GoodsController {
                                          @RequestParam("areaCodeId") String areaCodeId,
                                          @RequestParam("detailAreaCodeId") String detailAreaCodeId,
                                          @RequestPart List<MultipartFile> goodsImages) {
-        goodsService.uploadGoods(new GoodsUploadReqDto(goodsName,goodsPrice,goodsColor,goodsSize,goodsFrom,goodsReleaseDate,goodsDeliveryDate), goodsImages,areaCodeId,detailAreaCodeId);
+        goodsService.uploadGoods(new GoodsUploadReqDto(goodsName, goodsPrice, badgeOpenCount, goodsColor, goodsSize, goodsFrom, goodsReleaseDate, goodsDeliveryDate), goodsImages, areaCodeId, detailAreaCodeId);
         return ResponseEntity.ok().build();
     }
 
@@ -66,6 +67,7 @@ public class GoodsController {
     public ResponseEntity<?> updateGoods(@PathVariable(value = "goodsId") String goodsId,
                                          @RequestParam("goodsName") String goodsName,
                                          @RequestParam("goodsPrice") String goodsPrice,
+                                         @RequestParam("badgeOpenCount") Integer badgeOpenCount,
                                          @RequestParam("goodsColor") String goodsColor,
                                          @RequestParam("goodsSize") String goodsSize,
                                          @RequestParam("goodsSize") String goodsFrom,
@@ -74,7 +76,7 @@ public class GoodsController {
                                          @RequestParam("areaCodeId") String areaCodeId,
                                          @RequestParam("detailAreaCodeId") String detailAreaCodeId,
                                          @RequestPart List<MultipartFile> goodsImages) {
-        goodsService.updateGoods(goodsId, new GoodsUploadReqDto(goodsName,goodsPrice,goodsColor,goodsSize,goodsFrom,goodsReleaseDate,goodsDeliveryDate), goodsImages,areaCodeId,detailAreaCodeId);
+        goodsService.updateGoods(goodsId, new GoodsUploadReqDto(goodsName, goodsPrice, badgeOpenCount, goodsColor, goodsSize, goodsFrom, goodsReleaseDate, goodsDeliveryDate), goodsImages, areaCodeId, detailAreaCodeId);
         return ResponseEntity.ok().build();
     }
 }

@@ -9,6 +9,8 @@ public class GoodsUploadReqDto {
     private String goodsName;
     @Schema(description = "굿즈금액", example = "10000")
     private String goodsPrice;
+    @Schema(description = "뱃지 해금 개수", example = "1")
+    private Integer badgeOpenCount;
     @Schema(description = "굿즈색상", example = "빨강")
     private String goodsColor;
     @Schema(description = "굿즈사이즈", example = "L")
@@ -20,9 +22,10 @@ public class GoodsUploadReqDto {
     @Schema(description = "예상 배송일", example = "2021-01-01")
     private String goodsDeliveryDate;
 
-    public GoodsUploadReqDto(String goodsName, String goodsPrice, String goodsColor, String goodsSize, String goodsFrom, String goodsReleaseDate, String goodsDeliveryDate) {
+    public GoodsUploadReqDto(String goodsName, String goodsPrice, Integer badgeOpenCount,String goodsColor, String goodsSize, String goodsFrom, String goodsReleaseDate, String goodsDeliveryDate) {
         this.goodsName = goodsName;
         this.goodsPrice = goodsPrice;
+        this.badgeOpenCount = badgeOpenCount;
         this.goodsColor = goodsColor;
         this.goodsSize = goodsSize;
         this.goodsFrom = goodsFrom;
