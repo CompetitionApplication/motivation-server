@@ -41,11 +41,10 @@ public class LocalItemController {
     @PostMapping("/")
     public ResponseEntity<?> uploadLocalItem(@RequestParam("localItemName") String localItemName,
                                              @RequestParam("localItemPrice") String localItemPrice,
-                                             @RequestParam("localItemBadgeCount") int localItemBadgeCount,
                                              @RequestParam("areaCode") String areaCode,
                                              @RequestParam("detailAreaCode") String detailAreaCode,
                                              @RequestPart List<MultipartFile> localItemImages) {
-        localItemService.uploadLocalItem(new LocalItemUploadReqDto(localItemName, localItemPrice, localItemBadgeCount, areaCode, detailAreaCode), localItemImages);
+        localItemService.uploadLocalItem(new LocalItemUploadReqDto(localItemName, localItemPrice, areaCode, detailAreaCode), localItemImages);
         return ResponseEntity.ok().build();
     }
 
@@ -54,11 +53,10 @@ public class LocalItemController {
     public ResponseEntity<?> updateLocalItem(@PathVariable(value = "localItemId") String localItemId,
                                              @RequestParam("localItemName") String localItemName,
                                              @RequestParam("localItemPrice") String localItemPrice,
-                                             @RequestParam("localItemBadgeCount") int localItemBadgeCount,
                                              @RequestParam("areaCode") String areaCode,
                                              @RequestParam("detailAreaCode") String detailAreaCode,
                                              @RequestPart List<MultipartFile> localItemImages) {
-        localItemService.updateLocalItem(localItemId, new LocalItemUploadReqDto(localItemName, localItemPrice, localItemBadgeCount, areaCode, detailAreaCode), localItemImages);
+        localItemService.updateLocalItem(localItemId, new LocalItemUploadReqDto(localItemName, localItemPrice, areaCode, detailAreaCode), localItemImages);
         return ResponseEntity.ok().build();
     }
 
