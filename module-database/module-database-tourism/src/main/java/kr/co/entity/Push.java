@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import kr.co.dto.PushReqDto;
 import kr.co.entity.common.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -24,4 +25,9 @@ public class Push extends BaseTimeEntity {
     private String pushId;
     private String pushTitle;
     private String pushContent;
+
+    public Push(PushReqDto pushReqDto){
+        this.pushTitle = pushReqDto.getPushTitle();
+        this.pushContent = pushReqDto.getPushContent();
+    }
 }

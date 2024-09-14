@@ -31,7 +31,8 @@ api:
     eng-tourism-api: https://apis.data.go.kr/B551011/EngService1/areaBasedList1?MobileOS=ETC&MobileApp=TEST&_type=json&serviceKey=${TOURISM_API_SERVICE_KEY}
     jpn-tourism-api: https://apis.data.go.kr/B551011/JpnService1/areaBasedList1?MobileOS=ETC&MobileApp=TEST&_type=json&serviceKey=${TOURISM_API_SERVICE_KEY}
     chs-tourism-api: https://apis.data.go.kr/B551011/ChsService1/areaBasedList1?MobileOS=ETC&MobileApp=TEST&_type=json&serviceKey=${TOURISM_API_SERVICE_KEY}
-
+app:
+  firebase-file: classpath:tour-api-competiton-firebase-adminsdk-lxb1w-c53834681e.json
 ---
 spring.config.activate.on-profile: prod
 server:
@@ -59,3 +60,5 @@ api:
     eng-tourism-api: https://apis.data.go.kr/B551011/EngService1/areaBasedList1?MobileOS=ETC&MobileApp=TEST&_type=json&serviceKey=${TOURISM_API_SERVICE_KEY}
     jpn-tourism-api: https://apis.data.go.kr/B551011/JpnService1/areaBasedList1?MobileOS=ETC&MobileApp=TEST&_type=json&serviceKey=${TOURISM_API_SERVICE_KEY}
     chs-tourism-api: https://apis.data.go.kr/B551011/ChsService1/areaBasedList1?MobileOS=ETC&MobileApp=TEST&_type=json&serviceKey=${TOURISM_API_SERVICE_KEY}
+app:
+  firebase-file: /app/project/pushfile/tour-api-competiton-firebase-adminsdk-lxb1w-c53834681e.json
