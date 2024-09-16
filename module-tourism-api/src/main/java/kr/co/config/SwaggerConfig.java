@@ -37,6 +37,7 @@ public class SwaggerConfig {
                 .group("1")
                 .displayName("웹")
                 .pathsToMatch("/api/v1/**")
+                .pathsToExclude("/api/v1/app/**")
                 .build();
     }
 
