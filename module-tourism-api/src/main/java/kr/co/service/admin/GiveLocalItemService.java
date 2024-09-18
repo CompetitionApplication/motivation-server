@@ -1,9 +1,12 @@
 package kr.co.service.admin;
 
+import kr.co.auth.TourismAdminUser;
+import kr.co.common.AES256Cipher;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.GiveLocalItemReqDto;
 import kr.co.dto.GiveLocalItemResDto;
+import kr.co.dto.app.common.ServiceAdminUser;
 import kr.co.dto.app.common.ServiceUser;
 import kr.co.entity.BadgeCode;
 import kr.co.entity.GiveLocalItem;
@@ -11,6 +14,10 @@ import kr.co.repository.BadgeCodeRepository;
 import kr.co.repository.GiveLocalItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,23 +33,25 @@ public class GiveLocalItemService {
     private final BadgeCodeRepository badgeCodeRepository;
 
     @Transactional
-    public void saveLocalItem(GiveLocalItemReqDto giveLocalItemReqDto, ServiceUser serviceUser) {
+    public void saveLocalItem(GiveLocalItemReqDto giveLocalItemReqDto, ServiceAdminUser serviceAdminUser) {
         BadgeCode badgeCode = badgeCodeRepository.findById(giveLocalItemReqDto.getBadgeCode())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
-        giveLocalItemRepository.save(new GiveLocalItem(giveLocalItemReqDto, badgeCode, serviceUser.getUserEmail()));
+        giveLocalItemRepository.save(new GiveLocalItem(giveLocalItemReqDto, badgeCode, serviceAdminUser.getUserEmail()));
     }
 
 
     @Transactional(readOnly = true)
-    public List<GiveLocalItemResDto> getGiveLocalItemList(ServiceUser serviceUser) {
-        List<GiveLocalItem> giveLocalItems = giveLocalItemRepository.findAllByRegUserEmail(serviceUser.getUserEmail());
-        return giveLocalItems.stream()
+    public Page<GiveLocalItemResDto> getGiveLocalItemList(ServiceAdminUser serviceAdminUser,int page, int size) throws Exception {
+        log.info("serviceAdminUser : {}", serviceAdminUser.getUserEmail());
+        Page<GiveLocalItem> giveLocalItems = giveLocalItemRepository.findAllByRegUserEmail(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")), serviceAdminUser.getUserEmail());
+        List<GiveLocalItemResDto> giveLocalItemResDtos = giveLocalItems.stream()
                 .map(giveLocalItem -> GiveLocalItemResDto.builder()
                         .giveLocalItemName(giveLocalItem.getGiveLocalItemName())
                         .giveLocalItemPrice(giveLocalItem.getGiveLocalItemPrice())
                         .badgeCode(giveLocalItem.getBadgeCode().getBadgeCode())
                         .build())
                 .collect(Collectors.toList());
+        return new PageImpl<>(giveLocalItemResDtos, giveLocalItems.getPageable(), giveLocalItems.getTotalElements());
     }
 
     @Transactional
