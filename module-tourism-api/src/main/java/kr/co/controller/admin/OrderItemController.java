@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Tag(name = "order-item", description = "주문")
 @RestController
@@ -41,11 +43,20 @@ public class OrderItemController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "주문 상태 한개 삭제", description = "주문 상태 한개를 삭제합니다.")
     @DeleteMapping("/{orderId}")
     public ResponseEntity<?> deleteOrderItem(@PathVariable(value = "orderId") String orderId) {
         orderItemService.deleteOrderItem(orderId);
         return ResponseEntity.ok().build();
     }
+
+    @Operation(summary = "주문 상태 여러개 삭제", description = "주문 상태 여러개를 삭제합니다.")
+    @DeleteMapping("")
+    public ResponseEntity<?> deleteMultiOrderItem(@RequestBody List<String> orderItemIds) {
+        orderItemService.deleteMultiOrderItem(orderItemIds);
+        return ResponseEntity.ok().build();
+    }
+
 
 
 

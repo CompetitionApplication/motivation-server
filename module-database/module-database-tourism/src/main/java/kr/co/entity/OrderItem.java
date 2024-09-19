@@ -32,7 +32,7 @@ public class OrderItem extends BaseTimeEntity {
     @Convert(converter = BooleanConverter.class)
     private boolean delYn;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "goods_id")
     @Comment(value = "상품")
     private Goods goods;
