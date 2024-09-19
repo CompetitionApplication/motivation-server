@@ -3,6 +3,7 @@ package kr.co.entity;
 import jakarta.persistence.*;
 import kr.co.common.AES256Cipher;
 import kr.co.dto.LoginReqDto;
+import kr.co.dto.SignUpReqDto;
 import kr.co.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -47,7 +48,7 @@ public class User extends BaseTimeEntity {
     private String userAge;
 
 
-    public User(LoginReqDto dto) throws Exception {
+    public User(SignUpReqDto dto) throws Exception {
         this.socialType = SocialType.valueOf(dto.getSocialType());
         this.userEmail = AES256Cipher.encrypt(dto.getUserEmail());
         this.appDeviceToken = dto.getAppDeviceToken();
