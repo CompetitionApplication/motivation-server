@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mapper.app.ScheduleMapper">
+
+    <select id="selectTourismSchedule" resultType="ScheduleResDto">
+        /* AlarmMapper.selectTourismSchedule */
+        select a.tourism_api_id as tourismApiId
+             , b.mapx
+             , b.mapy
+             , b.title
+          from tourism_schedule a
+     left join tourism_api b
+            on a.tourism_api_id = b.tourism_api_id
+         where a.user_id = #{userId}
+    </select>
+
+    <select id="selectTourismScheduleDetail" resultType="ScheduleDetailResDto">
+        /* AlarmMapper.selectTourismScheduleDetail */
+        select a.tourism_api_id as tourismApiId
+             , a.title
+             , case when d.tourism_api_id is null then 'N'
+                    else 'Y'
+                end as favoriteYn
+             , c.file_url as fileUrl
+             , a.addr1
+             , '' as homePage
+             , '0원' as fee
+          from tourism_api a
+     left join file_group b
+            on a.file_group_id = b.file_group_id
+     left join file c
+            on b.file_group_id = c.file_group_id
+     left join tourism_favorite d
+            on a.tourism_api_id = d.tourism_api_id
+           and d.user_id = #{userId}
+        where tourism_api_id = #{tourismApiId}
+    </select>
+
+    <select id="selectTourismFavoriteByUserIdAndTourismApiId" resultType="TourismFavorite">
+        /* AlarmMapper.selectTourismFavoriteByUserIdAndTourismApiId */
+        select *
+          from tourism_favorite
+         where user_id = #{userId}
+           and tourism_api_id= #{tourismApiId}
+    </select>
+
+    <insert id="insertTourismFavorite">
+        /* AlarmMapper.insertTourismFavorite */
+        insert into tourism_favorite(
+                    tourism_favorite_id
+                  , del_yn
+                  , tourism_api_id
+                  , user_id
+          ) values (
+                    UUID()
+                  , 'N'
+                  , #{tourismApiId}
+                  , #{userId}
+          )
+    </insert>
+
+    <update id="updateTourismFavorite">
+        /* AlarmMapper.updateTourismFavorite */
+        update tourism_favorite
+           set del_yn = #{favoriteYn}
+         where tourism_api_id = #{tourismApiId}
+           and user_id = #{userId}
+    </update>
+
+    <insert id="insertTourismSchedule">
+        /* AlarmMapper.insertTourismSchedule */
+        insert into tourism_schedule(
+                    tourism_schedule_id
+                  , del_yn
+                  , schedule_date
+                  , tourism_api_id
+                  , user_id
+          ) values (
+                     UUID()
+                  , 'N'
+                  , #{scheduleDate}
+                  , #{tourismApiId}
+                  , #{userId}
+          )
+    </insert>
+
+</mapper>
+
+
+
+
+
+
+
+

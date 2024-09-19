@@ -13,15 +13,17 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class TourismFavorite extends BaseTimeEntity {
+public class TourismSchedule extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(columnDefinition = "varchar(38)")
-    @Comment(value = "즐겨찾기 키값")
-    private String tourismFavoriteId;
+    @Comment(value = "일정 키값")
+    private String tourismScheduleId;
 
-    private String favoriteYn;
+    private String scheduledDate;
+
+    private String delYn;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
