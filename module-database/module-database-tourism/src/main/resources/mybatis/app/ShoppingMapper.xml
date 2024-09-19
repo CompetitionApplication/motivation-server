@@ -9,10 +9,10 @@
                            from user_badge a
                       left join tourism_api b
                              on a.tourism_api_id = b.tourism_api_id
-                            and b.country = 'KOR'
+                            and b.country = #{language}
                       left join area_code c
                              on b.areacode = c.code
-                            and c.country = 'KOR'
+                            and c.country = #{language}
                       left join user d
                              on a.user_id = d.user_id
                           where a.user_id = #{userId}
@@ -29,7 +29,7 @@
          from goods a
     left join area_code b
            on a.area_code_id = b.area_code_id
-          and b.country = 'KOR'
+          and b.country = #{language}
     left join tb_temp c
            on b.code = c.code
     left join file_group d
@@ -64,10 +64,10 @@
                                           from user_badge a
                                      left join tourism_api b
                                             on a.tourism_api_id = b.tourism_api_id
-                                           and b.country = 'KOR'
+                                           and b.country = #{language}
                                      left join area_code c
                                             on b.areacode = c.code
-                                           and c.country = 'KOR'
+                                           and c.country = #{language}
                                      left join user d
                                             on a.user_id = d.user_id
                                          where a.user_id = #{userId}
@@ -82,7 +82,7 @@
                            from goods a
                       left join area_code b
                              on a.area_code_id = b.area_code_id
-                            and b.country = 'KOR'
+                            and b.country = #{language}
                       left join tb_temp c
                              on b.code = c.code
                       left join goods_buy d
@@ -109,6 +109,24 @@
          where rn between 1 and 10
     </select>
 
+    <select id="selectGoodsDetailByGoodsId" resultType="ShoppingGoodsDetailResDto">
+        /* ShoppingMapper.selectGoodsDetailByGoodsId */
+        select a.goods_name as goodsName
+             , c.file_url as fileUrl
+             , a.goods_from as goodsFrom
+             , a.goods_release_date as goodsReleaseDate
+             , a.goods_delivery_date as goodsDeliveryDate
+             , a.goods_price as goodsPrice
+             , '0%' as eventPercent
+             , '0원' as eventPrice
+             , '0%' as discountPercent
+             , '0원' as discountPrice
+          from goods a
+     left join file_group b
+            on b.file_group_id = a.file_group_id
+     left join file c
+            on c.file_group_id = b.file_group_id
+    </select>
 </mapper>
 
 

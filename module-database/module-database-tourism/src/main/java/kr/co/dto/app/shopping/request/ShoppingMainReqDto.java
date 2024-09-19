@@ -1,15 +1,11 @@
-package kr.co.dto.app.home.request;
+package kr.co.dto.app.shopping.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-public class OpenGoodsReqDto {
-
-    @NotBlank
-    @Pattern(regexp = "^(Y|N)$")
-    private String openYn;
+public class ShoppingMainReqDto {
 
     @NotBlank
     @Pattern(regexp = "^(KOR|ENG)$")
