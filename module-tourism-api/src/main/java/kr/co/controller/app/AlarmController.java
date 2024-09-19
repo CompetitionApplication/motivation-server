@@ -28,7 +28,7 @@ public class AlarmController {
     }
 
     @Operation(summary = "읽음", description = "알림 읽음 입니다.")
-    @PutMapping(value = "/read")
+    @PostMapping(value = "/read")
     public ResponseEntity<?> alarmRead(@RequestBody AlarmReadReqDto alarmReadReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         alarmService.alarmRead(alarmReadReqDto, serviceUser);
         return ObjectResult.ok();
