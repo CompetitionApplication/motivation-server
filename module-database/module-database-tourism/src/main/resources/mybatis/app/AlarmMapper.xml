@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mapper.app.AlarmMapper">
+
+    <select id="selectPushByUserId" resultType="AlarmResDto">
+        /* AlarmMapper.selectPushByUserId */
+        select a.push_id as pushId
+             , a.push_title as pushTitle
+             , a.push_content as pushContent
+             , a.reg_datetime as regDatetime
+             , decode(b.push_id, null, 'N', 'Y') as readYn
+          from push a
+     left join push_read b
+            on a.push_id = b.push_id
+    </select>
+
+    <insert id="insertPushRead">
+        /* AlarmMapper.insertPushRead */
+        insert into push_read(
+                    push_read_id
+                  , push_id
+                  , user_id
+          ) values (
+                    UUID()
+                  , #{pushId}
+                  , #{userId}
+          )
+    </insert>
+
+    <select id="selectPushForNew" resultType="AlarmNewChkResDto">
+        /* AlarmMapper.selectPushForNew */
+        select decode(count(b.push_id), 0, 'N', 'Y')
+         from push a
+    left join push_read b
+           on a.push_id = b.push_id
+        where b.push_id is null
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
