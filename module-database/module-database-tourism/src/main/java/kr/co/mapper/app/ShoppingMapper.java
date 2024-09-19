@@ -2,6 +2,7 @@ package kr.co.mapper.app;
 
 import kr.co.dto.app.shopping.response.ShoppingGoodsDetailResDto;
 import kr.co.dto.app.shopping.response.ShoppingGoodsDto;
+import kr.co.entity.UserCart;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,4 +17,10 @@ public interface ShoppingMapper {
     ShoppingGoodsDetailResDto selectGoodsDetailByGoodsId(String goodsId);
 
     void insertGoodsVisit(String userId, String goodsId);
+
+    UserCart selectUserCartByGoodsIdAndUserId(String goodsId, String userId);
+
+    void insertUserCart(String goodsId, String userId);
+
+    void updateUserCart(String goodsId, String userId, String delYn);
 }

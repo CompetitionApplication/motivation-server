@@ -140,6 +140,36 @@
                   , #{userId}
           )
     </insert>
+
+    <select id="selectUserCartByGoodsIdAndUserId" resultType="UserCart">
+        /* ShoppingMapper.selectUserCartByGoodsIdAndUserId */
+        select *
+          from user_cart
+         where goods_id = #{goodsId}
+           and user_id = #{userId}
+    </select>
+
+    <insert id="insertUserCart">
+        /* ShoppingMapper.insertUserCart */
+        insert into user_cart(
+                    user_card_id
+                  , goods_id
+                  , user_id
+                  , del_yn
+          ) values (
+                    UUID()
+                  , #{goodsId}
+                  , #{userId}
+                  , 'N'
+          )
+    </insert>
+
+    <update id="updateUserCart">
+        update user_cart
+           set del_yn = #{delYn}
+         where user_id = #{userId}
+           and goods_id = #{goodsId}
+    </update>
 </mapper>
 
 

@@ -2,10 +2,12 @@ package kr.co.service.app;
 
 import kr.co.dto.app.common.ServiceUser;
 import kr.co.dto.app.shopping.request.ShoppingGoodsDetailReqDto;
+import kr.co.dto.app.shopping.request.ShoppingGoodsKeepReqDto;
 import kr.co.dto.app.shopping.request.ShoppingMainReqDto;
 import kr.co.dto.app.shopping.response.ShoppingGoodsDetailResDto;
 import kr.co.dto.app.shopping.response.ShoppingGoodsDto;
 import kr.co.dto.app.shopping.response.ShoppingMainResDto;
+import kr.co.entity.UserCart;
 import kr.co.mapper.app.ShoppingMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +46,19 @@ public class ShoppingService {
         shoppingMapper.insertGoodsVisit(serviceUser.getUserId(), shoppingGoodsDetailReqDto.getGoodsId());
 
         return r;
+    }
+
+    public void userCart(ShoppingGoodsKeepReqDto shoppingGoodsKeepReqDto, ServiceUser serviceUser){
+        //장바구니 조회
+        UserCart userCart = shoppingMapper.selectUserCartByGoodsIdAndUserId(shoppingGoodsKeepReqDto.getGoodsId(), serviceUser.getUserId());
+
+        if(userCart == null){
+            //장바구니 담기
+            shoppingMapper.insertUserCart(shoppingGoodsKeepReqDto.getGoodsId(), serviceUser.getUserId());
+        }else {
+            //장바구니 담기 수정
+            shoppingMapper.updateUserCart(shoppingGoodsKeepReqDto.getGoodsId(), serviceUser.getUserId(), shoppingGoodsKeepReqDto.getDelYn());
+        }
     }
 
 }

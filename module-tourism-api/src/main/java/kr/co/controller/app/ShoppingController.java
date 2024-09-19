@@ -5,16 +5,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.common.ObjectResult;
 import kr.co.dto.app.common.ServiceUser;
 import kr.co.dto.app.shopping.request.ShoppingGoodsDetailReqDto;
+import kr.co.dto.app.shopping.request.ShoppingGoodsKeepReqDto;
 import kr.co.dto.app.shopping.request.ShoppingMainReqDto;
 import kr.co.service.app.ShoppingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "shopping", description = "쇼핑")
 @RestController
@@ -37,4 +35,10 @@ public class ShoppingController {
         return ObjectResult.build(shoppingService.getGoodsDetail(serviceUser,shoppingGoodsDetailReqDto));
     }
 
+    @Operation(summary = "장바구니", description = "쇼핑 장바구니 입니다.")
+    @PostMapping(value = "/goods-keep")
+    public ResponseEntity<?> userCard(@RequestBody ShoppingGoodsKeepReqDto shoppingGoodsKeepReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
+        shoppingService.userCart(shoppingGoodsKeepReqDto, serviceUser);
+        return ObjectResult.ok();
+    }
 }
