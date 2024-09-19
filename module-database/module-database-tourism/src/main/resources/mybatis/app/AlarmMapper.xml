@@ -9,7 +9,9 @@
              , a.push_title as pushTitle
              , a.push_content as pushContent
              , a.reg_datetime as regDatetime
-             , decode(b.push_id, null, 'N', 'Y') as readYn
+             , case when b.push_id is null then 'N'
+                    else 'Y'
+                end as readYn
           from push a
      left join push_read b
             on a.push_id = b.push_id
@@ -30,11 +32,13 @@
 
     <select id="selectPushForNew" resultType="AlarmNewChkResDto">
         /* AlarmMapper.selectPushForNew */
-        select decode(count(b.push_id), 0, 'N', 'Y')
-         from push a
-    left join push_read b
-           on a.push_id = b.push_id
-        where b.push_id is null
+        select case when count(b.push_id) = 0 then 'N'
+                    else 'Y'
+                end as newAlarmYn
+          from push a
+     left join push_read b
+            on a.push_id = b.push_id
+         where b.push_id is null
     </select>
 </mapper>
 

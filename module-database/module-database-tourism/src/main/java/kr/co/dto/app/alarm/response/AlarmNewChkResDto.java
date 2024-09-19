@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class AlarmNewChkResDto {
 
-    private String newPushYn;
+    private String newAlarmYn;
 }
