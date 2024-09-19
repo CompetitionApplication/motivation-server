@@ -14,4 +14,6 @@ public interface ShoppingMapper {
     List<ShoppingGoodsDto> selectGoodsForMz(String userEamil, String language);
 
     ShoppingGoodsDetailResDto selectGoodsDetailByGoodsId(String goodsId);
+
+    void insertGoodsVisit(String userId, String goodsId);
 }

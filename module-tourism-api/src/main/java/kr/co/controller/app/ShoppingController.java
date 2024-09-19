@@ -31,9 +31,10 @@ public class ShoppingController {
         return ObjectResult.build(shoppingService.getMain(serviceUser,shoppingMainReqDto));
     }
 
-    @Operation(summary = "굿즈 디테일", description = "굿즈 디테일 조회입니다.")
+    @Operation(summary = "굿즈 디테일", description = "굿즈 디테일 조회 및 조회 카운트 입니다.")
     @GetMapping(value = "/goods-detail")
     public ResponseEntity<?> getGoodsDetail(@RequestBody ShoppingGoodsDetailReqDto shoppingGoodsDetailReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         return ObjectResult.build(shoppingService.getGoodsDetail(serviceUser,shoppingGoodsDetailReqDto));
     }
+
 }
