@@ -6,6 +6,7 @@ import kr.co.auth.TourismUser;
 import kr.co.common.ObjectResult;
 import kr.co.dto.GoodsResDto;
 import kr.co.dto.app.common.ServiceUser;
+import kr.co.dto.app.home.request.HomeMainReqDto;
 import kr.co.dto.app.home.request.OpenGoodsReqDto;
 import kr.co.dto.app.home.response.MainResDto;
 import kr.co.service.app.HomeService;
@@ -28,8 +29,8 @@ public class HomeController {
 
     @Operation(summary = "메인", description = "메인 리스트 조회입니다.")
     @GetMapping(value = "/main")
-    public ResponseEntity<?> getMain(@AuthenticationPrincipal ServiceUser serviceUser) {
-        return ObjectResult.build(homeService.getMain(serviceUser));
+    public ResponseEntity<?> getMain(@RequestBody HomeMainReqDto homeMainReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
+        return ObjectResult.build(homeService.getMain(serviceUser, homeMainReqDto));
     }
 
     @Operation(summary = "굿즈", description = "구매가능/불가능 굿즈 리스트 입니다.")

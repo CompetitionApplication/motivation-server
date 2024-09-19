@@ -22,9 +22,9 @@
                                                                 on c.tourism_api_id = d.tourism_api_id
                                                          left join area_code e
                                                                 on d.areacode = e.code
-                                                               and e.country = 'KOR'
+                                                               and e.country = #{language}
                                                              where c.user_id = #{userId}
-                                                               and d.country = 'KOR'
+                                                               and d.country = #{language}
                                                                and d.areacode = b.code
                                                             ) then 'Y'
                      else 'N'
@@ -32,7 +32,7 @@
          from goods a
     left join area_code b
            on a.area_code_id = b.area_code_id
-          and b.country = 'KOR'
+          and b.country = #{language}
     left join file_group f
            on a.file_group_id = f.file_group_id
     left join file g

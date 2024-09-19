@@ -7,7 +7,7 @@
         /* UserMapper.selectTourismApi */
         select *
           from tourism_api
-         where country = 'KOR'
+         where country = #{language}
     </select>
 
     <select id="selectTourismApiForTopRank" resultType="TourismApi">
@@ -23,7 +23,7 @@
                                                         , (select count(*) from tourism_visit where tourism_api_id = a.tourism_api_id)    as visitCnt
                                                         , (select count(*) from tourism_favorite where tourism_api_id = a.tourism_api_id) as favoriteCnt
                                                      from tourism_api a
-                                                    where country = 'KOR'
+                                                    where country = #{language}
                                                  group by a.tourism_api_id) b
                                            ) c
                                      where c.rn <![CDATA[<=]]> 15

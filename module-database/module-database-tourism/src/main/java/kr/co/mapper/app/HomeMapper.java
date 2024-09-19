@@ -12,7 +12,7 @@ public interface HomeMapper {
 
     int selectUserBadgeByUserIdForCnt(String userId);
 
-    List<OpenGoodsResDto> selectGoodsListForOpenYn(String userId);
+    List<OpenGoodsResDto> selectGoodsListForOpenYn(String userId, String language);
 
     List<CollectBadgeDto> selectUserBadgeByUserIdForCollect(String userId);
 }
