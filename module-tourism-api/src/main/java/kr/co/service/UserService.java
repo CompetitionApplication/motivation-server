@@ -1,6 +1,6 @@
 package kr.co.service;
 
-import jakarta.transaction.Transactional;
+
 import kr.co.auth.JwtUtil;
 import kr.co.common.AES256Cipher;
 import kr.co.common.CommonErrorCode;
@@ -8,17 +8,14 @@ import kr.co.common.CommonException;
 import kr.co.dto.LoginReqDto;
 import kr.co.dto.LoginResDto;
 import kr.co.dto.SignUpReqDto;
-import kr.co.entity.Hobby;
-import kr.co.entity.RefreshToken;
-import kr.co.entity.TripStyle;
-import kr.co.entity.User;
-import kr.co.repository.HobbyRepository;
-import kr.co.repository.RefreshTokenRepository;
-import kr.co.repository.TripStyleRepository;
-import kr.co.repository.UserRepository;
+import kr.co.dto.UserMyPageResDto;
+import kr.co.dto.app.common.ServiceUser;
+import kr.co.entity.*;
+import kr.co.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +27,7 @@ public class UserService {
     private final TripStyleRepository tripStyleRepository;
     private final HobbyRepository hobbyRepository;
     private final JwtUtil jwtUtil;
+    private final UserBadgeRepository userBadgeRepository;
 
 
     @Transactional
@@ -47,30 +45,49 @@ public class UserService {
             String accessToken = jwtUtil.generateToken(userInfo.getUserEmail());
             String refreshToken = jwtUtil.generateRefreshToken(userInfo.getUserEmail());
 
-            //::: 리프레시 토큰 업데이트 :::
-            RefreshToken refreshTokenInfo = refreshTokenRepository.findByUser(userInfo)
-                    .orElseThrow(() -> new CommonException(CommonErrorCode.COMMON_FAIL.getCode(), CommonErrorCode.COMMON_FAIL.getMessage()));
 
-            refreshTokenInfo.updateRefreshToken(refreshToken);
+
+            //::: 리프레시 토큰 업데이트 :::
+            RefreshToken refreshTokenInfo = refreshTokenRepository.findByUser(userInfo).orElse(null);
+
+            if(refreshTokenInfo == null){
+                refreshTokenInfo = refreshTokenRepository.save(new RefreshToken(refreshToken, userInfo));
+            }else{
+                refreshTokenInfo.updateRefreshToken(refreshToken);
+            }
             //::: 결과값 반환 :::
-            return new LoginResDto(accessToken,refreshTokenInfo.getRefreshTokenId());
+            return new LoginResDto(accessToken, refreshTokenInfo.getRefreshTokenId());
         }
         return null;
     }
 
     @Transactional
     public void join(SignUpReqDto signUpReqDto) throws Exception {
-            //:::유저정보저장:::
-            User user = userRepository.save(new User(signUpReqDto));
+        //:::유저정보저장:::
+        User user = userRepository.save(new User(signUpReqDto));
 
-            //:::취미저장:::
-            signUpReqDto.getTripStyles().forEach(tripStyle -> {
-                tripStyleRepository.save(new TripStyle(tripStyle, user));
-            });
-            //:::여행스타일저장:::
-            signUpReqDto.getHobbyNames().forEach(hobbyName -> {
-                hobbyRepository.save(new Hobby(hobbyName, user));
-            });
-        }
+        //:::취미저장:::
+        signUpReqDto.getTripStyles().forEach(tripStyle -> {
+            tripStyleRepository.save(new TripStyle(tripStyle, user));
+        });
+        //:::여행스타일저장:::
+        signUpReqDto.getHobbyNames().forEach(hobbyName -> {
+            hobbyRepository.save(new Hobby(hobbyName, user));
+        });
+    }
 
+    @Transactional(readOnly = true)
+    public UserMyPageResDto myPage(ServiceUser serviceUser) {
+        //유저정보 조회
+        User userInfo = userRepository.findByUserEmail(serviceUser.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
+
+        //해당 계정의 얻은 뱃지개수 추출
+        long userBadges = userBadgeRepository.countByUser(userInfo);
+
+        return UserMyPageResDto.builder()
+                .userName(userInfo.getUserName())
+                .userGetBadgeCount(String.valueOf(userBadges))
+                .build();
+    }
 }
