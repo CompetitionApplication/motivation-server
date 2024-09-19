@@ -68,4 +68,13 @@ public class OrderItemService {
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ORDER.getCode(), CommonErrorCode.NOT_FOUND_ORDER.getMessage()));
         orderItem.deleteOrderItem();
     }
+
+    @Transactional
+    public void deleteMultiOrderItem(List<String> orderItemIds) {
+        orderItemIds.forEach(orderItemId -> {
+            OrderItem orderItem = orderItemRepository.findById(orderItemId)
+                    .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ORDER.getCode(), CommonErrorCode.NOT_FOUND_ORDER.getMessage()));
+            orderItem.deleteOrderItem();
+        });
+    }
 }
