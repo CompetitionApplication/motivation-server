@@ -36,9 +36,12 @@ public class ShoppingService {
     }
 
     public ShoppingGoodsDetailResDto getGoodsDetail(ServiceUser serviceUser, ShoppingGoodsDetailReqDto shoppingGoodsDetailReqDto){
-        ShoppingGoodsDetailResDto r = new ShoppingGoodsDetailResDto();
 
-        r = shoppingMapper.selectGoodsDetailByGoodsId(shoppingGoodsDetailReqDto.getGoodsId());
+        //굿즈 디테일 조회
+        ShoppingGoodsDetailResDto r = shoppingMapper.selectGoodsDetailByGoodsId(shoppingGoodsDetailReqDto.getGoodsId());
+
+        //조회 카운트
+        shoppingMapper.insertGoodsVisit(serviceUser.getUserId(), shoppingGoodsDetailReqDto.getGoodsId());
 
         return r;
     }
