@@ -5,10 +5,7 @@ import kr.co.auth.JwtUtil;
 import kr.co.common.AES256Cipher;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
-import kr.co.dto.LoginReqDto;
-import kr.co.dto.LoginResDto;
-import kr.co.dto.SignUpReqDto;
-import kr.co.dto.UserMyPageResDto;
+import kr.co.dto.*;
 import kr.co.dto.app.common.ServiceUser;
 import kr.co.entity.*;
 import kr.co.repository.*;
@@ -16,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +28,8 @@ public class UserService {
     private final HobbyRepository hobbyRepository;
     private final JwtUtil jwtUtil;
     private final UserBadgeRepository userBadgeRepository;
+    private final GoodsBuyRepository goodsBuyRepository;
+    private final TourismApiRepository tourismApiRepository;
 
 
     @Transactional
@@ -46,13 +48,12 @@ public class UserService {
             String refreshToken = jwtUtil.generateRefreshToken(userInfo.getUserEmail());
 
 
-
             //::: 리프레시 토큰 업데이트 :::
             RefreshToken refreshTokenInfo = refreshTokenRepository.findByUser(userInfo).orElse(null);
 
-            if(refreshTokenInfo == null){
+            if (refreshTokenInfo == null) {
                 refreshTokenInfo = refreshTokenRepository.save(new RefreshToken(refreshToken, userInfo));
-            }else{
+            } else {
                 refreshTokenInfo.updateRefreshToken(refreshToken);
             }
             //::: 결과값 반환 :::
@@ -89,5 +90,31 @@ public class UserService {
                 .userName(userInfo.getUserName())
                 .userGetBadgeCount(String.valueOf(userBadges))
                 .build();
+    }
+
+    @Transactional(readOnly = true)
+    public List<GoodsBuyResDto> goods(ServiceUser serviceUser) {
+        User userInfo = userRepository.findByUserEmail(serviceUser.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
+        List<GoodsBuy> goodsBuys = goodsBuyRepository.findByUser(userInfo);
+
+        return goodsBuys.stream().map(goodsBuy -> GoodsBuyResDto.builder()
+                .goodsName(goodsBuy.getGoods().getGoodsName())
+                .goodsBuyDate(goodsBuy.getRegDatetime())
+                .goodsPrice(goodsBuy.getGoods().getGoodsPrice())
+                .build()).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<UserBadgeResDto> badges(ServiceUser serviceUser) {
+        User userInfo = userRepository.findByUserEmail(serviceUser.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
+        List<UserBadge> userBadges = userBadgeRepository.findByUser(userInfo);
+
+        return userBadges.stream().map(userBadge -> UserBadgeResDto.builder()
+                .tourismName(userBadge.getTourismApi().getTitle())
+                .badgeGetDatetime(userBadge.getRegDatetime())
+                .badgeName(userBadge.getTourismApi().getBadgeCode().getBadgeCodeType())
+                .build()).collect(Collectors.toList());
     }
 }

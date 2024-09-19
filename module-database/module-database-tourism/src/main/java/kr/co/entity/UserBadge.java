@@ -1,6 +1,7 @@
 package kr.co.entity;
 
 import jakarta.persistence.*;
+import kr.co.entity.common.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -9,7 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserBadge {
+public class UserBadge extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")

@@ -39,6 +39,18 @@ public class UserController {
         return ObjectResult.build(userService.myPage(serviceUser));
     }
 
+    @Operation(summary = "굿즈 구매 배송내역", description = "굿즈 구매 배송내역을 보여줍니다.")
+    @GetMapping("/goods")
+    public ResponseEntity<?> goods(@AuthenticationPrincipal ServiceUser serviceUser) {
+        return ObjectResult.build(userService.goods(serviceUser));
+    }
+
+    @Operation(summary = "뱃지 획독 내역", description = "뱃지 획독 내역을 조회합니다.")
+    @GetMapping("/badges")
+    public ResponseEntity<?> badges(@AuthenticationPrincipal ServiceUser serviceUser) {
+        return ObjectResult.build(userService.badges(serviceUser));
+    }
+
 
 
 

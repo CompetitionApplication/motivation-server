@@ -29,5 +29,7 @@ public class GoodsBuy extends BaseTimeEntity {
     @JoinColumn(name = "goods_id")
     private Goods goods;
 
+    private String goodsBuyStatus;
+
 
 }

@@ -30,4 +30,8 @@ public class TourismVisit extends BaseTimeEntity {
     private TourismApi tourismApi;
 
 
+    public TourismVisit(User user, TourismApi tourismApi) {
+        this.user = user;
+        this.tourismApi = tourismApi;
+    }
 }

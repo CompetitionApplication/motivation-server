@@ -4,9 +4,11 @@ import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.app.qr.QrReqDto;
 import kr.co.entity.TourismApi;
+import kr.co.entity.TourismVisit;
 import kr.co.entity.User;
 import kr.co.entity.UserBadge;
 import kr.co.repository.TourismApiRepository;
+import kr.co.repository.TourismVisitRepository;
 import kr.co.repository.UserBadgeRepository;
 import kr.co.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class QrService {
     private final UserBadgeRepository userBadgeRepository;
     private final TourismApiRepository tourismApiRepository;
     private final UserRepository userRepository;
+    private final TourismVisitRepository tourismVisitRepository;
 
     @Transactional
     public void receiveQrData(QrReqDto qrReqDto) {
@@ -32,5 +35,6 @@ public class QrService {
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
 
         userBadgeRepository.save(new UserBadge(user, tourismApi));
+        tourismVisitRepository.save(new TourismVisit(user, tourismApi));
     }
 }
