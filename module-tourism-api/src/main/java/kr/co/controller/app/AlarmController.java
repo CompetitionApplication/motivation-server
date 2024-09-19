@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "alarm", description = "알림")
 @RestController
@@ -31,7 +28,7 @@ public class AlarmController {
     }
 
     @Operation(summary = "읽음", description = "알림 읽음 입니다.")
-    @GetMapping(value = "/read")
+    @PutMapping(value = "/read")
     public ResponseEntity<?> alarmRead(@RequestBody AlarmReadReqDto alarmReadReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         alarmService.alarmRead(alarmReadReqDto, serviceUser);
         return ObjectResult.ok();
