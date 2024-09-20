@@ -51,7 +51,7 @@ public class OrderItemController {
     }
 
     @Operation(summary = "주문 상태 여러개 삭제", description = "주문 상태 여러개를 삭제합니다.")
-    @DeleteMapping("")
+    @PostMapping("")
     public ResponseEntity<?> deleteMultiOrderItem(@RequestBody List<String> orderItemIds) {
         orderItemService.deleteMultiOrderItem(orderItemIds);
         return ResponseEntity.ok().build();

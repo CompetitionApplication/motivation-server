@@ -38,7 +38,7 @@ public class LocalItemController {
     }
 
     @Operation(summary = "특산품 등록", description = "특산품 등록 합니다")
-    @PostMapping("/")
+    @PostMapping(value = "/",consumes = "multipart/form-data")
     public ResponseEntity<?> uploadLocalItem(@RequestParam("localItemName") String localItemName,
                                              @RequestParam("localItemPrice") String localItemPrice,
                                              @RequestParam("areaCode") String areaCode,
@@ -49,7 +49,7 @@ public class LocalItemController {
     }
 
     @Operation(summary = "특산품 수정", description = "특산품 수정을 합니다.")
-    @PutMapping("/{localItemId}")
+    @PutMapping(value = "/{localItemId}",consumes = "multipart/form-data")
     public ResponseEntity<?> updateLocalItem(@PathVariable(value = "localItemId") String localItemId,
                                              @RequestParam("localItemName") String localItemName,
                                              @RequestParam("localItemPrice") String localItemPrice,
