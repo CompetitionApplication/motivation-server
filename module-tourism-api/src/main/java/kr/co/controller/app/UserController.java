@@ -51,6 +51,13 @@ public class UserController {
         return ObjectResult.build(userService.badges(serviceUser));
     }
 
+    @Operation(summary = "즐겨찾기 목록 조회", description = "즐겨찾기 목록 조회")
+    @GetMapping("/mypage/favorite")
+    public ResponseEntity<?> favorites(@AuthenticationPrincipal ServiceUser serviceUser) {
+        return ObjectResult.build(userService.favorites(serviceUser));
+    }
+
+
 
 
 

@@ -30,6 +30,7 @@ public class UserService {
     private final UserBadgeRepository userBadgeRepository;
     private final GoodsBuyRepository goodsBuyRepository;
     private final TourismApiRepository tourismApiRepository;
+    private final TourismFavoriteRepository tourismFavoriteRepository;
 
 
     @Transactional
@@ -105,7 +106,7 @@ public class UserService {
                 .build()).collect(Collectors.toList());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<UserBadgeResDto> badges(ServiceUser serviceUser) {
         User userInfo = userRepository.findByUserEmail(serviceUser.getUserEmail())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
@@ -115,6 +116,17 @@ public class UserService {
                 .tourismName(userBadge.getTourismApi().getTitle())
                 .badgeGetDatetime(userBadge.getRegDatetime())
                 .badgeName(userBadge.getTourismApi().getBadgeCode().getBadgeCodeType())
+                .build()).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<TourismFavoriteResDto> favorites(ServiceUser serviceUser) {
+        User userInfo = userRepository.findByUserEmail(serviceUser.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
+        return tourismFavoriteRepository.findAllByUser(userInfo).stream().map(tourismFavorite -> TourismFavoriteResDto.builder()
+                .tourismId(tourismFavorite.getTourismApi().getTourismApiId())
+                .tourismName(tourismFavorite.getTourismApi().getTitle())
+                .imageUrl(tourismFavorite.getTourismApi().getFirstimage())
                 .build()).collect(Collectors.toList());
     }
 }
