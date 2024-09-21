@@ -30,8 +30,8 @@ public class GoodsDetailResDto {
     private String goodsDeliveryDate;
     @Schema(description = "뱃지 해금 개수", example = "1")
     private Integer badgeOpenCount;
-    private String areaCode;
-    private String detailAreaCode;
+    private String areaCodeId;
+    private String detailAreaCodeId;
     private List<String> goodsImages;
 
     public GoodsDetailResDto(Goods goods, List<String> goodsImages) {
@@ -44,8 +44,8 @@ public class GoodsDetailResDto {
         this.goodsReleaseDate = goods.getGoodsReleaseDate();
         this.goodsDeliveryDate = goods.getGoodsDeliveryDate();
         this.badgeOpenCount = goods.getBadgeOpenCount();
-        this.areaCode = goods.getAreaCode().getName();
-        this.detailAreaCode = goods.getDetailAreaCode().getName();
+        this.areaCodeId = goods.getAreaCode().getName();
+        this.detailAreaCodeId = goods.getDetailAreaCode().getName();
         this.goodsImages = goodsImages;
     }
 }
