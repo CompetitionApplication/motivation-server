@@ -34,6 +34,8 @@ public class GoodsDetailResDto {
     private String detailAreaCodeId;
     private List<String> goodsImages;
 
+    //test
+
     public GoodsDetailResDto(Goods goods, List<String> goodsImages) {
         this.goodsId = goods.getGoodsId();
         this.goodsName = goods.getGoodsName();
