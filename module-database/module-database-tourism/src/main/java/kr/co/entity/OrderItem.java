@@ -24,9 +24,8 @@ public class OrderItem extends BaseTimeEntity {
     @Comment(value = "주문금액")
     private int orderPrice;
 
-    @Enumerated(EnumType.STRING)
     @Comment(value = "주문상태")
-    private OrderStatus orderStatus;
+    private String orderStatus;
 
     @Column(columnDefinition = "varchar(1) default 'N'")
     @Convert(converter = BooleanConverter.class)
@@ -48,10 +47,10 @@ public class OrderItem extends BaseTimeEntity {
     public OrderItem(int orderPrice, User user) {
         this.orderPrice = orderPrice;
         this.user = user;
-        this.orderStatus = OrderStatus.ITEM_SHIPPED;
+        this.orderStatus = "배송완료";
     }
 
-    public void updateOrderStatus(OrderStatus orderStatus) {
+    public void updateOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
 

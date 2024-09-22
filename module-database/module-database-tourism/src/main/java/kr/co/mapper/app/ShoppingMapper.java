@@ -23,4 +23,6 @@ public interface ShoppingMapper {
     void insertUserCart(String goodsId, String userId);
 
     void updateUserCart(String goodsId, String userId, String delYn);
+
+    void insertOrderItem(String goodsId, String orderPrice, String orderCount, String userId);
 }

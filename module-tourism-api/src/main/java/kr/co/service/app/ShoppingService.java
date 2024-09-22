@@ -1,6 +1,7 @@
 package kr.co.service.app;
 
 import kr.co.dto.app.common.ServiceUser;
+import kr.co.dto.app.shopping.request.ShoppingGoodsBuyReqDto;
 import kr.co.dto.app.shopping.request.ShoppingGoodsDetailReqDto;
 import kr.co.dto.app.shopping.request.ShoppingGoodsKeepReqDto;
 import kr.co.dto.app.shopping.request.ShoppingMainReqDto;
@@ -61,6 +62,10 @@ public class ShoppingService {
             //장바구니 담기 수정
             shoppingMapper.updateUserCart(shoppingGoodsKeepReqDto.getGoodsId(), serviceUser.getUserId(), shoppingGoodsKeepReqDto.getDelYn());
         }
+    }
+
+    public void goodsBuy(ShoppingGoodsBuyReqDto shoppingGoodsBuyReqDto, ServiceUser serviceUser){
+        shoppingMapper.insertOrderItem(shoppingGoodsBuyReqDto.getGoodsId(), shoppingGoodsBuyReqDto.getOrderPrice(), shoppingGoodsBuyReqDto.getOrderCount(), serviceUser.getUserId());
     }
 
 }

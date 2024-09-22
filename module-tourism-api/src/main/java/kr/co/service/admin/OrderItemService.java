@@ -36,7 +36,7 @@ public class OrderItemService {
                         .orderDatetime(orderItem.getRegDatetime())
                         .orderUser(orderItem.getUser().getUserName())
                         .orderPrice(orderItem.getOrderPrice() + "원")
-                        .orderStatus(orderItem.getOrderStatus().name())
+                        .orderStatus(orderItem.getOrderStatus())
                         .build())
                 .collect(Collectors.toList());
         return new PageImpl<>(orderItemResDtos, orderItems.getPageable(), orderItems.getTotalElements());
@@ -59,7 +59,7 @@ public class OrderItemService {
     public void updateOrderStatus(OrderStatusUpdateReqDto orderStatusUpdateReqDto) {
         OrderItem orderItem = orderItemRepository.findById(orderStatusUpdateReqDto.getOrderItemId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ORDER.getCode(), CommonErrorCode.NOT_FOUND_ORDER.getMessage()));
-        orderItem.updateOrderStatus(OrderStatus.valueOf(orderStatusUpdateReqDto.getOrderStatus()));
+        orderItem.updateOrderStatus(orderStatusUpdateReqDto.getOrderStatus());
     }
 
     @Transactional

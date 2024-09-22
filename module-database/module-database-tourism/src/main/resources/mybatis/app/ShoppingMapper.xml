@@ -166,11 +166,33 @@
     </insert>
 
     <update id="updateUserCart">
+        /* ShoppingMapper.updateUserCart */
         update user_cart
            set del_yn = #{delYn}
          where user_id = #{userId}
            and goods_id = #{goodsId}
     </update>
+
+    <insert id="insertOrderItem">
+        /* ShoppingMapper.insertOrderItem */
+        insert into order_item(
+                    order_item_id
+                  , del_yn
+                  , order_count
+                  , order_price
+                  , order_status
+                  , goods_id
+                  , user_id
+           ) values (
+                    UUID()
+                  , 'N'
+                  , #{orderCount}
+                  , #{orderPrice}
+                  , '결제완료'
+                  , #{goodsId}
+                  , #{userId}
+           )
+    </insert>
 </mapper>
 
 

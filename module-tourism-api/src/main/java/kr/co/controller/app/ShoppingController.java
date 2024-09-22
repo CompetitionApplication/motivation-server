@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.common.ObjectResult;
 import kr.co.dto.app.common.ServiceUser;
+import kr.co.dto.app.shopping.request.ShoppingGoodsBuyReqDto;
 import kr.co.dto.app.shopping.request.ShoppingGoodsDetailReqDto;
 import kr.co.dto.app.shopping.request.ShoppingGoodsKeepReqDto;
 import kr.co.dto.app.shopping.request.ShoppingMainReqDto;
@@ -39,6 +40,13 @@ public class ShoppingController {
     @PostMapping(value = "/goods-keep")
     public ResponseEntity<?> userCard(@RequestBody ShoppingGoodsKeepReqDto shoppingGoodsKeepReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         shoppingService.userCart(shoppingGoodsKeepReqDto, serviceUser);
+        return ObjectResult.ok();
+    }
+
+    @Operation(summary = "구매", description = "구매하기 입니다.")
+    @PostMapping(value = "/goods-buy")
+    public ResponseEntity<?> goodsBuy(@RequestBody ShoppingGoodsBuyReqDto shoppingGoodsBuyReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
+        shoppingService.goodsBuy(shoppingGoodsBuyReqDto, serviceUser);
         return ObjectResult.ok();
     }
 }
