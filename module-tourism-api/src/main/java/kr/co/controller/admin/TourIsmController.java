@@ -55,8 +55,8 @@ public class TourIsmController {
 
     @Operation(summary = "관광지 상세 조회", description = "관광지 상세 조회를 합니다.")
     @GetMapping("/list/{tourismId}")
-    public ResponseEntity<TourismApiDetailResDto> getTourismDetail(@PathVariable(value = "tourismId") String tourismId) {
-        return ResponseEntity.ok(tourismService.getTourismDetail(tourismId));
+    public ResponseEntity<TourismApiDetailResDto> getTourismDetail(@PathVariable(value = "tourPlaceId") String tourPlaceId) {
+        return ResponseEntity.ok(tourismService.getTourismDetail(tourPlaceId));
     }
 
     @Operation(summary = "관광지 삭제", description = "관광지를 삭제 합니다.")
