@@ -13,7 +13,9 @@ public class LocalItemResDto {
     private String localItemName;
     @Schema(description = "특산품가격", example = "10000")
     private String localItemPrice;
-    @Schema(description = "뱃지개수", example = "100")
-    private String localItemBadgeCount;
+    @Schema(description = "지역코드", example = "1")
+    private String areaCodeId;
+    @Schema(description = "상세지역코드", example = "1")
+    private String detailAreaCodeId;
 }
 

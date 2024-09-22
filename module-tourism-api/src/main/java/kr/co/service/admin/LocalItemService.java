@@ -45,6 +45,8 @@ public class LocalItemService {
                         .localItemId(localItemDto.getLocalItemId())
                         .localItemName(localItemDto.getLocalItemName())
                         .localItemPrice(localItemDto.getLocalItemPrice() + "원")
+                        .areaCodeId(localItemDto.getAreaCode().getAreaCodeId())
+                        .detailAreaCodeId(localItemDto.getDetailAreaCode().getDetailAreaCodeId())
                         .build())
                 .collect(Collectors.toList());
         return new PageImpl<>(localItemResDtos, localSpecialties.getPageable(), localSpecialties.getTotalElements());
