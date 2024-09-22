@@ -9,5 +9,6 @@ public class ShoppingGoodsDto {
     private String goodsName;
     private String goodsPrice;
     private String goodsOpenYn;
+    private String badgeOpenCount;
     private String fileUrl;
 }

@@ -24,13 +24,13 @@ public class ShoppingController {
     private final ShoppingService shoppingService;
 
     @Operation(summary = "메인", description = "메인 리스트 조회입니다.")
-    @GetMapping(value = "/main")
+    @PostMapping(value = "/main")
     public ResponseEntity<?> getMain(@RequestBody ShoppingMainReqDto shoppingMainReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         return ObjectResult.build(shoppingService.getMain(serviceUser,shoppingMainReqDto));
     }
 
     @Operation(summary = "굿즈 디테일", description = "굿즈 디테일 조회 및 조회 카운트 입니다.")
-    @GetMapping(value = "/goods-detail")
+    @PostMapping(value = "/goods-detail")
     public ResponseEntity<?> getGoodsDetail(@RequestBody ShoppingGoodsDetailReqDto shoppingGoodsDetailReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         return ObjectResult.build(shoppingService.getGoodsDetail(serviceUser,shoppingGoodsDetailReqDto));
     }

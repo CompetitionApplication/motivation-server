@@ -22,10 +22,9 @@
              , a.goods_price as goodsPrice
              , e.file_url as fileUrl
              , a.badge_open_count as badgeOpenCount
-             , count(c.code) as badgeCollectCnt
              , case when a.badge_open_count <![CDATA[<=]]> count(c.code) then 'Y'
                     else 'N'
-                end as aa
+                end as goodsOpenYn
          from goods a
     left join area_code b
            on a.area_code_id = b.area_code_id
@@ -36,12 +35,12 @@
            on a.file_group_id = d.file_group_id
     left join file e
            on d.file_group_id = e.file_group_id
+        where a.reg_datetime >= date_sub(now(), interval 1 month)
      group by a.goods_id
             , a.goods_name
             , a.goods_price
             , e.file_url
             , a.badge_open_count
-        where a.reg_datetime >= date_sub(now(), interval 1 month)
     </select>
 
     <select id="selectGoodsForMz" resultType="ShoppingGoodsDto">
@@ -50,9 +49,9 @@
              , a.goodsName
              , a.goodsPrice
              , a.fileUrl
-             , a.badgeOpenCount
-             , a.badgeCollectCnt
-             , a.rn
+             , case when a.badgeOpenCount <![CDATA[<]]> a.badgeCollectCnt then 'Y'
+                    else 'N'
+                end as goodsOpenYn
          from (select a.goodsId
                     , a.goodsName
                     , a.goodsPrice
@@ -111,7 +110,8 @@
 
     <select id="selectGoodsDetailByGoodsId" resultType="ShoppingGoodsDetailResDto">
         /* ShoppingMapper.selectGoodsDetailByGoodsId */
-        select a.goods_name as goodsName
+        select a.goods_id as goodsId
+             , a.goods_name as goodsName
              , c.file_url as fileUrl
              , a.goods_from as goodsFrom
              , a.goods_release_date as goodsReleaseDate
@@ -126,6 +126,7 @@
             on b.file_group_id = a.file_group_id
      left join file c
             on c.file_group_id = b.file_group_id
+         where a.goods_id = #{goodsId}
     </select>
 
     <insert id="insertGoodsVisit">
@@ -135,7 +136,7 @@
                   , goods_id
                   , user_id
           ) values (
-                  , UUID()
+                    UUID()
                   , #{goodsId}
                   , #{userId}
           )
@@ -152,7 +153,7 @@
     <insert id="insertUserCart">
         /* ShoppingMapper.insertUserCart */
         insert into user_cart(
-                    user_card_id
+                    user_cart_id
                   , goods_id
                   , user_id
                   , del_yn

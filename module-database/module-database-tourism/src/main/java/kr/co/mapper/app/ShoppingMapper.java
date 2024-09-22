@@ -10,9 +10,9 @@ import java.util.List;
 @Mapper
 public interface ShoppingMapper {
 
-    List<ShoppingGoodsDto> selectGoodsForNew(String userEamil, String language);
+    List<ShoppingGoodsDto> selectGoodsForNew(String userId, String language);
 
-    List<ShoppingGoodsDto> selectGoodsForMz(String userEamil, String language);
+    List<ShoppingGoodsDto> selectGoodsForMz(String userId, String language);
 
     ShoppingGoodsDetailResDto selectGoodsDetailByGoodsId(String goodsId);
 

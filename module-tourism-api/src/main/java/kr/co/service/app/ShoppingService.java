@@ -28,9 +28,11 @@ public class ShoppingService {
 
         //신규 굿즈
         List<ShoppingGoodsDto> newGoodsList = shoppingMapper.selectGoodsForNew(serviceUser.getUserId(), shoppingMainReqDto.getLanguage());
+        r.setNewGoodsList(newGoodsList);
 
         //mz픽 굿즈
         List<ShoppingGoodsDto> mzGoodsList = shoppingMapper.selectGoodsForMz(serviceUser.getUserId(), shoppingMainReqDto.getLanguage());
+        r.setMzGoodsList(mzGoodsList);
 
         //TODO 이벤트 굿즈
 
