@@ -37,6 +37,7 @@
            on a.file_group_id = f.file_group_id
     left join file g
            on f.file_group_id = g.file_group_id
+        where a.del_yn = 'N'
     </select>
 
     <select id="selectUserBadgeByUserIdForCollect" resultType="CollectBadgeDto">

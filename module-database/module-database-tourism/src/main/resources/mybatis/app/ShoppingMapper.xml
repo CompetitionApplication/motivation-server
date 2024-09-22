@@ -36,6 +36,7 @@
     left join file e
            on d.file_group_id = e.file_group_id
         where a.reg_datetime >= date_sub(now(), interval 1 month)
+          and a.del_yn = 'N'
      group by a.goods_id
             , a.goods_name
             , a.goods_price

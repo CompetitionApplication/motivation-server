@@ -8,6 +8,7 @@
         select *
           from tourism_api
          where country = #{language}
+           and del_yn = 'N'
     </select>
 
     <select id="selectTourismApiForTopRank" resultType="TourismApi">
@@ -28,6 +29,7 @@
                                            ) c
                                      where c.rn <![CDATA[<=]]> 15
                                    )
+           and del_yn = 'N'
     </select>
 
 
