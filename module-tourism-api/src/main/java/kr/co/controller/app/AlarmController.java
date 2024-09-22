@@ -2,6 +2,7 @@ package kr.co.controller.app;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.co.common.ListResult;
 import kr.co.common.ObjectResult;
 import kr.co.dto.app.alarm.request.AlarmReadReqDto;
 import kr.co.dto.app.common.ServiceUser;
@@ -24,7 +25,7 @@ public class AlarmController {
     @Operation(summary = "리스트", description = "알림 리스트 입니다.")
     @GetMapping(value = "/list")
     public ResponseEntity<?> getAlarms(@AuthenticationPrincipal ServiceUser serviceUser) {
-        return ObjectResult.build(alarmService.getAlarms(serviceUser));
+        return ListResult.build(alarmService.getAlarms(serviceUser));
     }
 
     @Operation(summary = "읽음", description = "알림 읽음 입니다.")

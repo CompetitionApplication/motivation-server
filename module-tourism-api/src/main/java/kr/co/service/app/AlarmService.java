@@ -23,9 +23,6 @@ public class AlarmService {
 
         //알림 리스트
         List<AlarmResDto> r = alarmMapper.selectPushByUserId(serviceUser.getUserId());
-        if(r == null){
-            r = new ArrayList<>();
-        }
 
         return r;
     }

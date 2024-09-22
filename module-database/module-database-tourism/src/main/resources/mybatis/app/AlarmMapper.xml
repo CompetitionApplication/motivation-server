@@ -15,6 +15,8 @@
           from push a
      left join push_read b
             on a.push_id = b.push_id
+         where a.user_id = #{userId}
+      order by a.reg_datetime desc
     </select>
 
     <insert id="insertPushRead">
@@ -25,20 +27,21 @@
                   , user_id
           ) values (
                     UUID()
-                  , #{pushId}
+                  , #{alarmId}
                   , #{userId}
           )
     </insert>
 
     <select id="selectPushForNew" resultType="AlarmNewChkResDto">
         /* AlarmMapper.selectPushForNew */
-        select case when count(b.push_id) = 0 then 'N'
+        select case when count(*) = 0 then 'N'
                     else 'Y'
                 end as newAlarmYn
           from push a
      left join push_read b
             on a.push_id = b.push_id
          where b.push_id is null
+           and a.user_id = #{userId}
     </select>
 </mapper>
 
