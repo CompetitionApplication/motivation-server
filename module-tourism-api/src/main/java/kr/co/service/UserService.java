@@ -8,6 +8,8 @@ import kr.co.common.CommonException;
 import kr.co.dto.*;
 import kr.co.dto.app.common.ServiceUser;
 import kr.co.dto.app.myPage.response.MyPageScheduleResDto;
+import kr.co.dto.app.myPage.response.MyPageUserCartResDto;
+import kr.co.dto.app.myPage.response.MyPageUserCartTotalResDto;
 import kr.co.entity.*;
 import kr.co.mapper.app.UserMapper;
 import kr.co.repository.*;
@@ -156,6 +158,31 @@ public class UserService {
 
     public List<MyPageScheduleResDto> getSchedule(ServiceUser serviceUser){
         List<MyPageScheduleResDto> r = userMapper.selectTourismScheduleByUserId(serviceUser.getUserId());
+        return r;
+    }
+
+    public MyPageUserCartTotalResDto getCart(ServiceUser serviceUser){
+        MyPageUserCartTotalResDto r = new MyPageUserCartTotalResDto();
+
+        List<MyPageUserCartResDto> cartList = userMapper.selectUserCartByUserId(serviceUser.getUserId());
+        r.setCartList(cartList);
+
+        if(cartList.size() > 0){
+            int sum = cartList.stream()
+                    .mapToInt(obj -> Integer.parseInt(obj.getGoodsPrice()))
+                    .sum();
+            r.setTotalGoodsPrice(Integer.toString(sum));
+
+            r.setTotalPrice(Integer.toString(sum));
+        }else{
+            r.setTotalGoodsPrice("0");
+            r.setTotalPrice("0");
+        }
+
+        r.setTotalDiscount("0%");
+        r.setTotalDiscountPrice("0");
+        r.setTotalBadgeDiscount("0%");
+        r.setTotalBadgeDiscountPrice("0");
         return r;
     }
 }

@@ -47,6 +47,24 @@
            and a.user_id = #{userId}
     </select>
 
+    <select id="selectUserCartByUserId" resultType="MyPageUserCartResDto">
+        /* UserMapper.selectUserCartByUserId */
+        select a.goods_id as goodsId
+             , d.file_url as fileUrl
+             , b.goods_name as goodsName
+             , b.goods_price as goodsPrice
+             , a.order_count as orderCount
+          from user_cart a
+     left join goods b
+            on a.goods_id = b.goods_id
+     left join file_group c
+            on b.file_group_id = c.file_group_id
+     left join file d
+            on c.file_group_id = d.file_group_id
+        where a.del_yn = 'N'
+          and b.del_yn = 'N'
+          and a.user_id = #{userId}
+    </select>
 </mapper>
 
 

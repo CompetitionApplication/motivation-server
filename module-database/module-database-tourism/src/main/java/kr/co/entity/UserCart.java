@@ -22,6 +22,9 @@ public class UserCart extends BaseTimeEntity {
     @Comment(value = "방문 키값")
     private String userCartId;
 
+    @Comment(value = "주문수량")
+    private int orderCount;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

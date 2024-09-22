@@ -57,13 +57,13 @@ public class UserController {
     @Operation(summary = "뱃지 획독 내역", description = "뱃지 획독 내역을 조회합니다.")
     @GetMapping("/mypage/badges")
     public ResponseEntity<?> badges(@AuthenticationPrincipal ServiceUser serviceUser) {
-        return ObjectResult.build(userService.badges(serviceUser));
+        return ListResult.build(userService.badges(serviceUser));
     }
 
     @Operation(summary = "즐겨찾기 목록 조회", description = "즐겨찾기 목록 조회")
     @GetMapping("/mypage/favorite")
     public ResponseEntity<?> favorites(@AuthenticationPrincipal ServiceUser serviceUser) {
-        return ObjectResult.build(userService.favorites(serviceUser));
+        return ListResult.build(userService.favorites(serviceUser));
     }
 
     @Operation(summary = "일정 목록 조회", description = "일정 목록 조회")
@@ -72,7 +72,11 @@ public class UserController {
         return ListResult.build(userService.getSchedule(serviceUser));
     }
 
-
+    @Operation(summary = "장바구니 목록 조회", description = "일정 목록 조회")
+    @GetMapping("/mypage/cart")
+    public ResponseEntity<?> getCart(@AuthenticationPrincipal ServiceUser serviceUser) {
+        return ObjectResult.build(userService.getCart(serviceUser));
+    }
 
 
 
