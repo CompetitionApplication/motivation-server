@@ -16,7 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,14 @@ public class QrService {
 
     @Transactional
     public void receiveQrData(QrReqDto qrReqDto, ServiceUser serviceUser) {
+        //qr 유효기간 체크
+        String timeStr = qrReqDto.getQrTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        LocalDateTime dateTime = LocalDateTime.parse(timeStr, formatter);
+        if (dateTime.getSecond() > 30) {
+            throw new CommonException(CommonErrorCode.ERROR_QR.getCode(), CommonErrorCode.ERROR_QR.getMessage());
+        }
+
         TourismApi tourismApi = tourismApiRepository.findById(qrReqDto.getTourismApiId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_TOUR_PLACE.getCode(), CommonErrorCode.NOT_FOUND_TOUR_PLACE.getMessage()));
 
