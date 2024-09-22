@@ -127,10 +127,11 @@ public class TourismService {
 
         AdminUser adminUser = adminUserRepository.findByAdminUserEmail(serviceAdminUser.getUserEmail())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ADMIN_USER.getCode(), CommonErrorCode.NOT_FOUND_ADMIN_USER.getMessage()));
-        adminUser.getDetailAreaCode().getCode();
-        adminUser.getDetailAreaCode().getAreaCode().getCode();
+
+        String areaCode = adminUser.getDetailAreaCode().getAreaCode().getCode();
+        String detailCode = adminUser.getDetailAreaCode().getCode();
         //관광지 정보 저장
-        tourismApiRepository.save(new TourismApi(tourismUploadReqDto, fileGroup, badgeCode,adminUser.getDetailAreaCode().getCode(),adminUser.getDetailAreaCode().getAreaCode().getCode()));
+        tourismApiRepository.save(new TourismApi(tourismUploadReqDto, fileGroup, badgeCode,areaCode,detailCode));
     }
 
     @Transactional

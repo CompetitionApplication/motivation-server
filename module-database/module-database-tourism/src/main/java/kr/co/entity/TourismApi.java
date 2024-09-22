@@ -65,12 +65,12 @@ public class TourismApi extends BaseTimeEntity {
         this.delYn = true;
     }
 
-    public TourismApi(TourismUploadReqDto tourismUploadReqDto, FileGroup fileGroup, BadgeCode badgeCode, String detailAreaCode, String areaCode) {
+    public TourismApi(TourismUploadReqDto tourismUploadReqDto, FileGroup fileGroup, BadgeCode badgeCode, String areacode, String detailAreaCode) {
         this.title = tourismUploadReqDto.getTourismName();
         this.addr1 = tourismUploadReqDto.getTourismAddress();
         this.tel = tourismUploadReqDto.getTourismContact();
         this.tourismLink = tourismUploadReqDto.getTourismLink();
-        this.areacode = areaCode;
+        this.areacode = areacode;
         this.detailAreaCode = detailAreaCode;
         this.mapx = tourismUploadReqDto.getTourismMapX();
         this.mapy = tourismUploadReqDto.getTourismMapY();
