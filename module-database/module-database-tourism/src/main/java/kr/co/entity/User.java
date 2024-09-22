@@ -2,6 +2,7 @@ package kr.co.entity;
 
 import jakarta.persistence.*;
 import kr.co.common.AES256Cipher;
+import kr.co.config.BooleanConverter;
 import kr.co.dto.LoginReqDto;
 import kr.co.dto.SignUpReqDto;
 import kr.co.entity.common.BaseTimeEntity;
@@ -47,6 +48,9 @@ public class User extends BaseTimeEntity {
     @Comment(value = "나이")
     private String userAge;
 
+    @Column(columnDefinition = "varchar(1) default 'N'")
+    @Convert(converter = BooleanConverter.class)
+    private boolean delYn;
 
     public User(SignUpReqDto dto) throws Exception {
         this.socialType = SocialType.valueOf(dto.getSocialType());
@@ -55,5 +59,9 @@ public class User extends BaseTimeEntity {
         this.userName = dto.getUserName();
         this.userSex = dto.getUserSex();
         this.userAge = dto.getUserAge();
+    }
+
+    public void withdrawUser() {
+        this.delYn = true;
     }
 }

@@ -9,5 +9,5 @@ public interface TourismApiRepository extends JpaRepository<TourismApi,String> {
 
     List<TourismApi> findAllByDelYnFalseAndCountry(String country);
 
-    List<TourismApi> findAllByDelYnFalseAndCountryAndareacode(String kor, String code);
+    List<TourismApi> findAllByDelYnFalseAndCountryAndAreacode(String kor, String code);
 }

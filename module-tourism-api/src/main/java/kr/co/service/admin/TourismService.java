@@ -18,9 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,7 +39,7 @@ public class TourismService {
     @Transactional(readOnly = true)
     public Page<TourPlaceResDto> getTourismList(int page, int size, AdminLoginUser adminLoginUser) {
         // 관광지 외부 API DATA (한국어 버전만 추출)
-        List<TourismApi> tourismApis = tourismApiRepository.findAllByDelYnFalseAndCountryAndareacode("KOR",adminLoginUser.getAdminUser().getDetailAreaCode().getAreaCode().getCode());
+        List<TourismApi> tourismApis = tourismApiRepository.findAllByDelYnFalseAndCountryAndAreacode("KOR",adminLoginUser.getAdminUser().getDetailAreaCode().getAreaCode().getCode());
 
         // 외부 API 데이터를 DTO로 변환하여 추가
         List<TourPlaceResDto> tourismApiDtos = tourismApis.stream()

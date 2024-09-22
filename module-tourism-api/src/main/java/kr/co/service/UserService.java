@@ -135,4 +135,11 @@ public class UserService {
                 .imageUrl(tourismFavorite.getTourismApi().getFirstimage())
                 .build()).collect(Collectors.toList());
     }
+
+    @Transactional
+    public void withdraw(ServiceUser serviceUser) {
+        User userInfo = userRepository.findByUserEmail(serviceUser.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
+        userInfo.withdrawUser();
+    }
 }

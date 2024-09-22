@@ -21,6 +21,12 @@ public class UserController {
 
     private final UserService userService;
 
+    @Operation(summary = "회원탈퇴", description = "회원탈퇴를 합니다.")
+    @PostMapping("/withdraw")
+    public ResponseEntity<?> withdraw(@AuthenticationPrincipal ServiceUser serviceUser) {
+        userService.withdraw(serviceUser);
+        return ObjectResult.ok();
+    }
 
     @Operation(summary = "로그인", description = "로그인을 합니다.")
     @PostMapping("/login")
