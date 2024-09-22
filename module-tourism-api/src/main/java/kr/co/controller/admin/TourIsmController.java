@@ -54,15 +54,15 @@ public class TourIsmController {
     }
 
     @Operation(summary = "관광지 상세 조회", description = "관광지 상세 조회를 합니다.")
-    @GetMapping("/list/{tourismId}")
+    @GetMapping("/list/{tourPlaceId}")
     public ResponseEntity<TourismApiDetailResDto> getTourismDetail(@PathVariable(value = "tourPlaceId") String tourPlaceId) {
         return ResponseEntity.ok(tourismService.getTourismDetail(tourPlaceId));
     }
 
     @Operation(summary = "관광지 삭제", description = "관광지를 삭제 합니다.")
-    @DeleteMapping("/{tourismId}")
-    public ResponseEntity<?> deleteTourPlace(@PathVariable(value = "tourismId") String tourismId) {
-        tourismService.deleteTourism(tourismId);
+    @DeleteMapping("/{tourPlaceId}")
+    public ResponseEntity<?> deleteTourPlace(@PathVariable(value = "tourPlaceId") String tourPlaceId) {
+        tourismService.deleteTourism(tourPlaceId);
         return ResponseEntity.ok().build();
     }
 
