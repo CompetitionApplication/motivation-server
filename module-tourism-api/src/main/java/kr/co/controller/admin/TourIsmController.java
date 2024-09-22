@@ -3,10 +3,7 @@ package kr.co.controller.admin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.auth.AdminLoginUser;
-import kr.co.dto.AreaCodeResDto;
-import kr.co.dto.DetailAreaCodeResDto;
-import kr.co.dto.TourPlaceResDto;
-import kr.co.dto.TourismUploadReqDto;
+import kr.co.dto.*;
 import kr.co.dto.app.common.ServiceAdminUser;
 import kr.co.entity.AdminUser;
 import kr.co.service.admin.AdminLoginService;
@@ -76,37 +73,17 @@ public class TourIsmController {
 
     @Operation(summary = "관광지 등록", description = "관광지 등록을 합니다.")
     @PostMapping(value = "", consumes = "multipart/form-data")
-    public ResponseEntity<?> uploadGoods(@RequestParam("tourismName") String tourismName,
-                                         @RequestParam("tourismAddress") String tourismAddress,
-                                         @RequestParam("tourismLink") String tourismLink,
-                                         @RequestParam("tourismContact") String tourismContact,
-                                         @RequestParam("areaCodeId") String areaCodeId,
-                                         @RequestParam("detailAreaCodeId") String detailAreaCodeId,
-                                         @RequestParam("mapX") String tourismMapX,
-                                         @RequestParam("mapY") String tourismMapY,
-                                         @RequestParam("badgeCode") String badgeCode,
-                                         @RequestPart List<MultipartFile> tourismImages) {
-        tourismService.uploadTourPlace(
-                new TourismUploadReqDto(tourismName, tourismAddress, tourismLink, tourismContact, areaCodeId, detailAreaCodeId, tourismMapX, tourismMapY, badgeCode),
-                tourismImages);
+    public ResponseEntity<?> uploadGoods(@ModelAttribute TourismInsertDto tourismInsertDto,@AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
+        tourismService.uploadTourPlace(new TourismUploadReqDto(tourismInsertDto),serviceAdminUser);
         return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "관광지 수정", description = "관광지 수정을 합니다.")
     @PutMapping(value = "/{tourismApiId}", consumes = "multipart/form-data")
     public ResponseEntity<?> updateGoods(@PathVariable(value = "tourismApiId") String tourismApiId,
-                                         @RequestParam("tourPlaceName") String tourPlaceName,
-                                         @RequestParam("tourPlaceAddress") String tourPlaceAddress,
-                                         @RequestParam("tourPlaceLink") String tourPlaceLink,
-                                         @RequestParam("tourPlaceContact") String tourPlaceContact,
-                                         @RequestParam("areaCode") String areaCode,
-                                         @RequestParam("detailAreaCode") String detailAreaCode,
-                                         @RequestParam("mapX") String tourismMapX,
-                                         @RequestParam("mapY") String tourismMapY,
-                                         @RequestParam("badgeCode") String badgeCode,
-                                         @RequestPart List<MultipartFile> tourismImages) {
-        tourismService.updateTourism(tourismApiId, new TourismUploadReqDto(tourPlaceName, tourPlaceAddress, tourPlaceLink, tourPlaceContact, areaCode, detailAreaCode, tourismMapX, tourismMapY, badgeCode),
-                tourismImages);
+                                         @AuthenticationPrincipal ServiceAdminUser serviceAdminUser,
+                                         @ModelAttribute TourismUpdateDto tourismUpdateDto) {
+        tourismService.updateTourism(tourismApiId, new TourismUpdateReqDto(tourismUpdateDto),serviceAdminUser);
         return ResponseEntity.ok().build();
     }
 

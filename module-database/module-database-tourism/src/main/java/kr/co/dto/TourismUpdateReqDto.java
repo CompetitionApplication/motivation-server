@@ -1,15 +1,13 @@
 package kr.co.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import kr.co.entity.AreaCode;
-import kr.co.entity.DetailAreaCode;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Data
-public class TourismUploadReqDto {
+public class TourismUpdateReqDto {
     @Schema(description = "관광지명", example = "경복궁")
     private String tourismName;
     @Schema(description = "관광지주소", example = "남현동")
@@ -30,14 +28,14 @@ public class TourismUploadReqDto {
     private String badgeCode;
     private List<MultipartFile> tourismImages;
 
-    public TourismUploadReqDto(TourismInsertDto tourismInsertDto) {
-        this.tourismName = tourismInsertDto.getTourismName();
-        this.tourismAddress = tourismInsertDto.getTourismAddress();
-        this.tourismLink = tourismInsertDto.getTourismLink();
-        this.tourismContact = tourismInsertDto.getTourismContact();
-        this.tourismImages = tourismInsertDto.getTourismImages();
-        this.tourismMapX = tourismInsertDto.getTourismMapX();
-        this.tourismMapY = tourismInsertDto.getTourismMapY();
-        this.badgeCode = tourismInsertDto.getBadgeCode();
+    public TourismUpdateReqDto(TourismUpdateDto tourismUpdateDto) {
+        this.tourismName = tourismUpdateDto.getTourismName();
+        this.tourismAddress = tourismUpdateDto.getTourismAddress();
+        this.tourismLink = tourismUpdateDto.getTourismLink();
+        this.tourismContact = tourismUpdateDto.getTourismContact();
+        this.tourismImages = tourismUpdateDto.getTourismImages();
+        this.tourismMapX = tourismUpdateDto.getTourismMapX();
+        this.tourismMapY = tourismUpdateDto.getTourismMapY();
+        this.badgeCode = tourismUpdateDto.getBadgeCode();
     }
 }

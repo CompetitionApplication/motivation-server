@@ -2,6 +2,7 @@ package kr.co.entity;
 
 import jakarta.persistence.*;
 import kr.co.config.BooleanConverter;
+import kr.co.dto.TourismUpdateReqDto;
 import kr.co.dto.TourismUploadReqDto;
 import kr.co.entity.common.BaseTimeEntity;
 import lombok.*;
@@ -64,13 +65,13 @@ public class TourismApi extends BaseTimeEntity {
         this.delYn = true;
     }
 
-    public TourismApi(TourismUploadReqDto tourismUploadReqDto, FileGroup fileGroup, BadgeCode badgeCode) {
+    public TourismApi(TourismUploadReqDto tourismUploadReqDto, FileGroup fileGroup, BadgeCode badgeCode, String areacode, String detailAreaCode) {
         this.title = tourismUploadReqDto.getTourismName();
         this.addr1 = tourismUploadReqDto.getTourismAddress();
         this.tel = tourismUploadReqDto.getTourismContact();
         this.tourismLink = tourismUploadReqDto.getTourismLink();
-        this.areacode = tourismUploadReqDto.getAreaCode();
-        this.detailAreaCode = tourismUploadReqDto.getDetailAreaCode();
+        this.areacode = areacode;
+        this.detailAreaCode = detailAreaCode;
         this.mapx = tourismUploadReqDto.getTourismMapX();
         this.mapy = tourismUploadReqDto.getTourismMapY();
         this.fileGroup = fileGroup;
@@ -79,15 +80,15 @@ public class TourismApi extends BaseTimeEntity {
         this.customYn = true;
     }
 
-    public void updateTourPlace(TourismUploadReqDto tourPlaceUploadReqDto, FileGroup newFileGroup, BadgeCode badgeCode) {
-        this.title = tourPlaceUploadReqDto.getTourismName();
-        this.addr1 = tourPlaceUploadReqDto.getTourismAddress();
-        this.tel = tourPlaceUploadReqDto.getTourismContact();
-        this.tourismLink = tourPlaceUploadReqDto.getTourismLink();
-        this.areacode = tourPlaceUploadReqDto.getAreaCode();
-        this.detailAreaCode = tourPlaceUploadReqDto.getDetailAreaCode();
-        this.mapx = tourPlaceUploadReqDto.getTourismMapX();
-        this.mapy = tourPlaceUploadReqDto.getTourismMapY();
+    public void updateTourPlace(TourismUpdateReqDto tourPlaceUpdateReqDto, FileGroup newFileGroup, BadgeCode badgeCode, String detailAreaCode, String areaCode) {
+        this.title = tourPlaceUpdateReqDto.getTourismName();
+        this.addr1 = tourPlaceUpdateReqDto.getTourismAddress();
+        this.tel = tourPlaceUpdateReqDto.getTourismContact();
+        this.tourismLink = tourPlaceUpdateReqDto.getTourismLink();
+        this.areacode = areaCode;
+        this.detailAreaCode = detailAreaCode;
+        this.mapx = tourPlaceUpdateReqDto.getTourismMapX();
+        this.mapy = tourPlaceUpdateReqDto.getTourismMapY();
         this.fileGroup = newFileGroup;
         this.badgeCode = badgeCode;
         this.customYn = true;
