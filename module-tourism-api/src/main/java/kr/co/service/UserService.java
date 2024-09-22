@@ -8,12 +8,14 @@ import kr.co.common.CommonException;
 import kr.co.dto.*;
 import kr.co.dto.app.common.ServiceUser;
 import kr.co.entity.*;
+import kr.co.mapper.app.UserMapper;
 import kr.co.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,6 +35,8 @@ public class UserService {
     private final GoodsBuyRepository goodsBuyRepository;
     private final TourismApiRepository tourismApiRepository;
     private final TourismFavoriteRepository tourismFavoriteRepository;
+
+    private final UserMapper userMapper;
 
 
     @Transactional
@@ -102,6 +106,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<GoodsBuyResDto> goods(ServiceUser serviceUser) {
+        /*
         User userInfo = userRepository.findByUserEmail(serviceUser.getUserEmail())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
         List<GoodsBuy> goodsBuys = goodsBuyRepository.findByUser(userInfo);
@@ -111,6 +116,10 @@ public class UserService {
                 .goodsBuyDate(goodsBuy.getRegDatetime())
                 .goodsPrice(goodsBuy.getGoods().getGoodsPrice())
                 .build()).collect(Collectors.toList());
+        */
+        List<GoodsBuyResDto> r = userMapper.selectOrderItemByUserId(serviceUser.getUserId());
+
+        return r;
     }
 
     @Transactional(readOnly = true)

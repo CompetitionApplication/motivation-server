@@ -184,6 +184,7 @@
                   , order_status
                   , goods_id
                   , user_id
+                  , reg_datetime
            ) values (
                     UUID()
                   , 'N'
@@ -192,6 +193,7 @@
                   , '결제완료'
                   , #{goodsId}
                   , #{userId}
+                  , now()
            )
     </insert>
 

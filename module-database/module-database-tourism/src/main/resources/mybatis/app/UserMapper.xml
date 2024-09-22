@@ -11,6 +11,20 @@
          where user_email = #{userEamil}
     </select>
 
+    <select id="selectOrderItemByUserId" resultType="GoodsBuyResDto">
+        /* UserMapper.selectOrderItemByUserId */
+        select a.order_item_id as orderItemId
+             , b.goods_id as goodsId
+             , b.goods_name as goodsName
+             , a.order_price as goodsPrice
+             , a.order_status as orderStatus
+             , a.reg_datetime as goodsBuyDate
+          from order_item a
+     left join goods b
+            on a.goods_id = b.goods_id
+         where a.del_yn = 'N'
+           and a.user_id = #{userId}
+    </select>
 
 </mapper>
 
