@@ -13,8 +13,8 @@ spring:
 jwt:
   secret-access-token: ${JWT_SECRET_ACCESS_TOKEN}
 file:
-  #upload-dir: /Users/kimyoungjae/desktop/file/
-  upload-dir: /Users/yjkim-mtn/desktop/
+  upload-dir: /Users/kimyoungjae/desktop/file/
+  #upload-dir: /Users/yjkim-mtn/desktop/
 api:
   url:
 

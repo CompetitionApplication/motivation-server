@@ -3,6 +3,7 @@ package kr.co.entity;
 import jakarta.persistence.*;
 import kr.co.common.AES256Cipher;
 import kr.co.config.BooleanConverter;
+import kr.co.dto.GoodsUpdateReqDto;
 import kr.co.dto.GoodsUploadReqDto;
 import kr.co.dto.LoginReqDto;
 import kr.co.entity.common.BaseTimeEntity;
@@ -86,15 +87,15 @@ public class Goods extends BaseTimeEntity {
         this.detailAreaCode = detailAreaCode;
     }
 
-    public void updateGoods(GoodsUploadReqDto goodsUploadReqDto, FileGroup fileGroup, AreaCode areaCode, DetailAreaCode detailAreaCode) {
-        this.goodsName = goodsUploadReqDto.getGoodsName();
-        this.goodsPrice = goodsUploadReqDto.getGoodsPrice();
-        this.badgeOpenCount = goodsUploadReqDto.getBadgeOpenCount();
-        this.goodsColor = goodsUploadReqDto.getGoodsColor();
-        this.goodsSize = goodsUploadReqDto.getGoodsSize();
-        this.goodsFrom = goodsUploadReqDto.getGoodsFrom();
-        this.goodsReleaseDate = goodsUploadReqDto.getGoodsReleaseDate();
-        this.goodsDeliveryDate = goodsUploadReqDto.getGoodsDeliveryDate();
+    public void updateGoods(GoodsUpdateReqDto goodsUpdateReqDto, FileGroup fileGroup, AreaCode areaCode, DetailAreaCode detailAreaCode) {
+        this.goodsName = goodsUpdateReqDto.getGoodsName();
+        this.goodsPrice = goodsUpdateReqDto.getGoodsPrice();
+        this.badgeOpenCount = goodsUpdateReqDto.getBadgeOpenCount();
+        this.goodsColor = goodsUpdateReqDto.getGoodsColor();
+        this.goodsSize = goodsUpdateReqDto.getGoodsSize();
+        this.goodsFrom = goodsUpdateReqDto.getGoodsFrom();
+        this.goodsReleaseDate = goodsUpdateReqDto.getGoodsReleaseDate();
+        this.goodsDeliveryDate = goodsUpdateReqDto.getGoodsDeliveryDate();
         this.fileGroup = fileGroup;
         this.areaCode = areaCode;
         this.detailAreaCode = detailAreaCode;
