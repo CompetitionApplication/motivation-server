@@ -38,7 +38,7 @@ public class TourIsmController {
     public ResponseEntity<Page<TourPlaceResDto>> getTourismList(@RequestParam(defaultValue = "0") int page,
                                                                 @RequestParam(defaultValue = "7") int size,
                                                                 @AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
-        return ResponseEntity.ok(tourismService.getTourismList(page, size,serviceAdminUser));
+        return ResponseEntity.ok(tourismService.getTourismList(page, size, serviceAdminUser));
     }
 
     @Operation(summary = "지역코드 목록 리스트", description = "지역코드 목록 리스트 입니다.")
@@ -55,8 +55,8 @@ public class TourIsmController {
 
     @Operation(summary = "관광지 상세 조회", description = "관광지 상세 조회를 합니다.")
     @GetMapping("/list/{tourismId}")
-    public ResponseEntity<TourismApiDetailResDto> getTourismDetail(@PathVariable(value = "tourismId") String tourismId) {
-        return ResponseEntity.ok(tourismService.getTourismDetail(tourismId));
+    public ResponseEntity<TourismApiDetailResDto> getTourismDetail(@PathVariable(value = "tourPlaceId") String tourPlaceId) {
+        return ResponseEntity.ok(tourismService.getTourismDetail(tourPlaceId));
     }
 
     @Operation(summary = "관광지 삭제", description = "관광지를 삭제 합니다.")
@@ -65,6 +65,7 @@ public class TourIsmController {
         tourismService.deleteTourism(tourismId);
         return ResponseEntity.ok().build();
     }
+
     @Operation(summary = "관광지 멀티 삭제", description = "관광지를 멀티 삭제 합니다.")
     @PostMapping("/multi-delete")
     public ResponseEntity<?> deleteMultiTourPlace(@RequestBody List<String> tourismIds) {

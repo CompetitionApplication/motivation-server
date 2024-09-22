@@ -86,10 +86,9 @@ public class TourismService {
     }
 
     @Transactional(readOnly = true)
-    public TourismApiDetailResDto getTourismDetail(String tourismId) {
-        TourismApi tourismApi = tourismApiRepository.findById(tourismId)
+    public TourismApiDetailResDto getTourismDetail(String tourPlaceId) {
+        TourismApi tourismApi = tourismApiRepository.findById(tourPlaceId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_TOUR_PLACE.getCode(), CommonErrorCode.NOT_FOUND_TOUR_PLACE.getMessage()));
-
 
         List<String> tourismImages = tourismApi.getFileGroup().getFiles().stream()
                 .map(file -> file.getFilePath())

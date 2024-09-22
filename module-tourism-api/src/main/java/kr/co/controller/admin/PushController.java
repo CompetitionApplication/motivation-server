@@ -25,7 +25,7 @@ public class PushController {
 
     @Operation(summary = "푸시 전송", description = "푸시 전송 서비스 입니다.")
     @PostMapping("")
-    public ResponseEntity<?> sendPush(PushReqDto pushReqDto) throws FirebaseMessagingException {
+    public ResponseEntity<?> sendPush(@RequestBody PushReqDto pushReqDto) throws FirebaseMessagingException {
         pushService.sendPush(pushReqDto);
         return ResponseEntity.ok().build();
     }
