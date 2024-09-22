@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +23,9 @@ public class AlarmService {
 
         //알림 리스트
         List<AlarmResDto> r = alarmMapper.selectPushByUserId(serviceUser.getUserId());
+        if(r == null){
+            r = new ArrayList<>();
+        }
 
         return r;
     }
