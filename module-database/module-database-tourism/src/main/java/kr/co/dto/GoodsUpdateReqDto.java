@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Data
-public class GoodsUploadReqDto {
+public class GoodsUpdateReqDto {
     @Schema(description = "굿즈명", example = "티셔츠")
     private String goodsName;
     @Schema(description = "굿즈금액", example = "10000")
@@ -28,18 +28,18 @@ public class GoodsUploadReqDto {
     private String areaCodeId;
     private String detailAreaCodeId;
 
-    public GoodsUploadReqDto(GoodsInsertDto goodsInsertDto) {
-        this.goodsName = goodsInsertDto.getGoodsName();
-        this.goodsPrice = goodsInsertDto.getGoodsPrice();
-        this.badgeOpenCount = goodsInsertDto.getBadgeOpenCount();
-        this.goodsColor = goodsInsertDto.getGoodsColor();
-        this.goodsSize = goodsInsertDto.getGoodsSize();
-        this.goodsFrom = goodsInsertDto.getGoodsFrom();
-        this.goodsReleaseDate = goodsInsertDto.getGoodsReleaseDate();
-        this.goodsDeliveryDate = goodsInsertDto.getGoodsDeliveryDate();
-        this.goodsImages = goodsInsertDto.getGoodsImages();
-        this.areaCodeId = goodsInsertDto.getAreaCodeId();
-        this.detailAreaCodeId = goodsInsertDto.getDetailAreaCodeId();
+    public GoodsUpdateReqDto(GoodsUpdateDto goodsUpdateDto) {
+        this.goodsName = goodsUpdateDto.getGoodsName();
+        this.goodsPrice = goodsUpdateDto.getGoodsPrice();
+        this.badgeOpenCount = goodsUpdateDto.getBadgeOpenCount();
+        this.goodsColor = goodsUpdateDto.getGoodsColor();
+        this.goodsSize = goodsUpdateDto.getGoodsSize();
+        this.goodsFrom = goodsUpdateDto.getGoodsFrom();
+        this.goodsReleaseDate = goodsUpdateDto.getGoodsReleaseDate();
+        this.goodsDeliveryDate = goodsUpdateDto.getGoodsDeliveryDate();
+        this.goodsImages = goodsUpdateDto.getGoodsImages();
+        this.areaCodeId = goodsUpdateDto.getAreaCodeId();
+        this.detailAreaCodeId = goodsUpdateDto.getDetailAreaCodeId();
 
     }
 }

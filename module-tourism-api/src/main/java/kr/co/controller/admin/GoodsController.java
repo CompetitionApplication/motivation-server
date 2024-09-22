@@ -3,9 +3,7 @@ package kr.co.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kr.co.dto.GoodsDetailResDto;
-import kr.co.dto.GoodsResDto;
-import kr.co.dto.GoodsUploadReqDto;
+import kr.co.dto.*;
 import kr.co.service.admin.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,19 +37,9 @@ public class GoodsController {
 
 
     @Operation(summary = "굿즈 등록", description = "굿즈 등록을 합니다.")
-    @PostMapping(value = "", consumes = "multipart/form-data")
-    public ResponseEntity<?> uploadGoods(@RequestParam("goodsName") String goodsName,
-                                         @RequestParam("goodsPrice") String goodsPrice,
-                                         @RequestParam("badgeOpenCount") Integer badgeOpenCount,
-                                         @RequestParam("goodsColor") String goodsColor,
-                                         @RequestParam("goodsSize") String goodsSize,
-                                         @RequestParam("goodsFrom") String goodsFrom,
-                                         @RequestParam("goodsReleaseDate") String goodsReleaseDate,
-                                         @RequestParam("goodsDeliveryDate") String goodsDeliveryDate,
-                                         @RequestParam("areaCodeId") String areaCodeId,
-                                         @RequestParam("detailAreaCodeId") String detailAreaCodeId,
-                                         @RequestPart List<MultipartFile> goodsImages) {
-        goodsService.uploadGoods(new GoodsUploadReqDto(goodsName, goodsPrice, badgeOpenCount, goodsColor, goodsSize, goodsFrom, goodsReleaseDate, goodsDeliveryDate), goodsImages, areaCodeId, detailAreaCodeId);
+    @PostMapping(value = "",consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadGoods(@ModelAttribute GoodsInsertDto goodsInsertDto) {
+        goodsService.uploadGoods(new GoodsUploadReqDto(goodsInsertDto));
         return ResponseEntity.ok().build();
     }
 
@@ -65,18 +53,8 @@ public class GoodsController {
     @Operation(summary = "굿즈 수정", description = "굿즈 수정을 합니다.")
     @PutMapping(value = "/{goodsId}", consumes = "multipart/form-data")
     public ResponseEntity<?> updateGoods(@PathVariable(value = "goodsId") String goodsId,
-                                         @RequestParam("goodsName") String goodsName,
-                                         @RequestParam("goodsPrice") String goodsPrice,
-                                         @RequestParam("badgeOpenCount") Integer badgeOpenCount,
-                                         @RequestParam("goodsColor") String goodsColor,
-                                         @RequestParam("goodsSize") String goodsSize,
-                                         @RequestParam("goodsSize") String goodsFrom,
-                                         @RequestParam("goodsSize") String goodsReleaseDate,
-                                         @RequestParam("goodsSize") String goodsDeliveryDate,
-                                         @RequestParam("areaCodeId") String areaCodeId,
-                                         @RequestParam("detailAreaCodeId") String detailAreaCodeId,
-                                         @RequestPart List<MultipartFile> goodsImages) {
-        goodsService.updateGoods(goodsId, new GoodsUploadReqDto(goodsName, goodsPrice, badgeOpenCount, goodsColor, goodsSize, goodsFrom, goodsReleaseDate, goodsDeliveryDate), goodsImages, areaCodeId, detailAreaCodeId);
+                                         @ModelAttribute GoodsUpdateDto goodsUpdateDto) {
+        goodsService.updateGoods(goodsId, new GoodsUpdateReqDto(goodsUpdateDto));
         return ResponseEntity.ok().build();
     }
 }

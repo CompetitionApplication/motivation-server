@@ -2,10 +2,7 @@ package kr.co.service.admin;
 
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
-import kr.co.dto.FileSaveDto;
-import kr.co.dto.GoodsDetailResDto;
-import kr.co.dto.GoodsResDto;
-import kr.co.dto.GoodsUploadReqDto;
+import kr.co.dto.*;
 import kr.co.entity.*;
 import kr.co.repository.*;
 import kr.co.util.FileUtil;
@@ -59,8 +56,8 @@ public class GoodsService {
     }
 
     @Transactional
-    public void uploadGoods(GoodsUploadReqDto goodsUploadReqDto, List<MultipartFile> goodsImages, String areaCodeId, String detailAreaCodeId) {
-        List<MultipartFile> images = goodsImages;
+    public void uploadGoods(GoodsUploadReqDto goodsUploadReqDto) {
+        List<MultipartFile> images = goodsUploadReqDto.getGoodsImages();
         if (images.isEmpty()) {
             throw new CommonException(CommonErrorCode.NOT_EXIST_FILE.getCode(), CommonErrorCode.NOT_EXIST_FILE.getMessage());
         }
@@ -72,10 +69,10 @@ public class GoodsService {
                 .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
                 .collect(Collectors.toList()));
 
-        AreaCode areaCode = areaCodeRepository.findById(areaCodeId)
+        AreaCode areaCode = areaCodeRepository.findById(goodsUploadReqDto.getAreaCodeId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_AREA_CODE.getCode(), CommonErrorCode.NOT_EXIST_AREA_CODE.getMessage()));
 
-        DetailAreaCode detailAreaCode = detailAreaCodeRepository.findById(detailAreaCodeId)
+        DetailAreaCode detailAreaCode = detailAreaCodeRepository.findById(goodsUploadReqDto.getDetailAreaCodeId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_DETAIL_AREA_CODE.getCode(), CommonErrorCode.NOT_EXIST_DETAIL_AREA_CODE.getMessage()));
 
         //상품 정보 저장
@@ -90,7 +87,7 @@ public class GoodsService {
     }
 
     @Transactional
-    public void updateGoods(String goodsId, GoodsUploadReqDto goodsUploadReqDto, List<MultipartFile> goodsImages, String areaCodeId, String detailAreaCodeId) {
+    public void updateGoods(String goodsId, GoodsUpdateReqDto goodsUpdateReqDto) {
         Goods goods = goodsRepository.findById(goodsId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GOODS.getCode(), CommonErrorCode.NOT_EXIST_GOODS.getMessage()));
 
@@ -100,19 +97,19 @@ public class GoodsService {
         fileGroup.deleteFileGroup(true);
         //파일 업로드, 파일 그룹 저장
         FileGroup newFileGroup = fileGroupRepository.save(new FileGroup(false));
-        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(goodsImages, uploadDir);
+        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(goodsUpdateReqDto.getGoodsImages(), uploadDir);
         fileRepository.saveAll(fileSaveDtos.stream()
                 .map(fileSaveDto -> new File(fileSaveDto, newFileGroup))
                 .collect(Collectors.toList()));
 
-        AreaCode areaCode = areaCodeRepository.findById(areaCodeId)
+        AreaCode areaCode = areaCodeRepository.findById(goodsUpdateReqDto.getAreaCodeId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_AREA_CODE.getCode(), CommonErrorCode.NOT_EXIST_AREA_CODE.getMessage()));
 
-        DetailAreaCode detailAreaCode = detailAreaCodeRepository.findById(detailAreaCodeId)
+        DetailAreaCode detailAreaCode = detailAreaCodeRepository.findById(goodsUpdateReqDto.getDetailAreaCodeId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_DETAIL_AREA_CODE.getCode(), CommonErrorCode.NOT_EXIST_DETAIL_AREA_CODE.getMessage()));
 
         //굿즈 상품 수정
-        goods.updateGoods(goodsUploadReqDto, newFileGroup,areaCode,detailAreaCode);
+        goods.updateGoods(goodsUpdateReqDto, newFileGroup,areaCode,detailAreaCode);
 
     }
 
