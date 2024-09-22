@@ -49,10 +49,9 @@ public class OrderItemService {
 
     public Map<Object, String> getOrderStatusList() {
         Map<Object, String> orderStatusList = new HashMap<>();
-        orderStatusList.put(OrderStatus.WAITING_FOR_DEPOSIT, "입금전");
-        orderStatusList.put(OrderStatus.DEPOSIT_CONFIRMED, "입금확인");
-        orderStatusList.put(OrderStatus.ITEM_SHIPPED, "상품발송");
-        orderStatusList.put(OrderStatus.SHIPPING_COMPLETED, "발송완료");
+        orderStatusList.put("01", "결제완료");
+        orderStatusList.put("02", "배송중");
+        orderStatusList.put("03", "배송완료");
         return orderStatusList;
     }
 
