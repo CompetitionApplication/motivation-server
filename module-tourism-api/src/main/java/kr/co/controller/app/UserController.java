@@ -66,6 +66,12 @@ public class UserController {
         return ObjectResult.build(userService.favorites(serviceUser));
     }
 
+    @Operation(summary = "일정 목록 조회", description = "일정 목록 조회")
+    @GetMapping("/mypage/schedule")
+    public ResponseEntity<?> getSchedule(@AuthenticationPrincipal ServiceUser serviceUser) {
+        return ListResult.build(userService.getSchedule(serviceUser));
+    }
+
 
 
 

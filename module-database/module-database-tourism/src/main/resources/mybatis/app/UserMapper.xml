@@ -26,6 +26,27 @@
            and a.user_id = #{userId}
     </select>
 
+    <select id="selectTourismScheduleByUserId" resultType="MyPageScheduleResDto">
+        /* UserMapper.selectTourismScheduleByUserId */
+        select a.tourism_api_id as tourismApiId
+             , b.mapy as mapy
+             , b.mapx as mapx
+             , a.schedule_date as scheduleDate
+             , b.addr1 as addr
+             , b.title as title
+             , d.file_url as fileUrl
+          from tourism_schedule a
+     left join tourism_api b
+            on a.tourism_api_id = b.tourism_api_id
+     left join file_group c
+            on b.file_group_id = c.file_group_id
+     left join file d
+            on c.file_group_id = d.file_group_id
+         where a.del_yn = 'N'
+           and b.del_yn = 'N'
+           and a.user_id = #{userId}
+    </select>
+
 </mapper>
 
 

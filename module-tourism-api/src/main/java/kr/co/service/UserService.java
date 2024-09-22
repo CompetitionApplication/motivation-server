@@ -7,6 +7,7 @@ import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.*;
 import kr.co.dto.app.common.ServiceUser;
+import kr.co.dto.app.myPage.response.MyPageScheduleResDto;
 import kr.co.entity.*;
 import kr.co.mapper.app.UserMapper;
 import kr.co.repository.*;
@@ -151,5 +152,10 @@ public class UserService {
         User userInfo = userRepository.findByUserEmail(serviceUser.getUserEmail())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
         userInfo.withdrawUser();
+    }
+
+    public List<MyPageScheduleResDto> getSchedule(ServiceUser serviceUser){
+        List<MyPageScheduleResDto> r = userMapper.selectTourismScheduleByUserId(serviceUser.getUserId());
+        return r;
     }
 }
