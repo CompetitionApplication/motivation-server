@@ -193,6 +193,13 @@
                   , #{userId}
            )
     </insert>
+
+    <select id="selectGoodsByGoodsId">
+        /* ShoppingMapper.selectGoodsByGoodsId */
+        select goods_id as goodsId
+          from goods
+         where goods_id = #{goodsId}
+    </select>
 </mapper>
 
 
