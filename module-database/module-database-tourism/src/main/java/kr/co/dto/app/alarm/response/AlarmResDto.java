@@ -9,4 +9,5 @@ public class AlarmResDto {
     private String pushTitle;
     private String pushContent;
     private String regDatetime;
+    private String readYn;
 }

@@ -28,12 +28,12 @@ public class HomeController {
     private final HomeService homeService;
 
     @Operation(summary = "메인", description = "메인 리스트 조회입니다.")
-    @GetMapping(value = "/main")
+    @PostMapping(value = "/main")
     public ResponseEntity<?> getMain(@RequestBody HomeMainReqDto homeMainReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         return ObjectResult.build(homeService.getMain(serviceUser, homeMainReqDto));
     }
 
-    @Operation(summary = "굿즈", description = "구매가능/불가능 굿즈 리스트 입니다.")
+    @Operation(summary = "굿즈", description = "구매가능/불가능 굿즈 리스트 입니다.", hidden = true)
     @GetMapping(value = "/open-goods")
     public ResponseEntity<?> getOpenGoods(@RequestBody OpenGoodsReqDto openGoodsReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         return ObjectResult.build(homeService.getPossibleBuy(openGoodsReqDto, serviceUser));

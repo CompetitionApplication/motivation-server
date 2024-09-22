@@ -1,9 +1,6 @@
 package kr.co.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import kr.co.dto.PushReqDto;
 import kr.co.entity.common.BaseTimeEntity;
 import lombok.*;
@@ -25,6 +22,10 @@ public class Push extends BaseTimeEntity {
     private String pushId;
     private String pushTitle;
     private String pushContent;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Push(PushReqDto pushReqDto){
         this.pushTitle = pushReqDto.getPushTitle();
