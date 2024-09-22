@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +43,7 @@ public class HomeService {
         for(TourismApi data : randomTourismApiList){
             TourDto tourDto = new TourDto();
             tourDto.setTourName(data.getTitle());
-            tourDto.setImageUrl(data.getFirstimage());
+            tourDto.setFileUrl(data.getFirstimage());
             tourSuggestionList.add(tourDto);
         }
         r.setSuggestionList(tourSuggestionList);
@@ -50,15 +51,41 @@ public class HomeService {
         //활동지 top15
         List<TourismApi> tourismApiForTopRankList = tourismMapper.selectTourismApiForTopRank();
 
+        //top 15 없다면 랜덤 15개
+        if(tourismApiForTopRankList.size() == 0){
+            int size = 15;
+            if(tourismApiList.size() < 15){
+                size = tourismApiList.size();
+            }
+            tourismApiForTopRankList = tourismApiList.subList(0, size);
+        }
+
         //엔티티 dto 변환
         List<TourDto> tourTopList = new ArrayList<>();
         for(TourismApi data : tourismApiForTopRankList){
             TourDto tourDto = new TourDto();
             tourDto.setTourName(data.getTitle());
-            tourDto.setImageUrl(data.getFirstimage());
+            tourDto.setFileUrl(data.getFirstimage());
             tourTopList.add(tourDto);
         }
         r.setTourTopList(tourTopList);
+
+        //굿즈 리스트
+        List<OpenGoodsResDto> goodsList = homeMapper.selectGoodsListForOpenYn(serviceUser.getUserId(),homeMainReqDto.getLanguage());
+
+        //오픈 굿즈
+        List<OpenGoodsResDto> openGoodsList = goodsList.stream()
+                .filter(obj -> "Y".equals(obj.getGoodsOpenYn()))
+                .collect(Collectors.toList());
+
+        r.setOpenGoodsList(openGoodsList);
+
+        //미오픈 굿즈
+        List<OpenGoodsResDto> notOpenGoodsList = goodsList.stream()
+                .filter(obj -> "N".equals(obj.getGoodsOpenYn()))
+                .collect(Collectors.toList());
+
+        r.setNotOpenGoodsList(notOpenGoodsList);
 
         return r;
     }

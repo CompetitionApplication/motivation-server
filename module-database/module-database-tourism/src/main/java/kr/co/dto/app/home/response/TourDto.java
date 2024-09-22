@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class TourDto {
 
-    private String imageUrl;
+    private String fileUrl;
     private String tourName;
 
 }

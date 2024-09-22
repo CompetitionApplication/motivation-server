@@ -13,4 +13,8 @@ public class MainResDto {
     private List<TourDto> tourTopList;
 
     private List<TourDto> suggestionList;
+
+    private List<OpenGoodsResDto> openGoodsList;
+
+    private List<OpenGoodsResDto> notOpenGoodsList;
 }
