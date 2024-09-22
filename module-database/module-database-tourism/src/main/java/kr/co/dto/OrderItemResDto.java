@@ -11,6 +11,7 @@ public class OrderItemResDto {
     private String orderId;
     @Schema(description = "굿즈 ID", example = "굿즈ID")
     private String goodsId;
+    private String goodsName;
     @Schema(description = "주문일시", example = "2021-08-01 12:00:00")
     private String orderDatetime;
     @Schema(description = "주문자", example = "홍길동")

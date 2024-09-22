@@ -32,6 +32,7 @@ public class OrderItemService {
                 .map(orderItem -> OrderItemResDto.builder()
                         .orderId(orderItem.getOrderItemId())
                         .goodsId(orderItem.getGoods().getGoodsId())
+                        .goodsName(orderItem.getGoods().getGoodsName())
                         .orderDatetime(orderItem.getRegDatetime())
                         .orderUser(orderItem.getUser().getUserName())
                         .orderPrice(orderItem.getOrderPrice() + "원")
