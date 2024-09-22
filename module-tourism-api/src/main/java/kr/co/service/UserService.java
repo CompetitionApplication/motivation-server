@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
+
     private final RefreshTokenRepository refreshTokenRepository;
     private final TripStyleRepository tripStyleRepository;
     private final HobbyRepository hobbyRepository;
