@@ -21,7 +21,7 @@ public class TourismSchedule extends BaseTimeEntity {
     @Comment(value = "일정 키값")
     private String tourismScheduleId;
 
-    private String scheduledDate;
+    private String scheduleDate;
 
     private String delYn;
 
