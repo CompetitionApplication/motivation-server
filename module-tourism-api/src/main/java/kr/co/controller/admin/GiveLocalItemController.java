@@ -2,11 +2,9 @@ package kr.co.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kr.co.auth.TourismAdminUser;
 import kr.co.dto.GiveLocalItemReqDto;
 import kr.co.dto.GiveLocalItemResDto;
 import kr.co.dto.app.common.ServiceAdminUser;
-import kr.co.dto.app.common.ServiceUser;
 import kr.co.service.admin.GiveLocalItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +57,13 @@ public class GiveLocalItemController {
     @Operation(summary = "특산품 제공 삭제", description = "특산품 제공 삭제를 합니다.")
     @DeleteMapping("/{giveLocalItemId}")
     public ResponseEntity<?> deleteGiveLocalItem(@PathVariable(value = "giveLocalItemId") String giveLocalItemId) {
-        giveLocalItemService.deleteLocalItem(giveLocalItemId);
+        giveLocalItemService.deleteGiveLocalItem(giveLocalItemId);
+        return ResponseEntity.ok().build();
+    }
+    @Operation(summary = "특산품 제공 멀티 삭제", description = "특산품 제공 멀티 삭제를 합니다.")
+    @PostMapping("/multi-delete")
+    public ResponseEntity<?> deleteMultiGiveLocalItem(@RequestBody List<String> giveLocalItemIds) {
+        giveLocalItemService.deleteMultiLocalItem(giveLocalItemIds);
         return ResponseEntity.ok().build();
     }
 

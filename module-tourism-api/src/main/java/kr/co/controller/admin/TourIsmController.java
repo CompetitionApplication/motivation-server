@@ -2,6 +2,7 @@ package kr.co.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.co.auth.AdminLoginUser;
 import kr.co.dto.AreaCodeResDto;
 import kr.co.dto.DetailAreaCodeResDto;
 import kr.co.dto.TourPlaceResDto;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,8 +33,9 @@ public class TourIsmController {
     @Operation(summary = "관광지 목록 리스트", description = "관광지 목록 리스트 입니다.")
     @GetMapping("/list")
     public ResponseEntity<Page<TourPlaceResDto>> getTourismList(@RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "7") int size) {
-        return ResponseEntity.ok(tourismService.getTourismList(page, size));
+                                                                @RequestParam(defaultValue = "7") int size,
+                                                                @AuthenticationPrincipal AdminLoginUser adminLoginUser) {
+        return ResponseEntity.ok(tourismService.getTourismList(page, size,adminLoginUser));
     }
 
     @Operation(summary = "지역코드 목록 리스트", description = "지역코드 목록 리스트 입니다.")
@@ -58,6 +62,13 @@ public class TourIsmController {
         tourismService.deleteTourism(tourismId);
         return ResponseEntity.ok().build();
     }
+    @Operation(summary = "관광지 멀티 삭제", description = "관광지를 멀티 삭제 합니다.")
+    @PostMapping("/multi-delete")
+    public ResponseEntity<?> deleteMultiTourPlace(@RequestBody List<String> tourismIds) {
+        tourismService.deleteMultiTourism(tourismIds);
+        return ResponseEntity.ok().build();
+    }
+
 
     @Operation(summary = "관광지 등록", description = "관광지 등록을 합니다.")
     @PostMapping(value = "", consumes = "multipart/form-data")

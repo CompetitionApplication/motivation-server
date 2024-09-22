@@ -66,5 +66,12 @@ public class LocalItemController {
         localItemService.deleteLocalItem(localItemId);
         return ResponseEntity.ok().build();
     }
+
+    @Operation(summary = "특산품 멀티 삭제", description = "특산품를 멀티 삭제 합니다.")
+    @PostMapping("/multi-delete")
+    public ResponseEntity<?> deleteMultiLocalItem(@RequestBody List<String> localItemIds) {
+        localItemService.deleteMultiLocalItem(localItemIds);
+        return ResponseEntity.ok().build();
+    }
 }
 

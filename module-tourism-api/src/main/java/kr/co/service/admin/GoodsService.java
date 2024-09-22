@@ -118,11 +118,15 @@ public class GoodsService {
         Goods goods = goodsRepository.findById(goodsId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GOODS.getCode(), CommonErrorCode.NOT_EXIST_GOODS.getMessage()));
 
-        //test
         List<String> goodsImages = goods.getFileGroup().getFiles().stream()
                 .map(file -> file.getFilePath())
                 .collect(Collectors.toList());
 
         return new GoodsDetailResDto(goods,goodsImages);
+    }
+
+    @Transactional
+    public void deleteMultiGoods(List<String> goodsIds) {
+        goodsIds.forEach(this::deleteGoods);
     }
 }

@@ -5,6 +5,7 @@ import kr.co.entity.Goods;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -33,8 +34,6 @@ public class GoodsDetailResDto {
     private String areaCodeId;
     private String detailAreaCodeId;
     private List<String> goodsImages;
-
-    //test
 
     public GoodsDetailResDto(Goods goods, List<String> goodsImages) {
         this.goodsId = goods.getGoodsId();

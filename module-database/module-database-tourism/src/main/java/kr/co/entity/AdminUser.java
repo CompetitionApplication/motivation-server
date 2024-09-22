@@ -24,5 +24,7 @@ public class AdminUser extends BaseTimeEntity {
     private String adminUserEmail;
     private String adminUserPassword;
 
-    private String badgeCode;
+    @OneToOne
+    @JoinColumn(name = "detailAreaCodeId")
+    private DetailAreaCode detailAreaCode;
 }

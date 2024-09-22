@@ -18,4 +18,5 @@ public class TourPlaceResDto {
     private String tourPlaceLink;
     @Schema(description = "관광지연락처", example = "02-3700-3900")
     private String tourPlaceContact;
+    private String badgeCodeName;
 }

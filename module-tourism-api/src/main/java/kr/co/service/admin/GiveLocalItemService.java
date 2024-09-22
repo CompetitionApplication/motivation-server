@@ -1,13 +1,10 @@
 package kr.co.service.admin;
 
-import kr.co.auth.TourismAdminUser;
-import kr.co.common.AES256Cipher;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.GiveLocalItemReqDto;
 import kr.co.dto.GiveLocalItemResDto;
 import kr.co.dto.app.common.ServiceAdminUser;
-import kr.co.dto.app.common.ServiceUser;
 import kr.co.entity.BadgeCode;
 import kr.co.entity.GiveLocalItem;
 import kr.co.repository.BadgeCodeRepository;
@@ -67,7 +64,7 @@ public class GiveLocalItemService {
     }
 
     @Transactional
-    public void deleteLocalItem(String giveLocalItemId) {
+    public void deleteGiveLocalItem(String giveLocalItemId) {
         GiveLocalItem giveLocalItem = giveLocalItemRepository.findById(giveLocalItemId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getCode(), CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getMessage()));
 
@@ -84,5 +81,11 @@ public class GiveLocalItemService {
                 .giveLocalItemPrice(giveLocalItem.getGiveLocalItemPrice())
                 .badgeCode(giveLocalItem.getBadgeCode().getBadgeCode())
                 .build();
+    }
+
+    @Transactional
+    public void deleteMultiLocalItem(List<String> giveLocalItemIds) {
+        giveLocalItemIds.forEach(this::deleteGiveLocalItem);
+
     }
 }

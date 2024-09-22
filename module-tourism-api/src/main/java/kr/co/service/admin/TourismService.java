@@ -1,6 +1,7 @@
 package kr.co.service.admin;
 
 
+import kr.co.auth.AdminLoginUser;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.*;
@@ -38,9 +39,9 @@ public class TourismService {
     private final BadgeCodeRepository badgeCodeRepository;
 
     @Transactional(readOnly = true)
-    public Page<TourPlaceResDto> getTourismList(int page, int size) {
+    public Page<TourPlaceResDto> getTourismList(int page, int size, AdminLoginUser adminLoginUser) {
         // 관광지 외부 API DATA (한국어 버전만 추출)
-        List<TourismApi> tourismApis = tourismApiRepository.findAllByDelYnFalseAndCountry("KOR");
+        List<TourismApi> tourismApis = tourismApiRepository.findAllByDelYnFalseAndCountryAndareacode("KOR",adminLoginUser.getAdminUser().getDetailAreaCode().getAreaCode().getCode());
 
         // 외부 API 데이터를 DTO로 변환하여 추가
         List<TourPlaceResDto> tourismApiDtos = tourismApis.stream()
@@ -50,6 +51,7 @@ public class TourismService {
                         .tourPlaceAddress(api.getAddr1() + " " + api.getAddr2())
                         .tourPlaceLink("")
                         .tourPlaceContact(api.getTel())
+                        .badgeCodeName(api.getBadgeCode().getBadgeCodeType())
                         .build())
                 .collect(Collectors.toList());
 
@@ -141,5 +143,10 @@ public class TourismService {
 
         //관광지 정보 수정
         tourismApi.updateTourPlace(tourismUploadReqDto, newFileGroup,badgeCode);
+    }
+
+    @Transactional
+    public void deleteMultiTourism(List<String> tourismIds) {
+        tourismIds.forEach(this::deleteTourism);
     }
 }

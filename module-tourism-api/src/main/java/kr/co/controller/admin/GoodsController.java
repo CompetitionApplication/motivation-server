@@ -50,6 +50,13 @@ public class GoodsController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "굿즈 여러개 삭제", description = "굿즈 여러개 삭제를 합니다.")
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteMultiGoods(@RequestBody List<String> goodsIds) {
+        goodsService.deleteMultiGoods(goodsIds);
+        return ResponseEntity.ok().build();
+    }
+
     @Operation(summary = "굿즈 수정", description = "굿즈 수정을 합니다.")
     @PutMapping(value = "/{goodsId}", consumes = "multipart/form-data")
     public ResponseEntity<?> updateGoods(@PathVariable(value = "goodsId") String goodsId,

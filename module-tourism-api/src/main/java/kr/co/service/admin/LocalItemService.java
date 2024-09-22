@@ -112,4 +112,9 @@ public class LocalItemService {
 
         localItem.updateLocalItem(localItemUploadReqDto, areaCode, detailAreaCode, fileGroup);
     }
+
+    @Transactional
+    public void deleteMultiLocalItem(List<String> localItemIds) {
+        localItemIds.forEach(this::deleteLocalItem);
+    }
 }
