@@ -22,4 +22,5 @@ public class BadgeController {
     public ResponseEntity<?> getBadgeList() {
         return ResponseEntity.ok(badgeService.getBadgeList());
     }
+
 }

@@ -46,7 +46,7 @@ public class GiveLocalItemService {
                         .giveLocalItemId(giveLocalItem.getGiveLocalItemId())
                         .giveLocalItemName(giveLocalItem.getGiveLocalItemName())
                         .giveLocalItemPrice(giveLocalItem.getGiveLocalItemPrice())
-                        .badgeCode(giveLocalItem.getBadgeCode().getBadgeCode())
+                        .badgeCodeName(giveLocalItem.getBadgeCode().getBadgeCodeType())
                         .build())
                 .collect(Collectors.toList());
         return new PageImpl<>(giveLocalItemResDtos, giveLocalItems.getPageable(), giveLocalItems.getTotalElements());
@@ -79,7 +79,7 @@ public class GiveLocalItemService {
         return GiveLocalItemResDto.builder()
                 .giveLocalItemName(giveLocalItem.getGiveLocalItemName())
                 .giveLocalItemPrice(giveLocalItem.getGiveLocalItemPrice())
-                .badgeCode(giveLocalItem.getBadgeCode().getBadgeCode())
+                .badgeCodeName(giveLocalItem.getBadgeCode().getBadgeCodeType())
                 .build();
     }
 
