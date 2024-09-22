@@ -158,11 +158,13 @@
                   , goods_id
                   , user_id
                   , del_yn
+                  , order_count
           ) values (
                     UUID()
                   , #{goodsId}
                   , #{userId}
                   , 'N'
+                  , #{orderCount}
           )
     </insert>
 

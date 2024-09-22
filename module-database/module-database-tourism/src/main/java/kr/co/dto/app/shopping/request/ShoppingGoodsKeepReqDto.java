@@ -15,4 +15,8 @@ public class ShoppingGoodsKeepReqDto {
     @Schema(description = "등록/해제", example = "N")
     @Pattern(regexp = "^(Y|N)$")
     private String delYn;
+
+    @NotBlank
+    @Schema(example = "1")
+    private String orderCount;
 }

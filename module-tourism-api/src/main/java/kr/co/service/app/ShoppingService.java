@@ -60,7 +60,7 @@ public class ShoppingService {
 
         if(userCart == null){
             //장바구니 담기
-            shoppingMapper.insertUserCart(shoppingGoodsKeepReqDto.getGoodsId(), serviceUser.getUserId());
+            shoppingMapper.insertUserCart(shoppingGoodsKeepReqDto.getGoodsId(), shoppingGoodsKeepReqDto.getOrderCount(), serviceUser.getUserId());
         }else {
             //장바구니 담기 수정
             shoppingMapper.updateUserCart(shoppingGoodsKeepReqDto.getGoodsId(), serviceUser.getUserId(), shoppingGoodsKeepReqDto.getDelYn());
