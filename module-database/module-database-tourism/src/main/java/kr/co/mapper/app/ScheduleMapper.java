@@ -12,7 +12,7 @@ import java.util.List;
 public interface ScheduleMapper {
 
     List<ScheduleResDto> selectTourismSchedule(String userId);
-    List<ScheduleResDto> selectTourismApi(String language);
+    List<ScheduleResDto> selectTourismApi(String language, String userId);
 
     ScheduleDetailResDto selectTourismScheduleDetail(String userId, String tourismApiId);
 

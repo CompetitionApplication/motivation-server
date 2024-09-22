@@ -36,7 +36,7 @@ public class ScheduleService {
         r.setUserList(userList);
 
         //관광지 조회
-        List<ScheduleResDto> tourList = scheduleMapper.selectTourismApi(scheduleMapReqDto.getLanguage());
+        List<ScheduleResDto> tourList = scheduleMapper.selectTourismApi(scheduleMapReqDto.getLanguage(), serviceUser.getUserId());
         r.setTourList(tourList);
 
         return r;

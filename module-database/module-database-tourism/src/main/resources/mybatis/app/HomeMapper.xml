@@ -53,6 +53,7 @@
                on c.file_group_id = d.file_group_id
      left join file e
                on d.file_group_id = e.file_group_id
+         where a.user_id = #{userId}
     </select>
 
 </mapper>

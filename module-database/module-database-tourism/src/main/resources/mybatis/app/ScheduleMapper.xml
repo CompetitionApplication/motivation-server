@@ -10,6 +10,7 @@
              , b.mapy
              , b.title
              , a.schedule_date as scheduleDate
+             , (select count(*) from tourism_visit where tourism_api_id = a.tourism_api_id) as visitCnt
           from tourism_schedule a
      left join tourism_api b
             on a.tourism_api_id = b.tourism_api_id
@@ -23,9 +24,11 @@
              , a.mapx
              , a.mapy
              , a.title
+             , (select count(*) from tourism_visit where tourism_api_id = a.tourism_api_id) as visitCnt
         from tourism_api a
    left join tourism_schedule b
           on a.tourism_api_id = b.tourism_api_id
+         and b.user_id = #{userId}
        where a.country = #{language}
          and b.tourism_api_id is null
          and a.del_yn = 'N'

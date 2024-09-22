@@ -10,5 +10,6 @@ public class ScheduleResDto {
     private String mapy;
     private String title;
     private String scheduleDate;
+    private String visitCnt;
 
 }
