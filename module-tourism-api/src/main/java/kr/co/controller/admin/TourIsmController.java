@@ -65,14 +65,14 @@ public class TourIsmController {
                                          @RequestParam("tourismAddress") String tourismAddress,
                                          @RequestParam("tourismLink") String tourismLink,
                                          @RequestParam("tourismContact") String tourismContact,
-                                         @RequestParam("areaCode") String areaCode,
-                                         @RequestParam("detailAreaCode") String detailAreaCode,
+                                         @RequestParam("areaCodeId") String areaCodeId,
+                                         @RequestParam("detailAreaCodeId") String detailAreaCodeId,
                                          @RequestParam("mapX") String tourismMapX,
                                          @RequestParam("mapY") String tourismMapY,
                                          @RequestParam("badgeCode") String badgeCode,
                                          @RequestPart List<MultipartFile> tourismImages) {
         tourismService.uploadTourPlace(
-                new TourismUploadReqDto(tourismName, tourismAddress, tourismLink, tourismContact, areaCode, detailAreaCode, tourismMapX, tourismMapY, badgeCode),
+                new TourismUploadReqDto(tourismName, tourismAddress, tourismLink, tourismContact, areaCodeId, detailAreaCodeId, tourismMapX, tourismMapY, badgeCode),
                 tourismImages);
         return ResponseEntity.ok().build();
     }
