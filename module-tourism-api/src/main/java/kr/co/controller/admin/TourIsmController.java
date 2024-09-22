@@ -7,6 +7,8 @@ import kr.co.dto.AreaCodeResDto;
 import kr.co.dto.DetailAreaCodeResDto;
 import kr.co.dto.TourPlaceResDto;
 import kr.co.dto.TourismUploadReqDto;
+import kr.co.entity.AdminUser;
+import kr.co.service.admin.AdminLoginService;
 import kr.co.service.admin.TourismApiDetailResDto;
 import kr.co.service.admin.TourismService;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +36,8 @@ public class TourIsmController {
     @GetMapping("/list")
     public ResponseEntity<Page<TourPlaceResDto>> getTourismList(@RequestParam(defaultValue = "0") int page,
                                                                 @RequestParam(defaultValue = "7") int size,
-                                                                @AuthenticationPrincipal AdminLoginUser adminLoginUser) {
-        return ResponseEntity.ok(tourismService.getTourismList(page, size,adminLoginUser));
+                                                                @AuthenticationPrincipal AdminUser adminUser) {
+        return ResponseEntity.ok(tourismService.getTourismList(page, size,adminUser));
     }
 
     @Operation(summary = "지역코드 목록 리스트", description = "지역코드 목록 리스트 입니다.")

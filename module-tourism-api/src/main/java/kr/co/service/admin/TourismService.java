@@ -37,9 +37,9 @@ public class TourismService {
     private final BadgeCodeRepository badgeCodeRepository;
 
     @Transactional(readOnly = true)
-    public Page<TourPlaceResDto> getTourismList(int page, int size, AdminLoginUser adminLoginUser) {
+    public Page<TourPlaceResDto> getTourismList(int page, int size, AdminUser adminUser) {
         // 관광지 외부 API DATA (한국어 버전만 추출)
-        List<TourismApi> tourismApis = tourismApiRepository.findAllByDelYnFalseAndCountryAndAreacode("KOR",adminLoginUser.getAdminUser().getDetailAreaCode().getAreaCode().getCode());
+        List<TourismApi> tourismApis = tourismApiRepository.findAllByDelYnFalseAndCountryAndAreacode("KOR",adminUser.getDetailAreaCode().getAreaCode().getCode());
 
         // 외부 API 데이터를 DTO로 변환하여 추가
         List<TourPlaceResDto> tourismApiDtos = tourismApis.stream()
