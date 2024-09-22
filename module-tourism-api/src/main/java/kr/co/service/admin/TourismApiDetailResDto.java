@@ -38,7 +38,7 @@ public class TourismApiDetailResDto {
         this.detailAreaCode = tourismApi.getDetailAreaCode();
         this.tourismMapX = tourismApi.getMapx();
         this.tourismMapY = tourismApi.getMapy();
-        this.badgeCode = tourismApi.getBadgeCode().getBadgeCodeType();
+        this.badgeCode = tourismApi.getBadgeCode().getBadgeCode();
         this.tourismImages = tourismImages;
     }
 }

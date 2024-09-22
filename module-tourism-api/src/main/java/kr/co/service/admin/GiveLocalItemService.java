@@ -60,7 +60,7 @@ public class GiveLocalItemService {
         BadgeCode badgeCode = badgeCodeRepository.findById(giveLocalItemReqDto.getBadgeCode())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
 
-        giveLocalItem.updateLocalItem(giveLocalItemReqDto, badgeCode);
+        giveLocalItem.updateGiveLocalItem(giveLocalItemReqDto, badgeCode);
     }
 
     @Transactional

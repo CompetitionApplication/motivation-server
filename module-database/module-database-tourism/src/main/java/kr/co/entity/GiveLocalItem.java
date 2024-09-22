@@ -2,15 +2,12 @@ package kr.co.entity;
 
 import jakarta.persistence.*;
 import kr.co.config.BooleanConverter;
-import kr.co.dto.GiveLocalItemReqDto;
-import kr.co.dto.LocalItemUploadReqDto;
-import kr.co.dto.app.common.ServiceUser;
+import kr.co.dto.GiveLocalItemReqDto;;
 import kr.co.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.ibatis.annotations.One;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -48,7 +45,7 @@ public class GiveLocalItem extends BaseTimeEntity {
         this.badgeCode = badgeCode;
     }
 
-    public void updateLocalItem(GiveLocalItemReqDto giveLocalItemReqDto, BadgeCode badgeCode) {
+    public void updateGiveLocalItem(GiveLocalItemReqDto giveLocalItemReqDto, BadgeCode badgeCode) {
         this.giveLocalItemName = giveLocalItemReqDto.getGiveLocalItemName();
         this.giveLocalItemPrice = giveLocalItemReqDto.getGiveLocalItemPrice();
         this.badgeCode = badgeCode;
@@ -58,3 +55,4 @@ public class GiveLocalItem extends BaseTimeEntity {
         this.delYn = true;
     }
 }
+

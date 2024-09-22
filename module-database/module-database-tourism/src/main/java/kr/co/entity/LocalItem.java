@@ -2,6 +2,7 @@ package kr.co.entity;
 
 import jakarta.persistence.*;
 import kr.co.config.BooleanConverter;
+import kr.co.dto.LocalItemUpdateReqDto;
 import kr.co.dto.LocalItemUploadReqDto;
 import kr.co.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
@@ -58,9 +59,9 @@ public class LocalItem extends BaseTimeEntity {
         this.delYn = true;
     }
 
-    public void updateLocalItem(LocalItemUploadReqDto localItemUploadReqDto, AreaCode areaCode, DetailAreaCode detailAreaCode, FileGroup fileGroup) {
-        this.localItemName = localItemUploadReqDto.getLocalItemName();
-        this.localItemPrice = localItemUploadReqDto.getLocalItemPrice();
+    public void updateLocalItem(LocalItemUpdateReqDto localItemUpdateReqDto, AreaCode areaCode, DetailAreaCode detailAreaCode, FileGroup fileGroup) {
+        this.localItemName = localItemUpdateReqDto.getLocalItemName();
+        this.localItemPrice = localItemUpdateReqDto.getLocalItemPrice();
         this.areaCode = areaCode;
         this.detailAreaCode = detailAreaCode;
         this.fileGroup = fileGroup;

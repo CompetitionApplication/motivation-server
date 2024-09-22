@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.dto.LocalItemDetailResDto;
 import kr.co.dto.LocalItemResDto;
+import kr.co.dto.LocalItemUpdateReqDto;
 import kr.co.dto.LocalItemUploadReqDto;
 import kr.co.service.admin.LocalItemService;
 import lombok.RequiredArgsConstructor;
@@ -38,25 +39,17 @@ public class LocalItemController {
     }
 
     @Operation(summary = "특산품 등록", description = "특산품 등록 합니다")
-    @PostMapping(value = "/",consumes = "multipart/form-data")
-    public ResponseEntity<?> uploadLocalItem(@RequestParam("localItemName") String localItemName,
-                                             @RequestParam("localItemPrice") String localItemPrice,
-                                             @RequestParam("areaCodeId") String areaCodeId,
-                                             @RequestParam("detailAreaCodeId") String detailAreaCodeId,
-                                             @RequestPart List<MultipartFile> localItemImages) {
-        localItemService.uploadLocalItem(new LocalItemUploadReqDto(localItemName, localItemPrice, areaCodeId, detailAreaCodeId), localItemImages);
+    @PostMapping(value = "",consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadLocalItem(@ModelAttribute LocalItemUploadReqDto localItemUploadReqDto) {
+        localItemService.uploadLocalItem(new LocalItemUploadReqDto(localItemUploadReqDto));
         return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "특산품 수정", description = "특산품 수정을 합니다.")
     @PutMapping(value = "/{localItemId}",consumes = "multipart/form-data")
     public ResponseEntity<?> updateLocalItem(@PathVariable(value = "localItemId") String localItemId,
-                                             @RequestParam("localItemName") String localItemName,
-                                             @RequestParam("localItemPrice") String localItemPrice,
-                                             @RequestParam("areaCodeId") String areaCodeId,
-                                             @RequestParam("detailAreaCodeId") String detailAreaCodeId,
-                                             @RequestPart List<MultipartFile> localItemImages) {
-        localItemService.updateLocalItem(localItemId, new LocalItemUploadReqDto(localItemName, localItemPrice, areaCodeId, detailAreaCodeId), localItemImages);
+                                             @ModelAttribute LocalItemUpdateReqDto localItemUpdateReqDto){
+        localItemService.updateLocalItem(localItemId, new LocalItemUpdateReqDto(localItemUpdateReqDto));
         return ResponseEntity.ok().build();
     }
 
