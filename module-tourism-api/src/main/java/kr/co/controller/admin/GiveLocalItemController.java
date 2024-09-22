@@ -34,6 +34,12 @@ public class GiveLocalItemController {
         return ResponseEntity.ok(giveLocalItemService.getGiveLocalItemList(serviceAdminUser,page,size));
     }
 
+    @Operation(summary = "특산품 제공 상세 조회", description = "특산품 제공 상세 조회를 합니다.")
+    @GetMapping("/list/{giveLocalItemId}")
+    public ResponseEntity<GiveLocalItemResDto> getGiveLocalItemDetail(@PathVariable(value = "giveLocalItemId") String giveLocalItemId) {
+        return ResponseEntity.ok(giveLocalItemService.getGiveLocalItemDetail(giveLocalItemId));
+    }
+
     @Operation(summary = "특산품 제공 등록", description = "특산품 제공 등록을 합니다.")
     @PostMapping("")
     public ResponseEntity<?> giveLocalItem(@AuthenticationPrincipal ServiceAdminUser serviceAdminUser,

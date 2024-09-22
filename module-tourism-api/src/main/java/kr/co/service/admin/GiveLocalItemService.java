@@ -46,6 +46,7 @@ public class GiveLocalItemService {
         Page<GiveLocalItem> giveLocalItems = giveLocalItemRepository.findAllByRegUserEmail(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")), serviceAdminUser.getUserEmail());
         List<GiveLocalItemResDto> giveLocalItemResDtos = giveLocalItems.stream()
                 .map(giveLocalItem -> GiveLocalItemResDto.builder()
+                        .giveLocalItemId(giveLocalItem.getGiveLocalItemId())
                         .giveLocalItemName(giveLocalItem.getGiveLocalItemName())
                         .giveLocalItemPrice(giveLocalItem.getGiveLocalItemPrice())
                         .badgeCode(giveLocalItem.getBadgeCode().getBadgeCode())
@@ -71,5 +72,17 @@ public class GiveLocalItemService {
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getCode(), CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getMessage()));
 
         giveLocalItem.deleteGiveLocalItem();
+    }
+
+    @Transactional(readOnly = true)
+    public GiveLocalItemResDto getGiveLocalItemDetail(String giveLocalItemId) {
+        GiveLocalItem giveLocalItem = giveLocalItemRepository.findById(giveLocalItemId)
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getCode(), CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getMessage()));
+
+        return GiveLocalItemResDto.builder()
+                .giveLocalItemName(giveLocalItem.getGiveLocalItemName())
+                .giveLocalItemPrice(giveLocalItem.getGiveLocalItemPrice())
+                .badgeCode(giveLocalItem.getBadgeCode().getBadgeCode())
+                .build();
     }
 }
