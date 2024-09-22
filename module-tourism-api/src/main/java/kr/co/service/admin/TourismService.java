@@ -45,7 +45,7 @@ public class TourismService {
         // 외부 API 데이터를 DTO로 변환하여 추가
         List<TourPlaceResDto> tourismApiDtos = tourismApis.stream()
                 .map(api -> TourPlaceResDto.builder()
-                        .tourPlaceId(api.getContentid())
+                        .tourPlaceId(api.getTourismApiId())
                         .tourPlaceName(api.getTitle())
                         .tourPlaceAddress(api.getAddr1() + " " + api.getAddr2())
                         .tourPlaceLink("")
