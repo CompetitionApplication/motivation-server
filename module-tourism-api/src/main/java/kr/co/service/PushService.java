@@ -69,7 +69,7 @@ public class PushService {
 
     @Transactional(readOnly = true)
     public List<PushResDto> getPushList() {
-        return pushRepository.findAll().stream()
+        return pushRepository.findTop7ByOrderByRegDatetimeDesc().stream()
                 .map(push -> PushResDto.builder()
                         .pushId(push.getPushId())
                         .pushTitle(push.getPushTitle())
