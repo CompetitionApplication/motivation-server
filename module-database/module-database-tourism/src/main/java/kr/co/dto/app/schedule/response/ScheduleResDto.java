@@ -9,5 +9,6 @@ public class ScheduleResDto {
     private String mapx;
     private String mapy;
     private String title;
+    private String scheduleDate;
 
 }
