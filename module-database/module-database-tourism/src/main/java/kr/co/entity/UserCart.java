@@ -23,7 +23,7 @@ public class UserCart extends BaseTimeEntity {
     private String userCartId;
 
     @Comment(value = "주문수량")
-    private int orderCount;
+    private String orderCount;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
