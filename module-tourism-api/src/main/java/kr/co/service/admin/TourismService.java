@@ -90,7 +90,6 @@ public class TourismService {
         TourismApi tourismApi = tourismApiRepository.findById(tourismId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_TOUR_PLACE.getCode(), CommonErrorCode.NOT_FOUND_TOUR_PLACE.getMessage()));
 
-
         List<String> tourismImages = tourismApi.getFileGroup().getFiles().stream()
                 .map(file -> file.getFilePath())
                 .collect(Collectors.toList());
