@@ -32,7 +32,7 @@ public class ScheduleController {
     }
 
     @Operation(summary = "리스트 상세 조회", description = "지도에 표시된 일정 디테일 입니다.")
-    @GetMapping(value = "/list-detail")
+    @PostMapping(value = "/list-detail")
     public ResponseEntity<?> getScheduleDetail(@RequestBody ScheduleDetailReqDto scheduleDetailReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         return ObjectResult.build(scheduleService.getScheduleDetail(scheduleDetailReqDto, serviceUser));
     }

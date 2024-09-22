@@ -40,6 +40,7 @@
              , a.addr1
              , '' as homePage
              , '0원' as fee
+             , (select count(*) from tourism_visit where tourism_api_id = #{tourismApiId}) as visitCnt
           from tourism_api a
      left join file_group b
             on a.file_group_id = b.file_group_id
@@ -48,7 +49,7 @@
      left join tourism_favorite d
             on a.tourism_api_id = d.tourism_api_id
            and d.user_id = #{userId}
-        where tourism_api_id = #{tourismApiId}
+        where a.tourism_api_id = #{tourismApiId}
     </select>
 
     <select id="selectTourismFavoriteByUserIdAndTourismApiId" resultType="TourismFavorite">
