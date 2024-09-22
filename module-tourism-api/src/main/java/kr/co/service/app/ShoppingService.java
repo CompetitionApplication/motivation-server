@@ -1,5 +1,7 @@
 package kr.co.service.app;
 
+import kr.co.common.CommonErrorCode;
+import kr.co.common.CommonException;
 import kr.co.dto.app.common.ServiceUser;
 import kr.co.dto.app.shopping.request.ShoppingGoodsBuyReqDto;
 import kr.co.dto.app.shopping.request.ShoppingGoodsDetailReqDto;
@@ -8,6 +10,7 @@ import kr.co.dto.app.shopping.request.ShoppingMainReqDto;
 import kr.co.dto.app.shopping.response.ShoppingGoodsDetailResDto;
 import kr.co.dto.app.shopping.response.ShoppingGoodsDto;
 import kr.co.dto.app.shopping.response.ShoppingMainResDto;
+import kr.co.entity.Goods;
 import kr.co.entity.UserCart;
 import kr.co.mapper.app.ShoppingMapper;
 import lombok.RequiredArgsConstructor;
@@ -65,6 +68,11 @@ public class ShoppingService {
     }
 
     public void goodsBuy(ShoppingGoodsBuyReqDto shoppingGoodsBuyReqDto, ServiceUser serviceUser){
+        Goods goods = shoppingMapper.selectGoodsByGoodsId(shoppingGoodsBuyReqDto.getGoodsId());
+        if(goods == null){
+            throw new CommonException("9999","굿즈 정보를 찾을 수 없습니다.");
+        }
+
         shoppingMapper.insertOrderItem(shoppingGoodsBuyReqDto.getGoodsId(), shoppingGoodsBuyReqDto.getOrderPrice(), shoppingGoodsBuyReqDto.getOrderCount(), serviceUser.getUserId());
     }
 
