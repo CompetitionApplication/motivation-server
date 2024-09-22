@@ -69,7 +69,8 @@ public enum CommonErrorCode {
     NOT_EXIST_GIVE_LOCAL_ITEM("D020","지역특산물이 존재하지 않습니다."),
     NOT_FOUND_ORDER("D021","주문을 찾을 수 없습니다."),
     NOT_FOUND_PUSH("D022","푸시를 찾을 수 없습니다."),
-    NOT_FOUND_GOODS_BUY("D023","굿즈 구매내역을 찾을 수 없습니다.");
+    NOT_FOUND_GOODS_BUY("D023","굿즈 구매내역을 찾을 수 없습니다."),
+    ALREADY_EXIST_USER("D024","이미 존재하는 유저입니다.");
 
 
     private final String code;

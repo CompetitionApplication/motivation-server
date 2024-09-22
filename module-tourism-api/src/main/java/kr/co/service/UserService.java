@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,6 +66,11 @@ public class UserService {
 
     @Transactional
     public void join(SignUpReqDto signUpReqDto) throws Exception {
+
+        //:::이미 가입된 유저인지 확인:::
+        userRepository.findByUserEmail(signUpReqDto.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.ALREADY_EXIST_USER.getCode(), CommonErrorCode.ALREADY_EXIST_USER.getMessage()));
+
         //:::유저정보저장:::
         User user = userRepository.save(new User(signUpReqDto));
 

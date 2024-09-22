@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "큐알관련 서비스", description = "큐알찍은 후 받는 서비스")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/qr")
+@RequestMapping(value = "/api/v1/app/qr")
 @Slf4j
 public class QrController {
 
