@@ -75,6 +75,7 @@ public class TourismApi extends BaseTimeEntity {
         this.mapy = tourismUploadReqDto.getTourismMapY();
         this.fileGroup = fileGroup;
         this.badgeCode = badgeCode;
+        this.country = "KOR";
         this.customYn = true;
     }
 
