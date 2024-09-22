@@ -1,11 +1,13 @@
 package kr.co.controller.app;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.co.dto.app.common.ServiceUser;
 import kr.co.dto.app.qr.QrReqDto;
 import kr.co.service.app.QrService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +23,8 @@ public class QrController {
     private final QrService qrService;
 
     @PostMapping("")
-    public ResponseEntity<?> receiveQrData(@RequestBody QrReqDto qrReqDto) {
-        qrService.receiveQrData(qrReqDto);
+    public ResponseEntity<?> receiveQrData(@RequestBody QrReqDto qrReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
+        qrService.receiveQrData(qrReqDto, serviceUser);
         return ResponseEntity.ok().build();
     }
 }

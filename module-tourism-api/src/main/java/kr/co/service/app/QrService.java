@@ -2,6 +2,7 @@ package kr.co.service.app;
 
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
+import kr.co.dto.app.common.ServiceUser;
 import kr.co.dto.app.qr.QrReqDto;
 import kr.co.entity.TourismApi;
 import kr.co.entity.TourismVisit;
@@ -27,11 +28,11 @@ public class QrService {
     private final TourismVisitRepository tourismVisitRepository;
 
     @Transactional
-    public void receiveQrData(QrReqDto qrReqDto) {
+    public void receiveQrData(QrReqDto qrReqDto, ServiceUser serviceUser) {
         TourismApi tourismApi = tourismApiRepository.findById(qrReqDto.getTourismApiId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_TOUR_PLACE.getCode(), CommonErrorCode.NOT_FOUND_TOUR_PLACE.getMessage()));
 
-        User user = userRepository.findById(qrReqDto.getUserId())
+        User user = userRepository.findById(serviceUser.getUserId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
 
         userBadgeRepository.save(new UserBadge(user, tourismApi));
