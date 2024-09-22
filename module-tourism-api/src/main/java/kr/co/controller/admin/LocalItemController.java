@@ -41,10 +41,10 @@ public class LocalItemController {
     @PostMapping(value = "/",consumes = "multipart/form-data")
     public ResponseEntity<?> uploadLocalItem(@RequestParam("localItemName") String localItemName,
                                              @RequestParam("localItemPrice") String localItemPrice,
-                                             @RequestParam("areaCode") String areaCode,
-                                             @RequestParam("detailAreaCode") String detailAreaCode,
+                                             @RequestParam("areaCodeId") String areaCodeId,
+                                             @RequestParam("detailAreaCodeId") String detailAreaCodeId,
                                              @RequestPart List<MultipartFile> localItemImages) {
-        localItemService.uploadLocalItem(new LocalItemUploadReqDto(localItemName, localItemPrice, areaCode, detailAreaCode), localItemImages);
+        localItemService.uploadLocalItem(new LocalItemUploadReqDto(localItemName, localItemPrice, areaCodeId, detailAreaCodeId), localItemImages);
         return ResponseEntity.ok().build();
     }
 
@@ -53,10 +53,10 @@ public class LocalItemController {
     public ResponseEntity<?> updateLocalItem(@PathVariable(value = "localItemId") String localItemId,
                                              @RequestParam("localItemName") String localItemName,
                                              @RequestParam("localItemPrice") String localItemPrice,
-                                             @RequestParam("areaCode") String areaCode,
-                                             @RequestParam("detailAreaCode") String detailAreaCode,
+                                             @RequestParam("areaCodeId") String areaCodeId,
+                                             @RequestParam("detailAreaCodeId") String detailAreaCodeId,
                                              @RequestPart List<MultipartFile> localItemImages) {
-        localItemService.updateLocalItem(localItemId, new LocalItemUploadReqDto(localItemName, localItemPrice, areaCode, detailAreaCode), localItemImages);
+        localItemService.updateLocalItem(localItemId, new LocalItemUploadReqDto(localItemName, localItemPrice, areaCodeId, detailAreaCodeId), localItemImages);
         return ResponseEntity.ok().build();
     }
 
