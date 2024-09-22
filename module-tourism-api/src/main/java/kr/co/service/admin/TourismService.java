@@ -5,6 +5,7 @@ import kr.co.auth.AdminLoginUser;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.*;
+import kr.co.dto.app.common.ServiceAdminUser;
 import kr.co.entity.*;
 import kr.co.repository.*;
 import kr.co.util.FileUtil;
@@ -35,10 +36,15 @@ public class TourismService {
     private final AreaCodeRepository areaCodeRepository;
     private final DetailAreaCodeRepository detailAreaCodeRepository;
     private final BadgeCodeRepository badgeCodeRepository;
+    private final AdminUserRepository adminUserRepository;
 
     @Transactional(readOnly = true)
-    public Page<TourPlaceResDto> getTourismList(int page, int size, AdminUser adminUser) {
+    public Page<TourPlaceResDto> getTourismList(int page, int size, ServiceAdminUser serviceAdminUser) {
         // 관광지 외부 API DATA (한국어 버전만 추출)
+        AdminUser adminUser = adminUserRepository.findByAdminUserEmail(serviceAdminUser.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ADMIN_USER.getCode(), CommonErrorCode.NOT_FOUND_ADMIN_USER.getMessage()));
+
+
         List<TourismApi> tourismApis = tourismApiRepository.findAllByDelYnFalseAndCountryAndAreacode("KOR",adminUser.getDetailAreaCode().getAreaCode().getCode());
 
         // 외부 API 데이터를 DTO로 변환하여 추가
