@@ -3,7 +3,7 @@ package kr.co.entity;
 import jakarta.persistence.*;
 import kr.co.config.BooleanConverter;
 import kr.co.dto.LocalItemUpdateReqDto;
-import kr.co.dto.LocalItemUploadReqDto;
+import kr.co.dto.LocalItemUploadDataReqDto;
 import kr.co.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -46,9 +46,9 @@ public class LocalItem extends BaseTimeEntity {
     @JoinColumn(name = "detail_area_code_id")
     private DetailAreaCode detailAreaCode;
 
-    public LocalItem(LocalItemUploadReqDto localItemUploadReqDto,AreaCode areaCode, DetailAreaCode detailAreaCode, FileGroup fileGroup) {
-        this.localItemName = localItemUploadReqDto.getLocalItemName();
-        this.localItemPrice = localItemUploadReqDto.getLocalItemPrice();
+    public LocalItem(LocalItemUploadDataReqDto localItemUploadDataReqDto, AreaCode areaCode, DetailAreaCode detailAreaCode, FileGroup fileGroup) {
+        this.localItemName = localItemUploadDataReqDto.getLocalItemName();
+        this.localItemPrice = localItemUploadDataReqDto.getLocalItemPrice();
         this.areaCode = areaCode;
         this.detailAreaCode = detailAreaCode;
         this.fileGroup = fileGroup;

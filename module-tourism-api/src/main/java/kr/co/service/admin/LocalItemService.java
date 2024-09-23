@@ -58,15 +58,15 @@ public class LocalItemService {
         return new LocalItemDetailResDto(localItem);
     }
 
-    public void uploadLocalItem(LocalItemUploadReqDto localItemUploadReqDto, ServiceAdminUser serviceAdminUser) {
+    public void uploadLocalItem(LocalItemUploadDataReqDto localItemUploadDataReqDto, ServiceAdminUser serviceAdminUser) {
         AdminUser adminUser = adminUserRepository.findByAdminUserEmail(serviceAdminUser.getUserEmail())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ADMIN_USER.getCode(), CommonErrorCode.NOT_FOUND_ADMIN_USER.getMessage()));
 
-        localItemUploadReqDto.setAreaCodeId(adminUser.getDetailAreaCode().getAreaCode().getAreaCodeId());
-        localItemUploadReqDto.setDetailAreaCodeId(adminUser.getDetailAreaCode().getDetailAreaCodeId());
+        localItemUploadDataReqDto.setAreaCodeId(adminUser.getDetailAreaCode().getAreaCode().getAreaCodeId());
+        localItemUploadDataReqDto.setDetailAreaCodeId(adminUser.getDetailAreaCode().getDetailAreaCodeId());
 
 
-        List<MultipartFile> images = localItemUploadReqDto.getLocalItemImages();
+        List<MultipartFile> images = localItemUploadDataReqDto.getLocalItemImages();
         if (images.isEmpty()) {
             throw new CommonException(CommonErrorCode.NOT_EXIST_FILE.getCode(), CommonErrorCode.NOT_EXIST_FILE.getMessage());
         }
@@ -78,14 +78,14 @@ public class LocalItemService {
                 .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
                 .collect(Collectors.toList()));
 
-        AreaCode areaCode = areaCodeRepository.findById(localItemUploadReqDto.getAreaCodeId())
+        AreaCode areaCode = areaCodeRepository.findById(localItemUploadDataReqDto.getAreaCodeId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_AREA_CODE.getCode(), CommonErrorCode.NOT_FOUND_AREA_CODE.getMessage()));
 
-        DetailAreaCode detailAreaCode = detailAreaCodeRepository.findById(localItemUploadReqDto.getDetailAreaCodeId())
+        DetailAreaCode detailAreaCode = detailAreaCodeRepository.findById(localItemUploadDataReqDto.getDetailAreaCodeId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_DETAIL_AREA_CODE.getCode(), CommonErrorCode.NOT_FOUND_DETAIL_AREA_CODE.getMessage()));
 
         //특산품 정보 저장
-        localItemRepository.save(new LocalItem(localItemUploadReqDto, areaCode, detailAreaCode, fileGroup));
+        localItemRepository.save(new LocalItem(localItemUploadDataReqDto, areaCode, detailAreaCode, fileGroup));
     }
 
     @Transactional

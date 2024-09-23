@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.dto.LocalItemDetailResDto;
 import kr.co.dto.LocalItemResDto;
 import kr.co.dto.LocalItemUpdateReqDto;
-import kr.co.dto.LocalItemUploadReqDto;
+import kr.co.dto.LocalItemUploadDataReqDto;
 import kr.co.dto.app.common.ServiceAdminUser;
 import kr.co.service.admin.LocalItemService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -42,8 +41,8 @@ public class LocalItemController {
 
     @Operation(summary = "특산품 등록", description = "특산품 등록 합니다")
     @PostMapping(value = "",consumes = "multipart/form-data")
-    public ResponseEntity<?> uploadLocalItem(@ModelAttribute LocalItemUploadReqDto localItemUploadReqDto, @AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
-        localItemService.uploadLocalItem(new LocalItemUploadReqDto(localItemUploadReqDto),serviceAdminUser);
+    public ResponseEntity<?> uploadLocalItem(@ModelAttribute LocalItemUploadDataReqDto localItemUploadDataReqDto, @AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
+        localItemService.uploadLocalItem(new LocalItemUploadDataReqDto(localItemUploadDataReqDto),serviceAdminUser);
         return ResponseEntity.ok().build();
     }
 
