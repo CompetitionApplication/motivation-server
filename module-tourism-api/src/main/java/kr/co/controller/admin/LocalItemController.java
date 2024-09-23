@@ -41,7 +41,8 @@ public class LocalItemController {
 
     @Operation(summary = "특산품 등록", description = "특산품 등록 합니다")
     @PostMapping(value = "",consumes = "multipart/form-data")
-    public ResponseEntity<?> uploadLocalItem(@ModelAttribute LocalItemUploadDataDto localItemUploadDataDto, @AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
+    public ResponseEntity<?> uploadLocalItem(@ModelAttribute LocalItemUploadDataDto localItemUploadDataDto,
+                                             @AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
         localItemService.uploadLocalItem(localItemUploadDataDto,serviceAdminUser);
         return ResponseEntity.ok().build();
     }
