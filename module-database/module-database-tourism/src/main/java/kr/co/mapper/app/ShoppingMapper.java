@@ -19,11 +19,11 @@ public interface ShoppingMapper {
 
     void insertGoodsVisit(String userId, String goodsId);
 
-    UserCart selectUserCartByGoodsIdAndUserId(String goodsId, String userId);
+    Integer selectUserCartByGoodsIdAndUserId(String goodsId, String userId);
 
     void insertUserCart(String goodsId, String orderCount, String userId);
 
-    void updateUserCart(String goodsId, String userId, String delYn);
+    void updateUserCart(String goodsId, String userId, String delYn, String orderCount);
 
     void insertOrderItem(String goodsId, String orderPrice, String orderCount, String userId);
 

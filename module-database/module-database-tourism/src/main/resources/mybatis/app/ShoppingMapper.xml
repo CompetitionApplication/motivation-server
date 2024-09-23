@@ -143,12 +143,13 @@
           )
     </insert>
 
-    <select id="selectUserCartByGoodsIdAndUserId" resultType="UserCart">
+    <select id="selectUserCartByGoodsIdAndUserId" resultType="Integer">
         /* ShoppingMapper.selectUserCartByGoodsIdAndUserId */
-        select *
+        select count(*)
           from user_cart
          where goods_id = #{goodsId}
            and user_id = #{userId}
+           and del_yn = 'N'
     </select>
 
     <insert id="insertUserCart">
@@ -171,7 +172,13 @@
     <update id="updateUserCart">
         /* ShoppingMapper.updateUserCart */
         update user_cart
-           set del_yn = #{delYn}
+           set mod_datetime = now()
+        <if test='delYn != null and delYn != ""'>
+            , del_yn = #{delYn}
+        </if>
+        <if test='orderCount != null and orderCount != ""'>
+            , order_count = #{orderCount}
+        </if>
          where user_id = #{userId}
            and goods_id = #{goodsId}
     </update>

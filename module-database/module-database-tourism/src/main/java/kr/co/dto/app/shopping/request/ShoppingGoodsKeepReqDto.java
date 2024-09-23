@@ -18,5 +18,6 @@ public class ShoppingGoodsKeepReqDto {
 
     @NotBlank
     @Schema(example = "1")
+    @Pattern(regexp = "\\d+")
     private String orderCount;
 }

@@ -54,6 +54,7 @@
              , b.goods_name as goodsName
              , b.goods_price as goodsPrice
              , a.order_count as orderCount
+             , CAST(b.goods_price * a.order_count AS UNSIGNED) as orderTotalPrice
           from user_cart a
      left join goods b
             on a.goods_id = b.goods_id

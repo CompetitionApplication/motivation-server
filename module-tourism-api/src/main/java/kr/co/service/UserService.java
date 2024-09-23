@@ -169,7 +169,7 @@ public class UserService {
 
         if(cartList.size() > 0){
             int sum = cartList.stream()
-                    .mapToInt(obj -> Integer.parseInt(obj.getGoodsPrice()))
+                    .mapToInt(obj -> Integer.parseInt(obj.getOrderTotalPrice()))
                     .sum();
             r.setTotalGoodsPrice(Integer.toString(sum));
 

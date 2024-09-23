@@ -2,6 +2,7 @@ package kr.co.controller.app;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import kr.co.common.ObjectResult;
 import kr.co.dto.app.common.ServiceUser;
 import kr.co.dto.app.shopping.request.ShoppingGoodsBuyReqDto;
@@ -38,7 +39,7 @@ public class ShoppingController {
 
     @Operation(summary = "장바구니", description = "쇼핑 장바구니 입니다.")
     @PostMapping(value = "/goods-keep")
-    public ResponseEntity<?> userCard(@RequestBody ShoppingGoodsKeepReqDto shoppingGoodsKeepReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
+    public ResponseEntity<?> userCard(@Valid @RequestBody ShoppingGoodsKeepReqDto shoppingGoodsKeepReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         shoppingService.userCart(shoppingGoodsKeepReqDto, serviceUser);
         return ObjectResult.ok();
     }

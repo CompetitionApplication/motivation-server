@@ -10,4 +10,5 @@ public class MyPageUserCartResDto {
     private String goodsName;
     private String goodsPrice;
     private String orderCount;
+    private String orderTotalPrice;
 }

@@ -55,15 +55,24 @@ public class ShoppingService {
     }
 
     public void userCart(ShoppingGoodsKeepReqDto shoppingGoodsKeepReqDto, ServiceUser serviceUser){
-        //장바구니 조회
-        UserCart userCart = shoppingMapper.selectUserCartByGoodsIdAndUserId(shoppingGoodsKeepReqDto.getGoodsId(), serviceUser.getUserId());
 
-        if(userCart == null){
-            //장바구니 담기
-            shoppingMapper.insertUserCart(shoppingGoodsKeepReqDto.getGoodsId(), shoppingGoodsKeepReqDto.getOrderCount(), serviceUser.getUserId());
+        //삭제
+        if("Y".equals(shoppingGoodsKeepReqDto.getDelYn())){
+            shoppingMapper.updateUserCart(shoppingGoodsKeepReqDto.getGoodsId(), serviceUser.getUserId(), "Y", null);
         }else {
-            //장바구니 담기 수정
-            shoppingMapper.updateUserCart(shoppingGoodsKeepReqDto.getGoodsId(), serviceUser.getUserId(), shoppingGoodsKeepReqDto.getDelYn());
+            //장바구니 조회
+            int userCartCnt = shoppingMapper.selectUserCartByGoodsIdAndUserId(shoppingGoodsKeepReqDto.getGoodsId(), serviceUser.getUserId());
+
+            //이미 장바구니에 담겨있는 항목 이라면 기존 항목 삭제 후 추가
+            if(userCartCnt > 0){
+                //장바구니 삭제
+                shoppingMapper.updateUserCart(shoppingGoodsKeepReqDto.getGoodsId(), serviceUser.getUserId(), "Y", null);
+                //장바구니 담기
+                shoppingMapper.insertUserCart(shoppingGoodsKeepReqDto.getGoodsId(), shoppingGoodsKeepReqDto.getOrderCount(), serviceUser.getUserId());
+            }else {
+                //장바구니 담기
+                shoppingMapper.insertUserCart(shoppingGoodsKeepReqDto.getGoodsId(), shoppingGoodsKeepReqDto.getOrderCount(), serviceUser.getUserId());
+            }
         }
     }
 
