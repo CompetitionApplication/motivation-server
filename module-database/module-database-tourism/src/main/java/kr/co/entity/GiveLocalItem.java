@@ -29,7 +29,7 @@ public class GiveLocalItem extends BaseTimeEntity {
 
     private String specialBadgeCodeName;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "badge_code")
     private BadgeCode badgeCode;
 
