@@ -4,6 +4,7 @@ import kr.co.auth.AdminLoginUser;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.UserAreaCodeResDto;
+import kr.co.dto.app.common.ServiceAdminUser;
 import kr.co.entity.AdminUser;
 import kr.co.repository.AdminUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,8 @@ public class UserAreaCodeService {
 
 
     @Transactional(readOnly = true)
-    public UserAreaCodeResDto getUserAreaCodeInfo(AdminLoginUser adminLoginUser) {
-        AdminUser adminUserInfo = adminUserRepository.findByAdminUserEmail(adminLoginUser.getAdminUser().getAdminUserEmail())
+    public UserAreaCodeResDto getUserAreaCodeInfo(ServiceAdminUser serviceAdminUser) {
+        AdminUser adminUserInfo = adminUserRepository.findByAdminUserEmail(serviceAdminUser.getUserEmail())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
 
         String areaCodeName = adminUserInfo.getDetailAreaCode().getAreaCode().getName();
