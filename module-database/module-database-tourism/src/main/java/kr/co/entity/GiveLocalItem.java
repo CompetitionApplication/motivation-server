@@ -27,6 +27,8 @@ public class GiveLocalItem extends BaseTimeEntity {
 
     private String giveLocalItemPrice;
 
+    private String specialBadgeCodeName;
+
     @OneToOne
     @JoinColumn(name = "badge_code")
     private BadgeCode badgeCode;
@@ -41,6 +43,7 @@ public class GiveLocalItem extends BaseTimeEntity {
     public GiveLocalItem(GiveLocalItemReqDto giveLocalItemReqDto, BadgeCode badgeCode, String regUserEmail) {
         this.giveLocalItemName = giveLocalItemReqDto.getGiveLocalItemName();
         this.giveLocalItemPrice = giveLocalItemReqDto.getGiveLocalItemPrice();
+        this.specialBadgeCodeName = giveLocalItemReqDto.getSpecialBadgeCodeName();
         this.regUserEmail = regUserEmail;
         this.badgeCode = badgeCode;
     }
@@ -48,6 +51,7 @@ public class GiveLocalItem extends BaseTimeEntity {
     public void updateGiveLocalItem(GiveLocalItemReqDto giveLocalItemReqDto, BadgeCode badgeCode) {
         this.giveLocalItemName = giveLocalItemReqDto.getGiveLocalItemName();
         this.giveLocalItemPrice = giveLocalItemReqDto.getGiveLocalItemPrice();
+        this.specialBadgeCodeName = giveLocalItemReqDto.getSpecialBadgeCodeName();
         this.badgeCode = badgeCode;
     }
 
