@@ -2,6 +2,7 @@ package kr.co.service.admin;
 
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
+import kr.co.dto.GiveLocalItemDetailResDto;
 import kr.co.dto.GiveLocalItemReqDto;
 import kr.co.dto.GiveLocalItemResDto;
 import kr.co.dto.app.common.ServiceAdminUser;
@@ -72,11 +73,11 @@ public class GiveLocalItemService {
     }
 
     @Transactional(readOnly = true)
-    public GiveLocalItemResDto getGiveLocalItemDetail(String giveLocalItemId) {
+    public GiveLocalItemDetailResDto getGiveLocalItemDetail(String giveLocalItemId) {
         GiveLocalItem giveLocalItem = giveLocalItemRepository.findById(giveLocalItemId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getCode(), CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getMessage()));
 
-        return GiveLocalItemResDto.builder()
+        return GiveLocalItemDetailResDto.builder()
                 .giveLocalItemName(giveLocalItem.getGiveLocalItemName())
                 .giveLocalItemPrice(giveLocalItem.getGiveLocalItemPrice())
                 .badgeCode(giveLocalItem.getBadgeCode().getBadgeCode())

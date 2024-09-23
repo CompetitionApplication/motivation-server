@@ -2,6 +2,7 @@ package kr.co.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.co.dto.GiveLocalItemDetailResDto;
 import kr.co.dto.GiveLocalItemReqDto;
 import kr.co.dto.GiveLocalItemResDto;
 import kr.co.dto.app.common.ServiceAdminUser;
@@ -34,7 +35,7 @@ public class GiveLocalItemController {
 
     @Operation(summary = "특산품 제공 상세 조회", description = "특산품 제공 상세 조회를 합니다.")
     @GetMapping("/list/{giveLocalItemId}")
-    public ResponseEntity<GiveLocalItemResDto> getGiveLocalItemDetail(@PathVariable(value = "giveLocalItemId") String giveLocalItemId) {
+    public ResponseEntity<GiveLocalItemDetailResDto> getGiveLocalItemDetail(@PathVariable(value = "giveLocalItemId") String giveLocalItemId) {
         return ResponseEntity.ok(giveLocalItemService.getGiveLocalItemDetail(giveLocalItemId));
     }
 
