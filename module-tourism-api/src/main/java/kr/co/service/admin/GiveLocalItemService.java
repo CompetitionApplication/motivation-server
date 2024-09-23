@@ -36,7 +36,7 @@ public class GiveLocalItemService {
         giveLocalItemRepository.save(new GiveLocalItem(giveLocalItemReqDto, badgeCode, serviceAdminUser.getUserEmail()));
     }
 
-
+    //test
     @Transactional(readOnly = true)
     public Page<GiveLocalItemResDto> getGiveLocalItemList(ServiceAdminUser serviceAdminUser,int page, int size) throws Exception {
         log.info("serviceAdminUser : {}", serviceAdminUser.getUserEmail());
