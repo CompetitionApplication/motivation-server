@@ -4,11 +4,13 @@ package kr.co.controller.admin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.dto.*;
+import kr.co.dto.app.common.ServiceAdminUser;
 import kr.co.service.admin.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,9 +39,9 @@ public class GoodsController {
 
 
     @Operation(summary = "굿즈 등록", description = "굿즈 등록을 합니다.")
-    @PostMapping(value = "",consumes = "multipart/form-data")
-    public ResponseEntity<?> uploadGoods(@ModelAttribute GoodsInsertDto goodsInsertDto) {
-        goodsService.uploadGoods(new GoodsUploadReqDto(goodsInsertDto));
+    @PostMapping(value = "", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadGoods(@ModelAttribute GoodsInsertDto goodsInsertDto, @AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
+        goodsService.uploadGoods(new GoodsUploadReqDto(goodsInsertDto), serviceAdminUser);
         return ResponseEntity.ok().build();
     }
 
@@ -60,8 +62,9 @@ public class GoodsController {
     @Operation(summary = "굿즈 수정", description = "굿즈 수정을 합니다.")
     @PutMapping(value = "/{goodsId}", consumes = "multipart/form-data")
     public ResponseEntity<?> updateGoods(@PathVariable(value = "goodsId") String goodsId,
-                                         @ModelAttribute GoodsUpdateDto goodsUpdateDto) {
-        goodsService.updateGoods(goodsId, new GoodsUpdateReqDto(goodsUpdateDto));
+                                         @ModelAttribute GoodsUpdateDto goodsUpdateDto,
+                                         @AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
+        goodsService.updateGoods(goodsId, new GoodsUpdateReqDto(goodsUpdateDto), serviceAdminUser);
         return ResponseEntity.ok().build();
     }
 }

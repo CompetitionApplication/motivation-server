@@ -3,6 +3,7 @@ package kr.co.service.admin;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.*;
+import kr.co.dto.app.common.ServiceAdminUser;
 import kr.co.entity.*;
 import kr.co.repository.*;
 import kr.co.util.FileUtil;
@@ -27,6 +28,7 @@ public class GoodsService {
 
     private final AreaCodeRepository areaCodeRepository;
     private final DetailAreaCodeRepository detailAreaCodeRepository;
+    private final AdminUserRepository adminUserRepository;
     @Value("${file.upload-dir}")
     private String uploadDir;
 
@@ -56,8 +58,13 @@ public class GoodsService {
     }
 
     @Transactional
-    public void uploadGoods(GoodsUploadReqDto goodsUploadReqDto) {
+    public void uploadGoods(GoodsUploadReqDto goodsUploadReqDto, ServiceAdminUser serviceAdminUser) {
+        AdminUser adminUser = adminUserRepository.findByAdminUserEmail(serviceAdminUser.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_ADMIN_USER.getCode(), CommonErrorCode.NOT_EXIST_ADMIN_USER.getMessage()));
+        goodsUploadReqDto.setAreaCodeId(adminUser.getDetailAreaCode().getAreaCode().getAreaCodeId());
+        goodsUploadReqDto.setDetailAreaCodeId(adminUser.getDetailAreaCode().getDetailAreaCodeId());
         List<MultipartFile> images = goodsUploadReqDto.getGoodsImages();
+
         if (images.isEmpty()) {
             throw new CommonException(CommonErrorCode.NOT_EXIST_FILE.getCode(), CommonErrorCode.NOT_EXIST_FILE.getMessage());
         }
@@ -87,7 +94,13 @@ public class GoodsService {
     }
 
     @Transactional
-    public void updateGoods(String goodsId, GoodsUpdateReqDto goodsUpdateReqDto) {
+    public void updateGoods(String goodsId, GoodsUpdateReqDto goodsUpdateReqDto, ServiceAdminUser serviceAdminUser) {
+
+        AdminUser adminUser = adminUserRepository.findByAdminUserEmail(serviceAdminUser.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_ADMIN_USER.getCode(), CommonErrorCode.NOT_EXIST_ADMIN_USER.getMessage()));
+        goodsUpdateReqDto.setAreaCodeId(adminUser.getDetailAreaCode().getAreaCode().getAreaCodeId());
+        goodsUpdateReqDto.setDetailAreaCodeId(adminUser.getDetailAreaCode().getDetailAreaCodeId());
+
         Goods goods = goodsRepository.findById(goodsId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GOODS.getCode(), CommonErrorCode.NOT_EXIST_GOODS.getMessage()));
 

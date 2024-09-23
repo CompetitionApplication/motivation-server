@@ -1,6 +1,7 @@
 package kr.co.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import kr.co.dto.app.common.ServiceAdminUser;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
