@@ -43,7 +43,7 @@ public class GoodsService {
                 .map(goods -> GoodsResDto.builder()
                         .goodsId(goods.getGoodsId())
                         .goodsName(goods.getGoodsName())
-                        .goodsPrice(goods.getGoodsPrice() + "원")
+                        .goodsPrice(goods.getGoodsPrice())
                         .goodsColor(goods.getGoodsColor())
                         .goodsSize(goods.getGoodsSize())
                         .goodsFrom(goods.getGoodsFrom())
