@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Data
-public class LocalItemUploadDataReqDto {
+public class LocalItemUploadDataDto {
 
     private String localItemName;
     private String localItemPrice;
@@ -15,7 +15,7 @@ public class LocalItemUploadDataReqDto {
     private List<MultipartFile> localItemImages;
 
 
-    public LocalItemUploadDataReqDto(LocalItemUploadDataReqDto localItemUploadDataReqDto) {
+    public LocalItemUploadDataDto(LocalItemUploadDataDto localItemUploadDataReqDto) {
         this.localItemName = localItemUploadDataReqDto.getLocalItemName();
         this.localItemPrice = localItemUploadDataReqDto.getLocalItemPrice();
         this.areaCodeId = localItemUploadDataReqDto.getAreaCodeId();
