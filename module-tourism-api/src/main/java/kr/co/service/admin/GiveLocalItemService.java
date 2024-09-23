@@ -79,7 +79,7 @@ public class GiveLocalItemService {
         return GiveLocalItemResDto.builder()
                 .giveLocalItemName(giveLocalItem.getGiveLocalItemName())
                 .giveLocalItemPrice(giveLocalItem.getGiveLocalItemPrice())
-                .badgeCodeName(giveLocalItem.getBadgeCode().getBadgeCodeType())
+                .badgeCodeName(giveLocalItem.getBadgeCode().getBadgeCode())
                 .build();
     }
 
