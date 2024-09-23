@@ -3,6 +3,7 @@ package kr.co.service.admin;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.*;
+import kr.co.dto.app.common.ServiceAdminUser;
 import kr.co.entity.*;
 import kr.co.repository.*;
 import kr.co.util.FileUtil;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class LocalItemService {
 
+    private final AdminUserRepository adminUserRepository;
     @Value("${file.upload-dir}")
     private String uploadDir;
 
@@ -41,7 +43,7 @@ public class LocalItemService {
                 .map(localItemDto -> LocalItemResDto.builder()
                         .localItemId(localItemDto.getLocalItemId())
                         .localItemName(localItemDto.getLocalItemName())
-                        .localItemPrice(localItemDto.getLocalItemPrice() + "원")
+                        .localItemPrice(localItemDto.getLocalItemPrice())
                         .areaCodeId(localItemDto.getAreaCode().getAreaCodeId())
                         .detailAreaCodeId(localItemDto.getDetailAreaCode().getDetailAreaCodeId())
                         .build())
@@ -56,7 +58,14 @@ public class LocalItemService {
         return new LocalItemDetailResDto(localItem);
     }
 
-    public void uploadLocalItem(LocalItemUploadReqDto localItemUploadReqDto) {
+    public void uploadLocalItem(LocalItemUploadReqDto localItemUploadReqDto, ServiceAdminUser serviceAdminUser) {
+        AdminUser adminUser = adminUserRepository.findByAdminUserEmail(serviceAdminUser.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ADMIN_USER.getCode(), CommonErrorCode.NOT_FOUND_ADMIN_USER.getMessage()));
+
+        localItemUploadReqDto.setAreaCodeId(adminUser.getDetailAreaCode().getAreaCode().getAreaCodeId());
+        localItemUploadReqDto.setDetailAreaCodeId(adminUser.getDetailAreaCode().getDetailAreaCodeId());
+
+
         List<MultipartFile> images = localItemUploadReqDto.getLocalItemImages();
         if (images.isEmpty()) {
             throw new CommonException(CommonErrorCode.NOT_EXIST_FILE.getCode(), CommonErrorCode.NOT_EXIST_FILE.getMessage());
@@ -76,7 +85,7 @@ public class LocalItemService {
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_DETAIL_AREA_CODE.getCode(), CommonErrorCode.NOT_FOUND_DETAIL_AREA_CODE.getMessage()));
 
         //특산품 정보 저장
-        localItemRepository.save(new LocalItem(localItemUploadReqDto,areaCode,detailAreaCode, fileGroup));
+        localItemRepository.save(new LocalItem(localItemUploadReqDto, areaCode, detailAreaCode, fileGroup));
     }
 
     @Transactional
@@ -87,7 +96,13 @@ public class LocalItemService {
     }
 
     @Transactional
-    public void updateLocalItem(String localItemId, LocalItemUpdateReqDto localItemUpdateReqDto) {
+    public void updateLocalItem(String localItemId, LocalItemUpdateReqDto localItemUpdateReqDto, ServiceAdminUser serviceAdminUser) {
+        AdminUser adminUser = adminUserRepository.findByAdminUserEmail(serviceAdminUser.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ADMIN_USER.getCode(), CommonErrorCode.NOT_FOUND_ADMIN_USER.getMessage()));
+
+        localItemUpdateReqDto.setAreaCodeId(adminUser.getDetailAreaCode().getAreaCode().getAreaCodeId());
+        localItemUpdateReqDto.setDetailAreaCodeId(adminUser.getDetailAreaCode().getDetailAreaCodeId());
+
         LocalItem localItem = localItemRepository.findById(localItemId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_LOCAL_ITEM.getCode(), CommonErrorCode.NOT_FOUND_LOCAL_ITEM.getMessage()));
 

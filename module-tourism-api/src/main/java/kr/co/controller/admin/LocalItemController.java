@@ -6,11 +6,13 @@ import kr.co.dto.LocalItemDetailResDto;
 import kr.co.dto.LocalItemResDto;
 import kr.co.dto.LocalItemUpdateReqDto;
 import kr.co.dto.LocalItemUploadReqDto;
+import kr.co.dto.app.common.ServiceAdminUser;
 import kr.co.service.admin.LocalItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,16 +42,17 @@ public class LocalItemController {
 
     @Operation(summary = "특산품 등록", description = "특산품 등록 합니다")
     @PostMapping(value = "",consumes = "multipart/form-data")
-    public ResponseEntity<?> uploadLocalItem(@ModelAttribute LocalItemUploadReqDto localItemUploadReqDto) {
-        localItemService.uploadLocalItem(new LocalItemUploadReqDto(localItemUploadReqDto));
+    public ResponseEntity<?> uploadLocalItem(@ModelAttribute LocalItemUploadReqDto localItemUploadReqDto, @AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
+        localItemService.uploadLocalItem(new LocalItemUploadReqDto(localItemUploadReqDto),serviceAdminUser);
         return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "특산품 수정", description = "특산품 수정을 합니다.")
     @PutMapping(value = "/{localItemId}",consumes = "multipart/form-data")
     public ResponseEntity<?> updateLocalItem(@PathVariable(value = "localItemId") String localItemId,
-                                             @ModelAttribute LocalItemUpdateReqDto localItemUpdateReqDto){
-        localItemService.updateLocalItem(localItemId, new LocalItemUpdateReqDto(localItemUpdateReqDto));
+                                             @ModelAttribute LocalItemUpdateReqDto localItemUpdateReqDto,
+                                             @AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
+        localItemService.updateLocalItem(localItemId, new LocalItemUpdateReqDto(localItemUpdateReqDto),serviceAdminUser);
         return ResponseEntity.ok().build();
     }
 
