@@ -52,7 +52,7 @@ public class LocalItemController {
     public ResponseEntity<?> updateLocalItem(@PathVariable(value = "localItemId") String localItemId,
                                              @ModelAttribute LocalItemUpdateReqDto localItemUpdateReqDto,
                                              @AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
-        localItemService.updateLocalItem(localItemId, new LocalItemUpdateReqDto(localItemUpdateReqDto),serviceAdminUser);
+        localItemService.updateLocalItem(localItemId, localItemUpdateReqDto,serviceAdminUser);
         return ResponseEntity.ok().build();
     }
 

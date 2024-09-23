@@ -14,11 +14,4 @@ public class LocalItemUpdateReqDto {
     private String detailAreaCodeId;
     private List<MultipartFile> localItemImages;
 
-
-    public LocalItemUpdateReqDto(LocalItemUpdateReqDto localItemUploadReqDto) {
-        this.localItemName = localItemUploadReqDto.getLocalItemName();
-        this.localItemPrice = localItemUploadReqDto.getLocalItemPrice();
-        this.areaCodeId = localItemUploadReqDto.getAreaCodeId();
-        this.detailAreaCodeId = localItemUploadReqDto.getDetailAreaCodeId();
-    }
 }
