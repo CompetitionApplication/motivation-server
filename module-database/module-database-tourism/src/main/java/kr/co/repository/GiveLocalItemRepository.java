@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface GiveLocalItemRepository extends JpaRepository<GiveLocalItem,String> {
-    Page<GiveLocalItem> findAllByRegUserEmail(PageRequest regDatetime, String regUserEmail);
+
+    Page<GiveLocalItem> findAllByRegUserEmailAndDelYnFalse(PageRequest regDatetime, String userEmail);
 }

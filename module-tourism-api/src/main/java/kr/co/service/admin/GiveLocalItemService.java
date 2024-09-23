@@ -41,7 +41,7 @@ public class GiveLocalItemService {
     @Transactional(readOnly = true)
     public Page<GiveLocalItemResDto> getGiveLocalItemList(ServiceAdminUser serviceAdminUser,int page, int size) throws Exception {
         log.info("serviceAdminUser : {}", serviceAdminUser.getUserEmail());
-        Page<GiveLocalItem> giveLocalItems = giveLocalItemRepository.findAllByRegUserEmail(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")), serviceAdminUser.getUserEmail());
+        Page<GiveLocalItem> giveLocalItems = giveLocalItemRepository.findAllByRegUserEmailAndDelYnFalse(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")), serviceAdminUser.getUserEmail());
         List<GiveLocalItemResDto> giveLocalItemResDtos = giveLocalItems.stream()
                 .map(giveLocalItem -> GiveLocalItemResDto.builder()
                         .giveLocalItemId(giveLocalItem.getGiveLocalItemId())
