@@ -73,8 +73,8 @@ public class TourIsmController {
 
     @Operation(summary = "관광지 등록", description = "관광지 등록을 합니다.")
     @PostMapping(value = "", consumes = "multipart/form-data")
-    public ResponseEntity<?> uploadGoods(@ModelAttribute TourismInsertDto tourismInsertDto,@AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
-        tourismService.uploadTourPlace(new TourismUploadReqDto(tourismInsertDto),serviceAdminUser);
+    public ResponseEntity<?> uploadGoods(@ModelAttribute TourismInsertDto tourismInsertDto, @AuthenticationPrincipal ServiceAdminUser serviceAdminUser) {
+        tourismService.uploadTourPlace(new TourismUploadReqDto(tourismInsertDto), serviceAdminUser);
         return ResponseEntity.ok().build();
     }
 
@@ -83,7 +83,7 @@ public class TourIsmController {
     public ResponseEntity<?> updateGoods(@PathVariable(value = "tourismApiId") String tourismApiId,
                                          @AuthenticationPrincipal ServiceAdminUser serviceAdminUser,
                                          @ModelAttribute TourismUpdateDto tourismUpdateDto) {
-        tourismService.updateTourism(tourismApiId, new TourismUpdateReqDto(tourismUpdateDto),serviceAdminUser);
+        tourismService.updateTourism(tourismApiId, new TourismUpdateReqDto(tourismUpdateDto), serviceAdminUser);
         return ResponseEntity.ok().build();
     }
 

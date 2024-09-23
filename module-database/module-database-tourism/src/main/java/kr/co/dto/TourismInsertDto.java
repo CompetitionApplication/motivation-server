@@ -11,8 +11,6 @@ public class TourismInsertDto {
     private String tourismAddress;
     private String tourismLink;
     private String tourismContact;
-    private String areaCodeId;
-    private String detailAreaCodeId;
     private String tourismMapX;
     private String tourismMapY;
     private String badgeCode;

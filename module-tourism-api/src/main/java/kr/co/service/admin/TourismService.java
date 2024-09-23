@@ -110,11 +110,11 @@ public class TourismService {
 
     @Transactional
     public void uploadTourPlace(TourismUploadReqDto tourismUploadReqDto,ServiceAdminUser serviceAdminUser) {
+        log.info("tourismUploadReqDto : {}", tourismUploadReqDto);
         List<MultipartFile> images = tourismUploadReqDto.getTourismImages();
         if (images.isEmpty()) {
             throw new CommonException(CommonErrorCode.NOT_EXIST_FILE.getCode(), CommonErrorCode.NOT_EXIST_FILE.getMessage());
         }
-
         //파일 업로드, 파일 그룹 저장
         FileGroup fileGroup = fileGroupRepository.save(new FileGroup(false));
         List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(images, uploadDir);
