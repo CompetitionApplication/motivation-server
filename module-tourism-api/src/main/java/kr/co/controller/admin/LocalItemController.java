@@ -35,8 +35,8 @@ public class LocalItemController {
     }
 
     @Operation(summary = "특산품 목록 상세 조회", description = "특산품 목록 상세 조회를 합니다.")
-    @GetMapping("/list/{localSpecialtyId}")
-    public ResponseEntity<LocalItemDetailResDto> getLocalItemDetail(@PathVariable(value = "localSpecialtyId") String localItemId) {
+    @GetMapping("/list/{localItemId}")
+    public ResponseEntity<LocalItemDetailResDto> getLocalItemDetail(@PathVariable(value = "localItemId") String localItemId) {
         return ResponseEntity.ok(localItemService.getLocalItemDetail(localItemId));
     }
 

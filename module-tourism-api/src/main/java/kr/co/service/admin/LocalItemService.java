@@ -51,8 +51,8 @@ public class LocalItemService {
         return new PageImpl<>(localItemResDtos, localSpecialties.getPageable(), localSpecialties.getTotalElements());
     }
 
-    public LocalItemDetailResDto getLocalItemDetail(String localSpecialtyId) {
-        LocalItem localItem = localItemRepository.findById(localSpecialtyId)
+    public LocalItemDetailResDto getLocalItemDetail(String localItemId) {
+        LocalItem localItem = localItemRepository.findById(localItemId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_LOCAL_SPECIALTY.getCode(), CommonErrorCode.NOT_FOUND_LOCAL_SPECIALTY.getMessage()));
 
         return new LocalItemDetailResDto(localItem);
