@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class LocalItemUploadDataDto {
-
+//test
     private String localItemName;
     private String localItemPrice;
     private String areaCodeId;
