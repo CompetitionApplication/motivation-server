@@ -62,6 +62,7 @@ public class User extends BaseTimeEntity {
     }
 
     public void withdrawUser() {
+        this.userEmail = "";
         this.delYn = true;
     }
 }
