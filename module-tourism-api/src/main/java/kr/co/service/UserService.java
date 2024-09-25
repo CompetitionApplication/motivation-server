@@ -68,7 +68,7 @@ public class UserService {
             //::: 결과값 반환 :::
             return new LoginResDto(accessToken, refreshTokenInfo.getRefreshTokenId());
         }
-        throw new CommonException(CommonErrorCode.WITHDRAW_USER.getCode(), CommonErrorCode.WITHDRAW_USER.getMessage());
+        throw new CommonException(CommonErrorCode.NOT_EXIST_USER.getCode(), CommonErrorCode.NOT_EXIST_USER.getMessage());
     }
 
     @Transactional

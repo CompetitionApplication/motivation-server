@@ -74,7 +74,8 @@ public enum CommonErrorCode {
     NOT_FOUND_ADMIN_USER("D025","관리자를 찾을 수 없습니다."),
     ERROR_QR("D026","QR코드가 유효하지 않습니다."),
     NOT_EXIST_ADMIN_USER("D027","관리자가 존재하지 않습니다."),
-    WITHDRAW_USER("D028","탈퇴한 사용자입니다.");
+    WITHDRAW_USER("D028","탈퇴한 사용자입니다."),
+    NOT_EXIST_USER("D029","사용자가 존재하지 않습니다.");
 
 
     private final String code;
