@@ -33,28 +33,17 @@ public class HomeService {
         r.setBadgeCnt(Integer.toString(badgeCnt));
 
         //추천활동지 조회
-        List<TourismApi> tourismApiList = tourismMapper.selectTourismApi(homeMainReqDto);
+        List<TourDto> tourismApiList = tourismMapper.selectTourismApi(homeMainReqDto);
 
         //랜덤 5개 추출
         Collections.shuffle(tourismApiList);
-        List<TourismApi> randomTourismApiList = tourismApiList.subList(0, 5);
+        List<TourDto> randomTourismApiList = tourismApiList.subList(0, 5);
 
         //엔티티 dto 변환
-        List<TourDto> tourSuggestionList = new ArrayList<>();
-        for(TourismApi data : randomTourismApiList){
-            TourDto tourDto = new TourDto();
-            tourDto.setTourName(data.getTitle());
-            String img = data.getFirstimage();
-            if(StringUtils.isEmpty(img)){
-                img = "http://api.badgechallenge.kro.kr/api/v1/common/file/9070ff85-9166-4e64-8c54-b73724d6a6be";
-            }
-            tourDto.setFileUrl(img);
-            tourSuggestionList.add(tourDto);
-        }
-        r.setSuggestionList(tourSuggestionList);
+        r.setSuggestionList(randomTourismApiList);
 
         //활동지 top15
-        List<TourismApi> tourismApiForTopRankList = tourismMapper.selectTourismApiForTopRank();
+        List<TourDto> tourismApiForTopRankList = tourismMapper.selectTourismApiForTopRank();
 
         //top 15 없다면 랜덤 15개
         if(tourismApiForTopRankList.size() == 0){
@@ -66,14 +55,7 @@ public class HomeService {
         }
 
         //엔티티 dto 변환
-        List<TourDto> tourTopList = new ArrayList<>();
-        for(TourismApi data : tourismApiForTopRankList){
-            TourDto tourDto = new TourDto();
-            tourDto.setTourName(data.getTitle());
-            tourDto.setFileUrl(data.getFirstimage());
-            tourTopList.add(tourDto);
-        }
-        r.setTourTopList(tourTopList);
+        r.setTourTopList(tourismApiForTopRankList);
 
         //굿즈 리스트
         List<OpenGoodsResDto> goodsList = homeMapper.selectGoodsListForOpenYn(serviceUser.getUserId(),homeMainReqDto.getLanguage());

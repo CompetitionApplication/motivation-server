@@ -96,12 +96,14 @@
                   , schedule_date
                   , tourism_api_id
                   , user_id
+                  , reg_datetime
           ) values (
                      UUID()
                   , 'N'
                   , #{scheduleDate}
                   , #{tourismApiId}
                   , #{userId}
+                  , now()
           )
     </insert>
 
