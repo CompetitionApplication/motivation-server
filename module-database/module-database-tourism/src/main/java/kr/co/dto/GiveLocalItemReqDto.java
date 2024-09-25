@@ -6,6 +6,5 @@ import lombok.Data;
 public class GiveLocalItemReqDto {
     private String giveLocalItemName;
     private String giveLocalItemPrice;
-    private String badgeCode;
     private String specialBadgeCodeName;
 }

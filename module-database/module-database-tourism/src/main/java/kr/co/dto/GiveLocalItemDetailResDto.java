@@ -9,5 +9,5 @@ public class GiveLocalItemDetailResDto {
     private String giveLocalItemId;
     private String giveLocalItemName;
     private String giveLocalItemPrice;
-    private String badgeCode;
+    private String specialBadgeCodeName;
 }

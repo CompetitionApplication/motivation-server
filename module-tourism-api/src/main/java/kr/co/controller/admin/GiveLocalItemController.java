@@ -67,5 +67,9 @@ public class GiveLocalItemController {
         giveLocalItemService.deleteMultiLocalItem(giveLocalItemIds);
         return ResponseEntity.ok().build();
     }
-
+    @Operation(summary = "특산품 제공 명 검색 API", description = "특산품 명 검색 API")
+    @GetMapping("/give-local-item-name")
+    public ResponseEntity<?> getGiveLocalItemName() {
+        return ResponseEntity.ok(giveLocalItemService.getGiveLocalItemName());
+    }
 }

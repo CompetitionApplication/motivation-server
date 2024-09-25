@@ -3,6 +3,7 @@ package kr.co.service.admin;
 import kr.co.common.CommonErrorCode;
 import kr.co.common.CommonException;
 import kr.co.dto.GiveLocalItemDetailResDto;
+import kr.co.dto.GiveLocalItemNameResDto;
 import kr.co.dto.GiveLocalItemReqDto;
 import kr.co.dto.GiveLocalItemResDto;
 import kr.co.dto.app.common.ServiceAdminUser;
@@ -32,7 +33,7 @@ public class GiveLocalItemService {
 
     @Transactional
     public void saveLocalItem(GiveLocalItemReqDto giveLocalItemReqDto, ServiceAdminUser serviceAdminUser) {
-        BadgeCode badgeCode = badgeCodeRepository.findById(giveLocalItemReqDto.getBadgeCode())
+        BadgeCode badgeCode = badgeCodeRepository.findById("99")
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
         giveLocalItemRepository.save(new GiveLocalItem(giveLocalItemReqDto, badgeCode, serviceAdminUser.getUserEmail()));
     }
@@ -58,7 +59,7 @@ public class GiveLocalItemService {
         GiveLocalItem giveLocalItem = giveLocalItemRepository.findById(giveLocalItemId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getCode(), CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getMessage()));
 
-        BadgeCode badgeCode = badgeCodeRepository.findById(giveLocalItemReqDto.getBadgeCode())
+        BadgeCode badgeCode = badgeCodeRepository.findById("99")
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
 
         giveLocalItem.updateGiveLocalItem(giveLocalItemReqDto, badgeCode);
@@ -80,7 +81,7 @@ public class GiveLocalItemService {
         return GiveLocalItemDetailResDto.builder()
                 .giveLocalItemName(giveLocalItem.getGiveLocalItemName())
                 .giveLocalItemPrice(giveLocalItem.getGiveLocalItemPrice())
-                .badgeCode(giveLocalItem.getBadgeCode().getBadgeCode())
+                .specialBadgeCodeName(giveLocalItem.getSpecialBadgeCodeName())
                 .build();
     }
 
@@ -88,5 +89,14 @@ public class GiveLocalItemService {
     public void deleteMultiLocalItem(List<String> giveLocalItemIds) {
         giveLocalItemIds.forEach(this::deleteGiveLocalItem);
 
+    }
+
+    @Transactional(readOnly = true)
+    public List<GiveLocalItemNameResDto> getGiveLocalItemName() {
+        return giveLocalItemRepository.findAllByDelYnFalse().stream()
+                .map(giveLocalItem -> GiveLocalItemNameResDto.builder()
+                        .giveLocalItemName(giveLocalItem.getGiveLocalItemName())
+                        .build())
+                .collect(Collectors.toList());
     }
 }
