@@ -75,8 +75,8 @@ public class UserService {
     public void join(SignUpReqDto signUpReqDto) throws Exception {
 
         //:::이미 가입된 유저인지 확인:::
-        User userInfo = userRepository.findByUserEmailAndDelYnFalse(signUpReqDto.getUserEmail()).orElse(null);
-
+        User userInfo = userRepository.findByUserEmailAndDelYnFalse(AES256Cipher.encrypt(signUpReqDto.getUserEmail())).orElse(null);
+        log.info("userInfo : {}", userInfo);
         if(userInfo == null){
             //:::유저정보저장:::
             User user = userRepository.save(new User(signUpReqDto));
