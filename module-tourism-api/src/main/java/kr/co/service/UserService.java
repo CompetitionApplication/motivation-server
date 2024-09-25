@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -74,20 +75,24 @@ public class UserService {
     public void join(SignUpReqDto signUpReqDto) throws Exception {
 
         //:::이미 가입된 유저인지 확인:::
-        userRepository.findByUserEmailAndDelYnFalse(signUpReqDto.getUserEmail())
-                .orElseThrow(() -> new CommonException(CommonErrorCode.ALREADY_EXIST_USER.getCode(), CommonErrorCode.ALREADY_EXIST_USER.getMessage()));
+        User userInfo = userRepository.findByUserEmailAndDelYnFalse(signUpReqDto.getUserEmail()).orElse(null);
 
-        //:::유저정보저장:::
-        User user = userRepository.save(new User(signUpReqDto));
+        if(userInfo != null){
+            //:::유저정보저장:::
+            User user = userRepository.save(new User(signUpReqDto));
 
-        //:::취미저장:::
-        signUpReqDto.getTripStyles().forEach(tripStyle -> {
-            tripStyleRepository.save(new TripStyle(tripStyle, user));
-        });
-        //:::여행스타일저장:::
-        signUpReqDto.getHobbyNames().forEach(hobbyName -> {
-            hobbyRepository.save(new Hobby(hobbyName, user));
-        });
+            //:::취미저장:::
+            signUpReqDto.getTripStyles().forEach(tripStyle -> {
+                tripStyleRepository.save(new TripStyle(tripStyle, user));
+            });
+            //:::여행스타일저장:::
+            signUpReqDto.getHobbyNames().forEach(hobbyName -> {
+                hobbyRepository.save(new Hobby(hobbyName, user));
+            });
+        }else{
+            throw new CommonException(CommonErrorCode.ALREADY_EXIST_USER.getCode(), CommonErrorCode.ALREADY_EXIST_USER.getMessage());
+        }
+
     }
 
     @Transactional(readOnly = true)
