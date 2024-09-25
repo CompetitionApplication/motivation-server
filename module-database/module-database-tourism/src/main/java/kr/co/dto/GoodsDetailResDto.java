@@ -38,7 +38,7 @@ public class GoodsDetailResDto {
     public GoodsDetailResDto(Goods goods, List<String> goodsImages) {
         this.goodsId = goods.getGoodsId();
         this.goodsName = goods.getGoodsName();
-        this.goodsPrice = goods.getGoodsPrice() + "원";
+        this.goodsPrice = goods.getGoodsPrice();
         this.goodsColor = goods.getGoodsColor();
         this.goodsSize = goods.getGoodsSize();
         this.goodsFrom = goods.getGoodsFrom();
