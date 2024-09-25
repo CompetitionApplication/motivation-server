@@ -68,7 +68,7 @@ public class UserService {
             //::: 결과값 반환 :::
             return new LoginResDto(accessToken, refreshTokenInfo.getRefreshTokenId());
         }
-        return null;
+        return new LoginResDto("","");
     }
 
     @Transactional
