@@ -25,6 +25,7 @@ public class QrController {
     @PostMapping("")
     public ResponseEntity<?> receiveQrData(@RequestBody QrReqDto qrReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         qrService.receiveQrData(qrReqDto, serviceUser);
+        //test
         return ResponseEntity.ok().build();
     }
 }
