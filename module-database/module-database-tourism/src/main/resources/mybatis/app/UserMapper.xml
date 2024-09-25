@@ -17,7 +17,10 @@
              , b.goods_id as goodsId
              , b.goods_name as goodsName
              , a.order_price as goodsPrice
-             , a.order_status as orderStatus
+             , case when a.order_status = '01' then '결제완료'
+                    when a.order_status = '02' then '배송중'
+                    when a.order_status = '03' then '배송완료'
+                end as orderStatus
              , a.reg_datetime as goodsBuyDate
           from order_item a
      left join goods b
