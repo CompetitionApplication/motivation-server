@@ -18,9 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,11 +44,11 @@ public class UserService {
     public LoginResDto login(LoginReqDto loginReqDto) throws Exception {
 
         //:::기존에 정보가 있는 유저인지 확인:::
-        boolean userInfoCheck = userRepository.existsByUserEmail(AES256Cipher.encrypt(loginReqDto.getUserEmail()));
+        boolean userInfoCheck = userRepository.existsByUserEmailAndDelYnFalse(AES256Cipher.encrypt(loginReqDto.getUserEmail()));
 
         if (userInfoCheck) {
             //:::기존 회원:::
-            User userInfo = userRepository.findByUserEmail(AES256Cipher.encrypt(loginReqDto.getUserEmail()))
+            User userInfo = userRepository.findByUserEmailAndDelYnFalse(AES256Cipher.encrypt(loginReqDto.getUserEmail()))
                     .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
 
             //:::엑세스 토큰 발급 , 리프레시 토큰 발급:::
@@ -76,7 +74,7 @@ public class UserService {
     public void join(SignUpReqDto signUpReqDto) throws Exception {
 
         //:::이미 가입된 유저인지 확인:::
-        userRepository.findByUserEmail(signUpReqDto.getUserEmail())
+        userRepository.findByUserEmailAndDelYnFalse(signUpReqDto.getUserEmail())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.ALREADY_EXIST_USER.getCode(), CommonErrorCode.ALREADY_EXIST_USER.getMessage()));
 
         //:::유저정보저장:::
@@ -95,7 +93,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserMyPageResDto myPage(ServiceUser serviceUser) {
         //유저정보 조회
-        User userInfo = userRepository.findByUserEmail(serviceUser.getUserEmail())
+        User userInfo = userRepository.findByUserEmailAndDelYnFalse(serviceUser.getUserEmail())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
 
         //해당 계정의 얻은 뱃지개수 추출
@@ -127,7 +125,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<UserBadgeResDto> badges(ServiceUser serviceUser) {
-        User userInfo = userRepository.findByUserEmail(serviceUser.getUserEmail())
+        User userInfo = userRepository.findByUserEmailAndDelYnFalse(serviceUser.getUserEmail())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
         List<UserBadge> userBadges = userBadgeRepository.findByUser(userInfo);
 
@@ -140,7 +138,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<TourismFavoriteResDto> favorites(ServiceUser serviceUser) {
-        User userInfo = userRepository.findByUserEmail(serviceUser.getUserEmail())
+        User userInfo = userRepository.findByUserEmailAndDelYnFalse(serviceUser.getUserEmail())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
         return tourismFavoriteRepository.findAllByUser(userInfo).stream().map(tourismFavorite -> TourismFavoriteResDto.builder()
                 .tourismId(tourismFavorite.getTourismApi().getTourismApiId())
@@ -151,7 +149,7 @@ public class UserService {
 
     @Transactional
     public void withdraw(ServiceUser serviceUser) {
-        User userInfo = userRepository.findByUserEmail(serviceUser.getUserEmail())
+        User userInfo = userRepository.findByUserEmailAndDelYnFalse(serviceUser.getUserEmail())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
         userInfo.withdrawUser();
     }
