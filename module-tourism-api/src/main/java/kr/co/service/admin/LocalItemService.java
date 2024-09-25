@@ -29,6 +29,8 @@ public class LocalItemService {
     private final AdminUserRepository adminUserRepository;
     @Value("${file.upload-dir}")
     private String uploadDir;
+    @Value("${file.base-url}")
+    private String baseUrl;
 
     private final LocalItemRepository localItemRepository;
     private final FileGroupRepository fileGroupRepository;
@@ -73,10 +75,23 @@ public class LocalItemService {
 
         //파일 업로드, 파일 그룹 저장
         FileGroup fileGroup = fileGroupRepository.save(new FileGroup(false));
-        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(images, uploadDir);
-        fileRepository.saveAll(fileSaveDtos.stream()
+        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(images, uploadDir, baseUrl);
+        List<File> savedFiles = fileRepository.saveAll(
+                fileSaveDtos.stream()
+                        .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
+                        .collect(Collectors.toList())
+        );
+
+        savedFiles.forEach(file -> {
+            String fileUrl = file.getFileUrl() + file.getFileId();
+            file.saveFileUrl(fileUrl);
+        });
+
+        // 3. 다시 업데이트 (한 번에 saveAll로 업데이트 가능)
+        fileRepository.saveAll(savedFiles);
+        /*fileRepository.saveAll(fileSaveDtos.stream()
                 .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()));*/
 
         AreaCode areaCode = areaCodeRepository.findById(localItemUploadDataDto.getAreaCodeId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_AREA_CODE.getCode(), CommonErrorCode.NOT_FOUND_AREA_CODE.getMessage()));
@@ -113,10 +128,23 @@ public class LocalItemService {
 
         //파일 업로드, 파일 그룹 저장
         FileGroup fileGroup = fileGroupRepository.save(new FileGroup(false));
-        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(images, uploadDir);
-        fileRepository.saveAll(fileSaveDtos.stream()
+        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(images, uploadDir, baseUrl);
+        List<File> savedFiles = fileRepository.saveAll(
+                fileSaveDtos.stream()
+                        .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
+                        .collect(Collectors.toList())
+        );
+
+        savedFiles.forEach(file -> {
+            String fileUrl = file.getFileUrl() + file.getFileId();
+            file.saveFileUrl(fileUrl);
+        });
+
+        // 3. 다시 업데이트 (한 번에 saveAll로 업데이트 가능)
+        fileRepository.saveAll(savedFiles);
+        /*fileRepository.saveAll(fileSaveDtos.stream()
                 .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()));*/
 
         AreaCode areaCode = areaCodeRepository.findById(localItemUpdateReqDto.getAreaCodeId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_AREA_CODE.getCode(), CommonErrorCode.NOT_FOUND_AREA_CODE.getMessage()));

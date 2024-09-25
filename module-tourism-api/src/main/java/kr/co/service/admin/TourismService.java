@@ -31,6 +31,9 @@ public class TourismService {
     @Value("${file.upload-dir}")
     private String uploadDir;
 
+    @Value("${file.base-url}")
+    private String baseUrl;
+
     private final FileRepository fileRepository;
     private final FileGroupRepository fileGroupRepository;
     private final TourismApiRepository tourismApiRepository;
@@ -46,7 +49,7 @@ public class TourismService {
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ADMIN_USER.getCode(), CommonErrorCode.NOT_FOUND_ADMIN_USER.getMessage()));
 
 
-        List<TourismApi> tourismApis = tourismApiRepository.findAllByDelYnFalseAndCountryAndAreacode("KOR",adminUser.getDetailAreaCode().getAreaCode().getCode());
+        List<TourismApi> tourismApis = tourismApiRepository.findAllByDelYnFalseAndCountryAndAreacode("KOR", adminUser.getDetailAreaCode().getAreaCode().getCode());
 
         // 외부 API 데이터를 DTO로 변환하여 추가
         List<TourPlaceResDto> tourismApiDtos = tourismApis.stream()
@@ -92,7 +95,7 @@ public class TourismService {
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_TOUR_PLACE.getCode(), CommonErrorCode.NOT_FOUND_TOUR_PLACE.getMessage()));
 
         List<String> tourismImages = new ArrayList<>();
-        if(tourismApi.getFileGroup() != null) {
+        if (tourismApi.getFileGroup() != null) {
             tourismImages = tourismApi.getFileGroup().getFiles().stream()
                     .map(file -> file.getFilePath())
                     .collect(Collectors.toList());
@@ -109,7 +112,7 @@ public class TourismService {
     }
 
     @Transactional
-    public void uploadTourPlace(TourismUploadReqDto tourismUploadReqDto,ServiceAdminUser serviceAdminUser) {
+    public void uploadTourPlace(TourismUploadReqDto tourismUploadReqDto, ServiceAdminUser serviceAdminUser) {
         log.info("tourismUploadReqDto : {}", tourismUploadReqDto);
         List<MultipartFile> images = tourismUploadReqDto.getTourismImages();
         if (images.isEmpty()) {
@@ -117,10 +120,23 @@ public class TourismService {
         }
         //파일 업로드, 파일 그룹 저장
         FileGroup fileGroup = fileGroupRepository.save(new FileGroup(false));
-        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(images, uploadDir);
-        fileRepository.saveAll(fileSaveDtos.stream()
+        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(images, uploadDir, baseUrl);
+        List<File> savedFiles = fileRepository.saveAll(
+                fileSaveDtos.stream()
+                        .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
+                        .collect(Collectors.toList())
+        );
+
+        savedFiles.forEach(file -> {
+            String fileUrl = file.getFileUrl() + file.getFileId();
+            file.saveFileUrl(fileUrl);
+        });
+
+        // 3. 다시 업데이트 (한 번에 saveAll로 업데이트 가능)
+        fileRepository.saveAll(savedFiles);
+        /*fileRepository.saveAll(fileSaveDtos.stream()
                 .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()));*/
 
         BadgeCode badgeCode = badgeCodeRepository.findById(tourismUploadReqDto.getBadgeCode())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
@@ -131,7 +147,7 @@ public class TourismService {
         String areaCode = adminUser.getDetailAreaCode().getAreaCode().getCode();
         String detailCode = adminUser.getDetailAreaCode().getCode();
         //관광지 정보 저장
-        tourismApiRepository.save(new TourismApi(tourismUploadReqDto, fileGroup, badgeCode,areaCode,detailCode));
+        tourismApiRepository.save(new TourismApi(tourismUploadReqDto, fileGroup, badgeCode, areaCode, detailCode));
     }
 
     @Transactional
@@ -145,10 +161,24 @@ public class TourismService {
         fileGroup.deleteFileGroup(true);
         //파일 업로드, 파일 그룹 저장
         FileGroup newFileGroup = fileGroupRepository.save(new FileGroup(false));
-        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(tourismUpdateReqDto.getTourismImages(), uploadDir);
-        fileRepository.saveAll(fileSaveDtos.stream()
+        List<FileSaveDto> fileSaveDtos = FileUtil.uploadFile(tourismUpdateReqDto.getTourismImages(), uploadDir, baseUrl);
+        List<File> savedFiles = fileRepository.saveAll(
+                fileSaveDtos.stream()
+                        .map(fileSaveDto -> new File(fileSaveDto, fileGroup))
+                        .collect(Collectors.toList())
+        );
+
+        savedFiles.forEach(file -> {
+            String fileUrl = file.getFileUrl() + file.getFileId();
+            file.saveFileUrl(fileUrl);
+        });
+
+        // 3. 다시 업데이트 (한 번에 saveAll로 업데이트 가능)
+        fileRepository.saveAll(savedFiles);
+
+/*        fileRepository.saveAll(fileSaveDtos.stream()
                 .map(fileSaveDto -> new File(fileSaveDto, newFileGroup))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()));*/
 
         BadgeCode badgeCode = badgeCodeRepository.findById(tourismUpdateReqDto.getBadgeCode())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
@@ -157,7 +187,7 @@ public class TourismService {
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ADMIN_USER.getCode(), CommonErrorCode.NOT_FOUND_ADMIN_USER.getMessage()));
 
         //관광지 정보 수정
-        tourismApi.updateTourPlace(tourismUpdateReqDto, newFileGroup,badgeCode,adminUser.getDetailAreaCode().getCode(),adminUser.getDetailAreaCode().getAreaCode().getCode());
+        tourismApi.updateTourPlace(tourismUpdateReqDto, newFileGroup, badgeCode, adminUser.getDetailAreaCode().getCode(), adminUser.getDetailAreaCode().getAreaCode().getCode());
     }
 
     @Transactional

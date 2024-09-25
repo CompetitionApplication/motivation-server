@@ -11,4 +11,5 @@ public class FileSaveDto {
     private String fileType;
     private long fileSize;
     private String filePath;
+    private String fileUrl;
 }

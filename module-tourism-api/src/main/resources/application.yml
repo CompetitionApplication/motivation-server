@@ -13,6 +13,7 @@ spring:
 jwt:
   secret-access-token: ${JWT_SECRET_ACCESS_TOKEN}
 file:
+  base-url: http://localhost:8080
   upload-dir: /Users/kimyoungjae/desktop/file/
   #upload-dir: /Users/yjkim-mtn/desktop/
 api:
@@ -45,6 +46,7 @@ spring:
 jwt:
   secret-access-token: ${JWT_SECRET_ACCESS_TOKEN}
 file:
+  base-url: http://api.badgechallenge.kro.kr
   upload-dir: /app/tour/files/
 api:
   url:

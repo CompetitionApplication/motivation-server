@@ -17,7 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class File extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name="uuid2", strategy = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "varchar(38)")
     @Comment(value = "파일키값")
     private String fileId;
@@ -39,7 +39,6 @@ public class File extends BaseTimeEntity {
     private FileGroup fileGroup;
 
 
-
     public File(FileSaveDto fileSaveDto, FileGroup fileGroup) {
         this.originalName = fileSaveDto.getOriginalName();
         this.storedName = fileSaveDto.getStoredName();
@@ -47,5 +46,10 @@ public class File extends BaseTimeEntity {
         this.fileSize = fileSaveDto.getFileSize();
         this.filePath = fileSaveDto.getFilePath();
         this.fileGroup = fileGroup;
+        this.fileUrl = fileSaveDto.getFileUrl();
     }
- }
+
+    public void saveFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+    }
+}

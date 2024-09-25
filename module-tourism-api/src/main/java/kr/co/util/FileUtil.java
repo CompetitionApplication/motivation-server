@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class FileUtil {
 
-    public static List<FileSaveDto> uploadFile(List<MultipartFile> images, String uploadDir) {
+    public static List<FileSaveDto> uploadFile(List<MultipartFile> images, String uploadDir, String baseUrl) {
         try {
             List<FileSaveDto> fileSaveDtos = new ArrayList<>();
             StringBuilder filenames = new StringBuilder();
@@ -28,6 +28,7 @@ public class FileUtil {
                     String fileType = image.getContentType();
                     long fileSize = image.getSize();
                     Path filePath = Paths.get(uploadDir + uniqueFilename);
+                    String fileUrl = baseUrl + "/api/v1/common/file/";
 
                     // 디렉토리가 존재하지 않으면 생성
                     File dir = new File(uploadDir);
@@ -42,12 +43,13 @@ public class FileUtil {
                     // 파일 정보 리턴
                     fileSaveDtos.add(
                             FileSaveDto.builder()
-                            .originalName(originalFilename)
-                            .storedName(uniqueFilename)
-                            .fileType(fileType)
-                            .fileSize(fileSize)
-                            .filePath(filePath.toString())
-                            .build());
+                                    .originalName(originalFilename)
+                                    .storedName(uniqueFilename)
+                                    .fileType(fileType)
+                                    .fileSize(fileSize)
+                                    .filePath(filePath.toString())
+                                    .fileUrl(fileUrl)
+                                    .build());
                 }
             }
             return fileSaveDtos;
