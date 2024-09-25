@@ -54,8 +54,8 @@ public class QrService {
         log.info("30초전 시간 ::: {}",timeMinus30SecondsStr);
         log.info("현재 시간 ::: {}",currentTimeStr);
 
-        if ( !(Integer.parseInt(timeStr) <= Integer.parseInt(currentTimeStr) &&
-               Integer.parseInt(timeStr) >= Integer.parseInt(timeMinus30SecondsStr))
+        if ( !(Long.parseLong(timeStr) <= Long.parseLong(currentTimeStr) &&
+                Long.parseLong(timeStr) >= Long.parseLong(timeMinus30SecondsStr))
         ) {
             throw new CommonException(CommonErrorCode.ERROR_QR.getCode(), CommonErrorCode.ERROR_QR.getMessage());
         }
