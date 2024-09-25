@@ -28,7 +28,7 @@ public class UserDetailService implements UserDetailsService {
         } else {
             LoginUser loginUser = userRepository.findByUserEmailAndDelYnFalse(userId).map(LoginUser::new)
                     .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_USER.getCode(), CommonErrorCode.NOT_FOUND_USER.getMessage()));
-
+//test
             return new TourismUser(loginUser);
         }
     }
