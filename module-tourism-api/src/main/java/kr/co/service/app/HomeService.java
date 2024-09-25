@@ -1,5 +1,6 @@
 package kr.co.service.app;
 
+import io.micrometer.common.util.StringUtils;
 import kr.co.dto.app.common.ServiceUser;
 import kr.co.dto.app.home.request.HomeMainReqDto;
 import kr.co.dto.app.home.request.OpenGoodsReqDto;
@@ -43,7 +44,11 @@ public class HomeService {
         for(TourismApi data : randomTourismApiList){
             TourDto tourDto = new TourDto();
             tourDto.setTourName(data.getTitle());
-            tourDto.setFileUrl(data.getFirstimage());
+            String img = data.getFirstimage();
+            if(StringUtils.isEmpty(img)){
+                img = "http://api.badgechallenge.kro.kr/api/v1/common/file/9070ff85-9166-4e64-8c54-b73724d6a6be";
+            }
+            tourDto.setFileUrl(img);
             tourSuggestionList.add(tourDto);
         }
         r.setSuggestionList(tourSuggestionList);
