@@ -31,6 +31,6 @@ public class AdminLoginService {
 
             return new AdminLoginUserDto(accessToken);
         }
-        return  null;
+        return  new AdminLoginUserDto(null);
     }
 }
