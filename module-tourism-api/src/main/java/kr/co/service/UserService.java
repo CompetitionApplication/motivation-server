@@ -68,7 +68,7 @@ public class UserService {
             //::: 결과값 반환 :::
             return new LoginResDto(accessToken, refreshTokenInfo.getRefreshTokenId());
         }
-        return new LoginResDto("","");
+        throw new CommonException(CommonErrorCode.WITHDRAW_USER.getCode(), CommonErrorCode.WITHDRAW_USER.getMessage());
     }
 
     @Transactional
@@ -77,7 +77,7 @@ public class UserService {
         //:::이미 가입된 유저인지 확인:::
         User userInfo = userRepository.findByUserEmailAndDelYnFalse(signUpReqDto.getUserEmail()).orElse(null);
 
-        if(userInfo != null){
+        if(userInfo == null){
             //:::유저정보저장:::
             User user = userRepository.save(new User(signUpReqDto));
 
