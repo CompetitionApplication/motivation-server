@@ -41,7 +41,7 @@
              , case when d.tourism_api_id is null then 'N'
                     else 'Y'
                 end as favoriteYn
-             , c.file_url as fileUrl
+             , IFNULL(c.file_url,a.firstimage) as fileUrl
              , a.addr1
              , '' as homePage
              , '0원' as fee
