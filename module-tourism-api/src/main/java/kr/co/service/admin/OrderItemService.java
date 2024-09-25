@@ -35,7 +35,7 @@ public class OrderItemService {
                         .goodsName(orderItem.getGoods().getGoodsName())
                         .orderDatetime(orderItem.getRegDatetime())
                         .orderUser(orderItem.getUser().getUserName())
-                        .orderPrice(orderItem.getOrderPrice() + "원")
+                        .orderPrice(String.valueOf(orderItem.getOrderPrice()))
                         .orderStatus(orderItem.getOrderStatus())
                         .build())
                 .collect(Collectors.toList());
