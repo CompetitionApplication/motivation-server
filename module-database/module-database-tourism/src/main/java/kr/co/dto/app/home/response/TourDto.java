@@ -7,5 +7,8 @@ public class TourDto {
 
     private String fileUrl;
     private String tourName;
+    private String tourismApiId;
+    private String mapx;
+    private String mapy;
 
 }

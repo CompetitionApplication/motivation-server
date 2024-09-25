@@ -27,6 +27,7 @@
             on a.goods_id = b.goods_id
          where a.del_yn = 'N'
            and a.user_id = #{userId}
+      order by a.reg_datetime desc
     </select>
 
     <select id="selectTourismScheduleByUserId" resultType="MyPageScheduleResDto">
@@ -48,6 +49,7 @@
          where a.del_yn = 'N'
            and b.del_yn = 'N'
            and a.user_id = #{userId}
+      order by a.reg_datetime desc
     </select>
 
     <select id="selectUserCartByUserId" resultType="MyPageUserCartResDto">
@@ -68,6 +70,7 @@
         where a.del_yn = 'N'
           and b.del_yn = 'N'
           and a.user_id = #{userId}
+     order by a.reg_datetime desc
     </select>
 </mapper>
 

@@ -3,19 +3,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.mapper.app.TourismMapper">
 
-    <select id="selectTourismApi" resultType="TourismApi">
+    <select id="selectTourismApi" resultType="TourDto">
         /* UserMapper.selectTourismApi */
-        select *
-          from tourism_api
-         where country = #{language}
-           and del_yn = 'N'
+        select a.title as tourName
+             , a.mapx
+             , a.mapy
+             , IFNULL(c.file_url,a.firstimage) as fileUrl
+             , a.tourism_api_id as tourismApiId
+          from tourism_api a
+     left join file_group b
+            on b.file_group_id = a.file_group_id
+     left join file c
+            on c.file_group_id = b.file_group_id
+         where a.country = #{language}
+           and a.del_yn = 'N'
     </select>
 
     <select id="selectTourismApiForTopRank" resultType="TourismApi">
         /* UserMapper.selectTourismApi */
-        select *
-          from tourism_api
-         where tourism_api_id in ( select c.tourism_api_id
+        select a.title as tourName
+             , a.mapx
+             , a.mapy
+             , IFNULL(c.file_url,a.firstimage) as fileUrl
+             , a.tourism_api_id as tourismApiId
+          from tourism_api a
+     left join file_group b
+            on b.file_group_id = a.file_group_id
+     left join file c
+            on c.file_group_id = b.file_group_id
+         where a.tourism_api_id in ( select c.tourism_api_id
                                      from (select b.tourism_api_id
                                                 , (checkCnt / 1000) + (favoriteCnt / 10) + visitCnt as totalScore
                                                 , row_number() over (order by (checkCnt / 1000) + (favoriteCnt / 10) + visitCnt desc) as rn
@@ -29,7 +45,7 @@
                                            ) c
                                      where c.rn <![CDATA[<=]]> 15
                                    )
-           and del_yn = 'N'
+           and a.del_yn = 'N'
     </select>
 
 
