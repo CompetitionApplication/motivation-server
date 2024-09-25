@@ -34,7 +34,14 @@ public class QrService {
         String timeStr = qrReqDto.getQrTime();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime dateTime = LocalDateTime.parse(timeStr, formatter);
-        if (dateTime.getSecond() > 30) {
+
+        // 현재 시간 구하기
+        LocalDateTime now = LocalDateTime.now();
+
+        // 30초 전 시간 구하기
+        LocalDateTime nowMinus30Seconds = now.minusSeconds(30);
+
+        if (dateTime.isBefore(nowMinus30Seconds)) {
             throw new CommonException(CommonErrorCode.ERROR_QR.getCode(), CommonErrorCode.ERROR_QR.getMessage());
         }
 

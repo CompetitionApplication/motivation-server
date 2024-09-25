@@ -16,6 +16,7 @@
              , a.goods_name as goodsName
              , a.goods_price as goodsPrice
              , g.file_url as fileUrl
+             , a.badge_open_count as badgeOpenCount
              , case when a.badge_open_count <![CDATA[<=]]> (select count(*)
                                                               from user_badge c
                                                          left join tourism_api d

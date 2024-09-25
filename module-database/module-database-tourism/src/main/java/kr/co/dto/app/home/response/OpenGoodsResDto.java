@@ -10,4 +10,5 @@ public class OpenGoodsResDto {
     private String goodsPrice;
     private String goodsOpenYn;
     private String fileUrl;
+    private String badgeOpenCount;
 }
