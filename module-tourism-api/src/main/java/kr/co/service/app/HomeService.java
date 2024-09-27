@@ -97,7 +97,11 @@ public class HomeService {
         r.setCollectBadgeDtoList(collectBadgeDtoList);
 
         //총 획득 뱃지 카운트
-        r.setTotalCollectBadgeCnt(Integer.toString(collectBadgeDtoList.size()));
+        int totalCollectBadgeCnt = 0;
+        for(CollectBadgeDto data : collectBadgeDtoList){
+            totalCollectBadgeCnt += Integer.parseInt(data.getCnt());
+        }
+        r.setTotalCollectBadgeCnt(Integer.toString(totalCollectBadgeCnt));
 
         return r;
     }

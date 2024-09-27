@@ -7,4 +7,6 @@ public class CollectBadgeDto {
 
     private String badgeCodeType;
     private String fileUrl;
+    private String badgeCode;
+    private String cnt;
 }

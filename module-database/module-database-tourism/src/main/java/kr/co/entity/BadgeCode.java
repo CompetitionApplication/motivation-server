@@ -17,6 +17,11 @@ public class BadgeCode {
 
     private String badgeCodeType;
 
+    private String goldFileId;
+    private String silverFileId;
+    private String bronzeFileId;
+    private String grayFileId;
+
     @OneToOne
     @JoinColumn(name = "file_group_id")
     private FileGroup fileGroup;

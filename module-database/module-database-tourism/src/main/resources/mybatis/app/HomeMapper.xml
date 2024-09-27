@@ -43,18 +43,33 @@
 
     <select id="selectUserBadgeByUserIdForCollect" resultType="CollectBadgeDto">
         /* HomeMapper.selectUserBadgeByUserIdForCollect */
-        select c.badge_code_type as badgeCodeType
-             , e.file_url as fileUrl
-          from user_badge a
-     left join tourism_api b
-            on a.tourism_api_id = b.tourism_api_id
-     left join badge_code c
-            on b.badge_code = c.badge_code
-     left join file_group d
-               on c.file_group_id = d.file_group_id
-     left join file e
-               on d.file_group_id = e.file_group_id
-         where a.user_id = #{userId}
+        select a.badge_code as badgeCode
+             , a.badge_code_type as badgeCodeType
+             , a.cnt as cnt
+             , b.file_url as fileUrl
+         from (select a.badge_code
+                    , a.badge_code_type
+                    , IFNULL(b.cnt,0) as cnt
+                    , case when IFNULL(b.cnt,0) = 0 then a.gray_file_id
+                           when IFNULL(b.cnt,0) = 1 then a.bronze_file_id
+                           when IFNULL(b.cnt,0) = 2 then a.silver_file_id
+                           when IFNULL(b.cnt,0) >= 3 then a.gold_file_id
+                       end as fileId
+                from badge_code a
+           left join (select c.badge_code
+                           , count(c.badge_code) cnt
+                        from user_badge a
+                   left join tourism_api b
+                          on a.tourism_api_id = b.tourism_api_id
+                   left join badge_code c
+                          on b.badge_code = c.badge_code
+                       where a.user_id = #{userId}
+                    group by c.badge_code
+                       ) b
+                  on a.badge_code = b.badge_code
+             ) a
+    left join file b
+           on a.fileId = b.file_id
     </select>
 
 </mapper>
