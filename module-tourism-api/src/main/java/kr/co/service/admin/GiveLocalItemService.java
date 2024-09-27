@@ -92,11 +92,9 @@ public class GiveLocalItemService {
     }
 
     @Transactional(readOnly = true)
-    public List<GiveLocalItemNameResDto> getGiveLocalItemName() {
+    public List<String> getGiveLocalItemName() {
         return giveLocalItemRepository.findAllByDelYnFalse().stream()
-                .map(giveLocalItem -> GiveLocalItemNameResDto.builder()
-                        .giveLocalItemName(giveLocalItem.getGiveLocalItemName())
-                        .build())
+                .map(GiveLocalItem::getGiveLocalItemName)
                 .collect(Collectors.toList());
     }
 }
