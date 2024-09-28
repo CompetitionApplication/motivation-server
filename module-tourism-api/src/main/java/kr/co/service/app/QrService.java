@@ -54,11 +54,12 @@ public class QrService {
         log.info("30초전 시간 ::: {}",timeMinus30SecondsStr);
         log.info("현재 시간 ::: {}",currentTimeStr);
 
-        if ( !(Long.parseLong(timeStr) <= Long.parseLong(currentTimeStr) &&
+        // 240928 sgpark 심사기간동안은 해당 기능 제외처리
+        /*if ( !(Long.parseLong(timeStr) <= Long.parseLong(currentTimeStr) &&
                 Long.parseLong(timeStr) >= Long.parseLong(timeMinus30SecondsStr))
         ) {
             throw new CommonException(CommonErrorCode.ERROR_QR.getCode(), CommonErrorCode.ERROR_QR.getMessage());
-        }
+        }*/
 
         TourismApi tourismApi = tourismApiRepository.findById(qrReqDto.getTourismApiId())
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_TOUR_PLACE.getCode(), CommonErrorCode.NOT_FOUND_TOUR_PLACE.getMessage()));
@@ -68,5 +69,7 @@ public class QrService {
 
         userBadgeRepository.save(new UserBadge(user, tourismApi));
         tourismVisitRepository.save(new TourismVisit(user, tourismApi));
+
+        throw new CommonException(CommonErrorCode.SUCCESS_QR.getCode(), CommonErrorCode.SUCCESS_QR.getMessage());
     }
 }
