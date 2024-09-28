@@ -1,6 +1,7 @@
 package kr.co.controller.app;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.co.common.ObjectResult;
 import kr.co.dto.app.common.ServiceUser;
 import kr.co.dto.app.qr.QrReqDto;
 import kr.co.service.app.QrService;
@@ -25,7 +26,8 @@ public class QrController {
     @PostMapping("")
     public ResponseEntity<?> receiveQrData(@RequestBody QrReqDto qrReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         qrService.receiveQrData(qrReqDto, serviceUser);
-        //test
-        return ResponseEntity.ok().build();
+        // 20240928 sgpark 응답값 수정
+        return ObjectResult.ok();
+        //return ResponseEntity.ok().build();
     }
 }

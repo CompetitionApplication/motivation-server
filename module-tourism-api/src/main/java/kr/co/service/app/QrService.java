@@ -70,6 +70,6 @@ public class QrService {
         userBadgeRepository.save(new UserBadge(user, tourismApi));
         tourismVisitRepository.save(new TourismVisit(user, tourismApi));
 
-        throw new CommonException(CommonErrorCode.SUCCESS_QR.getCode(), CommonErrorCode.SUCCESS_QR.getMessage());
+        //throw new CommonException(CommonErrorCode.SUCCESS_QR.getCode(), CommonErrorCode.SUCCESS_QR.getMessage());
     }
 }
