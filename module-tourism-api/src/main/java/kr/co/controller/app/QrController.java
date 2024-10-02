@@ -26,7 +26,7 @@ public class QrController {
     @PostMapping("")
     public ResponseEntity<?> receiveQrData(@RequestBody QrReqDto qrReqDto, @AuthenticationPrincipal ServiceUser serviceUser) {
         qrService.receiveQrData(qrReqDto, serviceUser);
-        // 20240928 sgpark 응답값 수정
+        // 20240928 sgpark 응답값 수정, 배포처리
         return ObjectResult.ok();
         //return ResponseEntity.ok().build();
     }
