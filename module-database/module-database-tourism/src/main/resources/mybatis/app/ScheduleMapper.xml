@@ -44,7 +44,7 @@
              , IFNULL(c.file_url,a.firstimage) as fileUrl
              , a.addr1
              , '' as homePage
-             , '0원' as fee
+             , '0' as fee
              , (select count(*) from tourism_visit where tourism_api_id = #{tourismApiId}) as visitCnt
           from tourism_api a
      left join file_group b

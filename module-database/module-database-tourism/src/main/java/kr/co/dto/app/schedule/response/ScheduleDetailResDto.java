@@ -10,7 +10,7 @@ public class ScheduleDetailResDto {
     private String favoriteYn;
     private String fileUrl;
     private String visitCnt;
-    private String addr;
+    private String addr1;
     private String homePage;
     private String fee;
 }
