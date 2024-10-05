@@ -7,9 +7,13 @@ import kr.co.dto.GiveLocalItemNameResDto;
 import kr.co.dto.GiveLocalItemReqDto;
 import kr.co.dto.GiveLocalItemResDto;
 import kr.co.dto.app.common.ServiceAdminUser;
+import kr.co.entity.AdminUser;
 import kr.co.entity.BadgeCode;
+import kr.co.entity.DetailAreaCode;
 import kr.co.entity.GiveLocalItem;
+import kr.co.repository.AdminUserRepository;
 import kr.co.repository.BadgeCodeRepository;
+import kr.co.repository.DetailAreaCodeRepository;
 import kr.co.repository.GiveLocalItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,17 +34,38 @@ public class GiveLocalItemService {
 
     private final GiveLocalItemRepository giveLocalItemRepository;
     private final BadgeCodeRepository badgeCodeRepository;
+    private final AdminUserRepository adminUserRepository;
+    private final DetailAreaCodeRepository detailAreaCodeRepository;
 
     @Transactional
     public void saveLocalItem(GiveLocalItemReqDto giveLocalItemReqDto, ServiceAdminUser serviceAdminUser) {
-        BadgeCode badgeCode = badgeCodeRepository.findById("99")
-                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
-        giveLocalItemRepository.save(new GiveLocalItem(giveLocalItemReqDto, badgeCode, serviceAdminUser.getUserEmail()));
+        AdminUser adminUser = adminUserRepository.findByAdminUserEmail(serviceAdminUser.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ADMIN_USER.getCode(), CommonErrorCode.NOT_FOUND_ADMIN_USER.getMessage()));
+
+        DetailAreaCode detailAreaCode = detailAreaCodeRepository.findById(adminUser.getDetailAreaCode().getDetailAreaCodeId())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_DETAIL_AREA_CODE.getCode(), CommonErrorCode.NOT_FOUND_DETAIL_AREA_CODE.getMessage()));
+
+        switch (detailAreaCode.getName()) {
+            case "중구" -> {
+                BadgeCode badgeCode = badgeCodeRepository.findById("97")
+                        .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
+                giveLocalItemRepository.save(new GiveLocalItem(giveLocalItemReqDto, badgeCode, serviceAdminUser.getUserEmail()));
+            }
+            case "해운대구" -> {
+                BadgeCode badgeCode = badgeCodeRepository.findById("98")
+                        .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
+                giveLocalItemRepository.save(new GiveLocalItem(giveLocalItemReqDto, badgeCode, serviceAdminUser.getUserEmail()));
+            }
+            case "속초시" -> {
+                BadgeCode badgeCode = badgeCodeRepository.findById("99")
+                        .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
+                giveLocalItemRepository.save(new GiveLocalItem(giveLocalItemReqDto, badgeCode, serviceAdminUser.getUserEmail()));
+            }
+        }
     }
 
-    //test
     @Transactional(readOnly = true)
-    public Page<GiveLocalItemResDto> getGiveLocalItemList(ServiceAdminUser serviceAdminUser,int page, int size) throws Exception {
+    public Page<GiveLocalItemResDto> getGiveLocalItemList(ServiceAdminUser serviceAdminUser, int page, int size) throws Exception {
         log.info("serviceAdminUser : {}", serviceAdminUser.getUserEmail());
         Page<GiveLocalItem> giveLocalItems = giveLocalItemRepository.findAllByRegUserEmailAndDelYnFalse(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "regDatetime")), serviceAdminUser.getUserEmail());
         List<GiveLocalItemResDto> giveLocalItemResDtos = giveLocalItems.stream()
