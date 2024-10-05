@@ -50,8 +50,9 @@ public class GiveLocalItemController {
     @Operation(summary = "특산품 제공 수정", description = "특산품 제공 수정을 합니다.")
     @PutMapping("/{giveLocalItemId}")
     public ResponseEntity<?> updateGiveLocalItem(@PathVariable(value = "giveLocalItemId") String giveLocalItemId,
+                                                 @AuthenticationPrincipal ServiceAdminUser serviceAdminUser,
                                                  @RequestBody GiveLocalItemReqDto giveLocalItemReqDto) {
-        giveLocalItemService.updateLocalItem(giveLocalItemId, giveLocalItemReqDto);
+        giveLocalItemService.updateLocalItem(giveLocalItemId, giveLocalItemReqDto, serviceAdminUser);
         return ResponseEntity.ok().build();
     }
 

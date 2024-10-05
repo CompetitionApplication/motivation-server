@@ -44,7 +44,6 @@ public class GoodsController {
         goodsService.uploadGoods(new GoodsUploadReqDto(goodsInsertDto), serviceAdminUser);
         return ResponseEntity.ok().build();
     }
-//ㅅㄷㄴㅅ
     @Operation(summary = "굿즈 삭제", description = "굿즈 삭제를 합니다.")
     @DeleteMapping("/{goodsId}")
     public ResponseEntity<?> deleteGoods(@PathVariable(value = "goodsId") String goodsId) {

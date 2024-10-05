@@ -80,14 +80,33 @@ public class GiveLocalItemService {
     }
 
     @Transactional
-    public void updateLocalItem(String giveLocalItemId, GiveLocalItemReqDto giveLocalItemReqDto) {
+    public void updateLocalItem(String giveLocalItemId, GiveLocalItemReqDto giveLocalItemReqDto, ServiceAdminUser serviceAdminUser) {
+        AdminUser adminUser = adminUserRepository.findByAdminUserEmail(serviceAdminUser.getUserEmail())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_ADMIN_USER.getCode(), CommonErrorCode.NOT_FOUND_ADMIN_USER.getMessage()));
+
         GiveLocalItem giveLocalItem = giveLocalItemRepository.findById(giveLocalItemId)
                 .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getCode(), CommonErrorCode.NOT_EXIST_GIVE_LOCAL_ITEM.getMessage()));
 
-        BadgeCode badgeCode = badgeCodeRepository.findById("99")
-                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
+        DetailAreaCode detailAreaCode = detailAreaCodeRepository.findById(adminUser.getDetailAreaCode().getDetailAreaCodeId())
+                .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_FOUND_DETAIL_AREA_CODE.getCode(), CommonErrorCode.NOT_FOUND_DETAIL_AREA_CODE.getMessage()));
 
-        giveLocalItem.updateGiveLocalItem(giveLocalItemReqDto, badgeCode);
+        switch (detailAreaCode.getName()) {
+            case "중구" -> {
+                BadgeCode badgeCode = badgeCodeRepository.findById("97")
+                        .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
+                giveLocalItem.updateGiveLocalItem(giveLocalItemReqDto, badgeCode);
+            }
+            case "해운대구" -> {
+                BadgeCode badgeCode = badgeCodeRepository.findById("98")
+                        .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
+                giveLocalItem.updateGiveLocalItem(giveLocalItemReqDto, badgeCode);
+            }
+            case "속초시" -> {
+                BadgeCode badgeCode = badgeCodeRepository.findById("99")
+                        .orElseThrow(() -> new CommonException(CommonErrorCode.NOT_EXIST_BADGE_CODE.getCode(), CommonErrorCode.NOT_EXIST_BADGE_CODE.getMessage()));
+                giveLocalItem.updateGiveLocalItem(giveLocalItemReqDto, badgeCode);
+            }
+        }
     }
 
     @Transactional
