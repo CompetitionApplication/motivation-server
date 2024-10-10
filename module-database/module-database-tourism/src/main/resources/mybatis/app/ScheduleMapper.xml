@@ -41,7 +41,7 @@
              , case when d.tourism_api_id is null then 'N'
                     else 'Y'
                 end as favoriteYn
-             , IFNULL(c.file_url,a.firstimage) as fileUrl
+             , IFNULL(IFNULL(c.file_url,a.firstimage),'http://api.badgechallenge.kro.kr/api/v1/common/file/6333a36a-db25-4b99-9346-714ff12f0f26') as fileUrl
              , a.addr1
              , '' as homePage
              , '0' as fee
